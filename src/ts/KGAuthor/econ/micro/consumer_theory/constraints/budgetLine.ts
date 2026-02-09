@@ -113,7 +113,9 @@ module KGAuthor {
                 }]
             }
 
-            if (!def.inMap) {
+            if(def.label == 'none') {
+                delete def.label;
+            } else if (!def.inMap) {
                 def.label = KG.setDefaults(def.label || {}, {
                     text: "BL",
                     location: def.sellOnly ? 0.1 : 0.9
