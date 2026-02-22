@@ -1,6 +1,7 @@
-/// <reference path="../kgAuthor.ts" />
+import { Graph } from "../positionedObjects/graph";
+import { Layout } from "./layout";
 
-module KGAuthor {
+
 
     export class SquarePlusTwoVerticalGraphs extends Layout {
 
@@ -80,9 +81,12 @@ module KGAuthor {
             l.subObjects.push(new Graph(bottomGraphDef));
 
 
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

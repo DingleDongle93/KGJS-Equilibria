@@ -1,6 +1,8 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { CurveDefinition, Curve } from "../../../../../view/viewObjects/curve";
+import { multiplyDefs, subtractDefs } from "../../../../parsers/parsingFunctions";
 
-module KGAuthor {
+
 
     export interface EconContractCurveDefinition extends CurveDefinition {
         totalGood1: string | number;
@@ -26,7 +28,7 @@ module KGAuthor {
 
             def.univariateFunction = {fn: fnString};
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 interpolation: 'curveMonotoneX',
                 color: 'colors.budget'
             });
@@ -42,8 +44,11 @@ module KGAuthor {
             parsedData = super.parseSelf(parsedData);
             parsedData.calcs['cc'] = cc.fnString;
             return parsedData;
-        }
-    }
+        
+    
 
+
+
+}
 
 }

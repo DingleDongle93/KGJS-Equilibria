@@ -1,6 +1,11 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { Point } from "../../view/viewObjects/point";
+import { setStrokeColor, averageDefs, copyJSON } from "../parsers/parsingFunctions";
+import { Tree } from "../positionedObjects/tree";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
 
-module KGAuthor {
+
 
     export interface SegmentDefinition extends GraphObjectDefinition {
         a?: any[];
@@ -58,8 +63,8 @@ module KGAuthor {
                 if (typeof def.label === "string") {
                     def.label = {text: def.label}
                 }
-                labelDef = KG.setDefaults(def.label || {}, labelDef);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(def.label || {}, labelDef);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 12,
                     color: def.color,
                     location: 0.5
@@ -116,7 +121,10 @@ module KGAuthor {
             def.a = tree.nodeCoordinates[def.node1];
             def.b = tree.nodeCoordinates[def.node2];
             super(def, tree);
-        }
-    }
+        
+    
+
+
+}
 
 }

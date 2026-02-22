@@ -1,6 +1,12 @@
-/// <reference path="../../../eg.ts"/>
+import { randomString } from "../../../../../model/updateListener";
+import { setDefaults } from "../../../../../util";
+import { Point } from "../../../../../view/viewObjects/point";
+import { Segment } from "../../../../../view/viewObjects/segment";
+import { Area } from "../../../../graphObjects/area";
+import { setStrokeColor, addDefs, multiplyDefs, divideDefs, paramName } from "../../../../parsers/parsingFunctions";
+import { EconBundle } from "../two_good_utility/bundle";
 
-module KGAuthor {
+
 
     export function extractBudgetLine(def, graph) {
         if (def.hasOwnProperty('budgetLineObject')) {
@@ -60,7 +66,7 @@ module KGAuthor {
 
             def = setStrokeColor(def);
 
-            def.name = def.name || 'BL' + KG.randomString(5);
+            def.name = def.name || 'BL' + randomString(5);
 
             // may define income either by income m or value of endowment point
             if(!def.hasOwnProperty('m')) {
@@ -87,7 +93,7 @@ module KGAuthor {
                 def.draggable = false;
             }
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 a: [`calcs.${def.name}.xIntercept`, 0],
                 b: [0, `calcs.${def.name}.yIntercept`],
                 color: 'colors.budget',
@@ -116,7 +122,7 @@ module KGAuthor {
             if(def.label == 'none') {
                 delete def.label;
             } else if (!def.inMap) {
-                def.label = KG.setDefaults(def.label || {}, {
+                def.label = setDefaults(def.label || {}, {
                     text: "BL",
                     location: def.sellOnly ? 0.1 : 0.9
                 });
@@ -239,7 +245,10 @@ module KGAuthor {
                 endowment: bl.endowment.toString()
             };
             return parsedData;
-        }
-    }
+        
+    
+
+
+}
 
 }

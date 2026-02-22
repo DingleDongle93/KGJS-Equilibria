@@ -1,6 +1,7 @@
-/// <reference path="../eg.ts" />
+import { setDefaults } from "../../../util";
+import { Schema } from "../../schemas/schema";
 
-module KGAuthor {
+
     export class EconSchema extends Schema {
 
         public const
@@ -50,7 +51,7 @@ module KGAuthor {
 
             console.log("idioms: ",def.idioms);
 
-            def.colors = KG.setDefaults(def.colors || {},{
+            def.colors = setDefaults(def.colors || {},{
 
                 // consumer theory
                 utility: 'purple',
@@ -103,6 +104,10 @@ module KGAuthor {
 
             this.idiomMenu = idiomMenu;
 
-        }
-    }
+        
+    
+
+
+}
+
 }

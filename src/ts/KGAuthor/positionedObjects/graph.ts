@@ -1,9 +1,15 @@
-/// <reference path="../kgAuthor.ts" />
+import { KGAuthorClasses } from "..";
+import { randomString } from "../../model/updateListener";
+import { setDefaults } from "../../util";
+import { TypeAndDef } from "../../view/view";
+import { Rectangle } from "../../view/viewObjects/rectangle";
+import { ClipPath } from "../defObjects/clipPath";
+import { PositionedObjectDefinition, PositionedObject } from "./positionedObject";
 
-module KGAuthor {
+
 
     export interface GraphDefinition extends PositionedObjectDefinition {
-        objects: KG.TypeAndDef[]
+        objects: TypeAndDef[]
     }
 
     export class Graph extends PositionedObject {
@@ -12,7 +18,7 @@ module KGAuthor {
         public markerNames;
 
         constructor(def) {
-            def = KG.setDefaults(def,{objects: []});
+            def = setDefaults(def,{objects: []});
             super(def);
 
             const g = this;
@@ -24,7 +30,7 @@ module KGAuthor {
             def.yAxis.otherMax = def.xAxis.max;
 
             g.clipPath = new ClipPath({
-                "name": KG.randomString(10),
+                "name": randomString(10),
                 "paths": [new Rectangle({
                     x1: def.xAxis.min,
                     x2: def.xAxis.max,
@@ -43,7 +49,7 @@ module KGAuthor {
                 def: g.def.yAxis
             });
             g.def.objects.forEach(function (obj) {
-                g.subObjects.push(new KGAuthor[obj.type](obj.def, g))
+                g.subObjects.push(new KGAuthorClasses[obj.type](obj.def, g))
             });
 
             console.log(g);
@@ -70,7 +76,7 @@ module KGAuthor {
 
             // otherwise create a new marker, add to the graph's subobjects, and return the new marker's name
             else {
-                const newMarker = new KGAuthor[lookup.markerType]({color: lookup.color});
+                const newMarker = new KGAuthorClasses[lookup.markerType]({color: lookup.color});
                 g.subObjects.push(newMarker);
                 return newMarker.name;
             }
@@ -89,7 +95,10 @@ module KGAuthor {
                 markerType: 'StartArrow',
                 color: color
             })
-        }
-    }
+        
+    
+
+
+}
 
 }

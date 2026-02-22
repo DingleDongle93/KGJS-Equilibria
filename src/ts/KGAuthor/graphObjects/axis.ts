@@ -1,11 +1,14 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { Label } from "../../view/viewObjects/label";
+import { averageDefs } from "../parsers/parsingFunctions";
+import { GraphObject } from "./graphObject";
 
-module KGAuthor {
+
 
     export class Axis extends GraphObject {
 
         constructor(def, graph) {
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 yPixelOffset: 40,
                 xPixelOffset: 40
             })
@@ -54,8 +57,11 @@ module KGAuthor {
                     }, graph));
                 }
             }
-        }
+        
 
-    }
+    
+
+
+}
 
 }

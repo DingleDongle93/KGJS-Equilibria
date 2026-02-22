@@ -1,13 +1,23 @@
-/// <reference path="../../eg.ts"/>
+import { UnivariateFunctionDefinition } from "../../../../math/univariateFunction";
+import { randomString } from "../../../../model/updateListener";
+import { setDefaults } from "../../../../util";
+import { Curve } from "../../../../view/viewObjects/curve";
+import { Rectangle } from "../../../../view/viewObjects/rectangle";
+import { ClipPath } from "../../../defObjects/clipPath";
+import { Area } from "../../../graphObjects/area";
+import { AuthoringObject } from "../../../parsers/authoringObject";
+import { subtractDefs, divideDefs, addDefs, getDefinitionProperty, curvesFromFunctions, copyJSON, multiplyDefs } from "../../../parsers/parsingFunctions";
+import { Graph } from "../../../positionedObjects/graph";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
 
 
-module KGAuthor {
+
 
     export interface IMultivariateFunction {
 
         value: (x: any[]) => any;
 
-        levelSet: (def: any, graph: Graph) => KG.UnivariateFunctionDefinition[];
+        levelSet: (def: any, graph: Graph) => UnivariateFunctionDefinition[];
         levelCurve: (def: any, graph: Graph) => Curve[];
         levelCurveSlope: (x: any[]) => any;
 
@@ -18,7 +28,7 @@ module KGAuthor {
         cornerCondition: (budgetLine: EconBudgetLine) => string;
         lowestCostBundle: (level: (string | number), prices: (string | number)[]) => false | any[];
 
-        demandFunction: (budgetLine: EconBudgetLine, good: number, graph: Graph) => KG.UnivariateFunctionDefinition[];
+        demandFunction: (budgetLine: EconBudgetLine, good: number, graph: Graph) => UnivariateFunctionDefinition[];
         demandCurve: (budgetLine: EconBudgetLine, good: number, def: any, graph: Graph) => Curve[];
 
         indirectUtility: (income: (string | number), prices: (string | number)[]) => any;
@@ -37,8 +47,8 @@ module KGAuthor {
         public fillAboveRect;
 
         constructor(def) {
-            KG.setDefaults(def, {
-                name: KG.randomString(10)
+            setDefaults(def, {
+                name: randomString(10)
             });
             super(def);
             let fn = this;
@@ -124,7 +134,7 @@ module KGAuthor {
                 fn.fillAboveRect.inDef = true;
                 objs.push(new Rectangle(fn.fillAboveRect, graph));
             }
-            const clipPathName = def.hasOwnProperty('name') ? def.name + "_above" : KG.randomString(10);
+            const clipPathName = def.hasOwnProperty('name') ? def.name + "_above" : randomString(10);
             return [
                 new Rectangle({
                     clipPathName: clipPathName,
@@ -304,9 +314,12 @@ module KGAuthor {
 
         laborRequirement(level: (string | number), capital: (string | number)) {
             // defined at subclass level
-        }
+        
 
 
-    }
+    
+
+
+}
 
 }

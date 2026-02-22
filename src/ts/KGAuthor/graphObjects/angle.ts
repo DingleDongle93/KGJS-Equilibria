@@ -1,6 +1,11 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { multiplyDefs, subtractDefs, setStrokeColor, addDefs, divideDefs, copyJSON } from "../parsers/parsingFunctions";
+import { CurveDefinition, Curve } from "./curve";
+import { PointDefinition, Point } from "./point";
+import { Segment } from "./segment";
 
-module KGAuthor {
+
 
     export interface AngleMarkerLabelDefinition extends LabelDefinition {
         radians?: boolean;
@@ -23,7 +28,7 @@ module KGAuthor {
 
         constructor(def: AngleMarkerDefinition, graph) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'angle',
                 color: 'colors.grey',
                 coordinates: [0, 0],
@@ -62,7 +67,7 @@ module KGAuthor {
             dm.measureDegrees = def.radians ? multiplyDefs(def.measure, 57.2957795131) : def.measure;
             dm.measureRadians = divideDefs(measure, Math.PI);
 
-            let labelDef = KG.setDefaults(def.label || {}, {
+            let labelDef = setDefaults(def.label || {}, {
                 x: addDefs(def.coordinates[0], multiplyDefs(multiplyDefs(1.7, def.r), `cos(${mid})`)),
                 y: addDefs(def.coordinates[1], multiplyDefs(multiplyDefs(1.7, def.r), `sin(${mid})`)),
                 fontSize: 8,
@@ -115,7 +120,7 @@ module KGAuthor {
             def.coordinates = [B.x,B.y];
             def.radians = true;
 
-            KG.setDefaults(def,{
+            setDefaults(def,{
                 label: {
                     radians: false
                 }
@@ -144,7 +149,10 @@ module KGAuthor {
                 a.subObjects.push(new Segment(CBdef, graph));
             }
 
-        }
-    }
+        
+    
+
+
+}
 
 }

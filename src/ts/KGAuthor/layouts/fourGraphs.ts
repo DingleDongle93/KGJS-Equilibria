@@ -1,6 +1,5 @@
-/// <reference path="../kgAuthor.ts" />
-
-module KGAuthor {
+import { Graph } from "../positionedObjects/graph";
+import { SquareLayout } from "./layout";
 
     export class FourGraphs extends SquareLayout {
 
@@ -52,21 +51,3 @@ module KGAuthor {
         }
 
     }
-
-    export class FourGraphsPlusSidebar extends FourGraphs {
-
-        constructor(def) {
-            super(def);
-
-            const l = this;
-            let sidebarDef = def['sidebar'];
-
-            l.subObjects.push(new Sidebar(sidebarDef))
-
-
-        }
-
-    }
-
-
-}

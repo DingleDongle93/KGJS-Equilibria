@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
 
-module KG {
+
 
     export interface PointDefinition extends ViewObjectDefinition {
         x: any;
@@ -63,6 +64,8 @@ module KG {
             p.circle.style('stroke-opacity', p.strokeOpacity);
             return p;
         }
-    }
+    
+
+
 
 }

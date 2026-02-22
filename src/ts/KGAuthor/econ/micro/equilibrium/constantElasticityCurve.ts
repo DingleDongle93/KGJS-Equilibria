@@ -1,6 +1,11 @@
-/// <reference path="../../eg.ts"/>
+import { randomString } from "../../../../model/updateListener";
+import { setDefaults } from "../../../../util";
+import { CurveDefinition, Curve } from "../../../../view/viewObjects/curve";
+import { PointDefinition, Point } from "../../../../view/viewObjects/point";
+import { GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
+import { setStrokeColor, copyJSON, multiplyDefs, raiseDefToDef, divideDefs, invertDef, subtractDefs } from "../../../parsers/parsingFunctions";
 
-module KGAuthor {
+
 
     export interface EconConstantElasticityCurveDefinition extends CurveDefinition {
         name?: string;
@@ -32,8 +37,8 @@ module KGAuthor {
 
             def = setStrokeColor(def);
 
-            KG.setDefaults(def, {
-                name: 'constElasticityCurve' + KG.randomString(5),
+            setDefaults(def, {
+                name: 'constElasticityCurve' + randomString(5),
                 color: 'colors.demand',
                 strokeWidth: 2,
                 lineStyle: 'solid',
@@ -214,8 +219,11 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
-    }
+        
+    
 
+
+
+}
 
 }

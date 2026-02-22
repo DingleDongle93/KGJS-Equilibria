@@ -1,6 +1,8 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { Scale } from "../scale";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
 
-module KG {
+
 
     export interface SegmentDefinition extends ViewObjectDefinition {
         x1: any;
@@ -65,6 +67,7 @@ module KG {
             segment.drawStroke(segment.line);
             return segment;
         }
-    }
+    
+
 
 }

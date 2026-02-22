@@ -1,6 +1,8 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { setStrokeColor, copyJSON } from "../parsers/parsingFunctions";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
 
-module KGAuthor {
+
 
     export interface ContourDefinition extends GraphObjectDefinition {
         level?: any;
@@ -54,7 +56,7 @@ module KGAuthor {
     export class ContourMap extends GraphObject {
 
         constructor(def: ContourMapDefinition, graph) {
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 color: "grey",
                 strokeWidth: 0.5
             });
@@ -69,8 +71,11 @@ module KGAuthor {
                 return new Contour(contourDef, graph);
             });
             console.log('contours: ', m.subObjects);
-        }
-    }
+        
+    
 
+
+
+}
 
 }

@@ -1,7 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { divideDefs, subtractDefs, raiseDefToDef, addDefs, multiplyDefs, getDefinitionProperty } from "../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class CESFunction extends EconMultivariateFunction {
 
@@ -111,10 +113,13 @@ module KGAuthor {
                     multiplyDefs(level, numerator2),
                     denominator
                 )]
-        }
+        
 
 
-    }
+    
 
+
+
+}
 
 }

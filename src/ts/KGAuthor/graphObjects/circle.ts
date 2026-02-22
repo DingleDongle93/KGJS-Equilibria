@@ -1,6 +1,9 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { setFillColor, setStrokeColor, makeDraggable, copyJSON } from "../parsers/parsingFunctions";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
 
-module KGAuthor {
+
 
     export interface EllipseDefinition extends GraphObjectDefinition {
         label?: LabelDefinition;
@@ -23,7 +26,7 @@ module KGAuthor {
 
         constructor(def: EllipseDefinition, graph) {
 
-            KG.setDefaults(def,{
+            setDefaults(def,{
                 color: 'colors.blue',
                 opacity: 0.2,
                 rx: 1,
@@ -53,8 +56,8 @@ module KGAuthor {
             if (def.hasOwnProperty('label')) {
                 let labelDef = copyJSON(def);
                 delete labelDef.label;
-                labelDef = KG.setDefaults(labelDef, def.label);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(labelDef, def.label);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 10,
                     color: def.color,
                     bgcolor: null
@@ -91,8 +94,11 @@ module KGAuthor {
 
             super(def, graph);
 
-        }
+        
 
-    }
+    
+
+
+}
 
 }

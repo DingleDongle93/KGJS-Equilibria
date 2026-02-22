@@ -1,6 +1,6 @@
-/// <reference path="../kgAuthor.ts" />
+import { Segment } from "./segment";
 
-module KGAuthor {
+
 
     export class Dropline extends Segment {
 
@@ -43,7 +43,10 @@ module KGAuthor {
         constructor(def, graph) {
             def.xScale2Name = '';
             super(def,graph);
-        }
-    }
+        
+    
+
+
+}
 
 }

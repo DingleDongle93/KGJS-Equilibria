@@ -1,6 +1,11 @@
-/// <reference path="../kgAuthor.ts" />
+import { randomString } from "../../model/updateListener";
+import { setDefaults } from "../../util";
+import { Label } from "../../view/viewObjects/label";
+import { ClipPath } from "../defObjects/clipPath";
+import { setFillColor, copyJSON, averageDefs } from "../parsers/parsingFunctions";
+import { GraphObject, GraphObjectDefinition } from "./graphObject";
 
-module KGAuthor {
+
 
     export class Rectangle extends GraphObject {
 
@@ -16,8 +21,8 @@ module KGAuthor {
             if (def.hasOwnProperty('label')) {
                 let labelDef = copyJSON(def);
                 delete labelDef.label;
-                labelDef = KG.setDefaults(labelDef, def.label);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(labelDef, def.label);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 10,
                     color: def.color,
                     bgcolor: null,
@@ -38,10 +43,10 @@ module KGAuthor {
 
     export class Overlap extends Rectangle {
         constructor(def: OverlapDefinition, graph) {
-            const shape1name = KG.randomString(10),
-                shape2name = KG.randomString(10);
+            const shape1name = randomString(10),
+                shape2name = randomString(10);
             def = setFillColor(def);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 x1: graph.def.xAxis.min,
                 x2: graph.def.xAxis.max,
                 y1: graph.def.yAxis.min,
@@ -62,8 +67,11 @@ module KGAuthor {
             // As of now this does at most two; can make more recursive in the future but this handles 80% of the use cases
             r.subObjects.push(new ClipPath({name: shape1name, paths: [clipPathObjects[0]]}, graph));
             r.subObjects.push(new ClipPath({name: shape2name, paths: [clipPathObjects[1]]}, graph));
-        }
+        
 
-    }
+    
+
+
+}
 
 }

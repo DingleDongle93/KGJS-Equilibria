@@ -1,9 +1,17 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { TypeAndDef } from "../../../../../view/view";
+import { LabelDefinition } from "../../../../../view/viewObjects/label";
+import { PointDefinition, Point } from "../../../../../view/viewObjects/point";
+import { setFillColor, negativeDef } from "../../../../parsers/parsingFunctions";
+import { EconMultivariateFunction } from "../../../functional_forms/multivariate/multivariate";
+import { EconBudgetLineDefinition, EconBudgetLine, extractBudgetLine } from "../constraints/budgetLine";
+import { IndifferenceCurveDefinition, extractIndifferenceCurve } from "./indifferenceCurve";
+import { getUtilityFunction } from "./utilitySelector";
 
-module KGAuthor {
+
 
     export interface BundleDefinition extends PointDefinition {
-        utilityFunction?: KG.TypeAndDef,
+        utilityFunction?: TypeAndDef,
         indifferenceCurve?: IndifferenceCurveDefinition
         indifferenceCurveColor?: string,
         showPreferred?: string;
@@ -31,7 +39,7 @@ module KGAuthor {
 
         constructor(def: BundleDefinition, graph) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 label: {text: 'X'},
                 droplines: {
                     vertical: "x_1",
@@ -76,8 +84,11 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
-    }
+        
+    
 
+
+
+}
 
 }

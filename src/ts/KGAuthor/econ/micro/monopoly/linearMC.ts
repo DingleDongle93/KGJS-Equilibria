@@ -1,6 +1,6 @@
-/// <reference path="../../eg.ts"/>
+import { EconLinearSupplyDefinition, EconLinearSupply } from "../equilibrium/linearSupply";
 
-module KGAuthor {
+
 
     export interface EconLinearMCDefinition extends EconLinearSupplyDefinition {
         fixedCost: string;
@@ -13,10 +13,13 @@ module KGAuthor {
 
         constructor(def: EconLinearSupplyDefinition, graph) {
             super(def, graph);
-        }
+        
 
 
 
-    }
+    
+
+
+}
 
 }

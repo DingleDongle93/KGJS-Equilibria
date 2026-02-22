@@ -1,13 +1,16 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { GraphObjectGenerator } from "../defObjects/graphObjectGenerator";
+import { multiplyDefs, copyJSON } from "../parsers/parsingFunctions";
+import { Segment } from "./segment";
 
-module KGAuthor {
+
 
     export class Grid extends GraphObjectGenerator {
 
         constructor(def, graph) {
             def = def || {};
             super(def, graph);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 strokeWidth: 1,
                 stroke: 'lightgrey',
                 lineStyle: 'dotted',
@@ -40,7 +43,10 @@ module KGAuthor {
                 g.subObjects.push(new Segment(gyDef, graph));
             }
 
-        }
-    }
+        
+    
+
+
+}
 
 }

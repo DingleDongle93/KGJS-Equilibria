@@ -1,8 +1,11 @@
-/// <reference path="../../kg.ts" />
 
 'use strict';
 
-module KG {
+import d3 from "d3";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
+import { setDefaults, setProperties } from "../../util";
+
+
     export interface AxisDefinition extends ViewObjectDefinition {
         scale: any;
         orient: 'top' | 'bottom' | 'left' | 'right';
@@ -97,7 +100,9 @@ module KG {
             return a;
         }
 
-    }
+    
+
+
+
 
 }
-

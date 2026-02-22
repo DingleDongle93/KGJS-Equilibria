@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
 
-module KG {
+
     export interface RectangleDefinition extends ViewObjectDefinition {
         x1: any;
         y1: any;
@@ -15,8 +16,6 @@ module KG {
         private y1;
         private x2;
         private y2;
-        public clipPath2;
-        public rootElement2;
 
         constructor(def: RectangleDefinition) {
             setDefaults(def, {
@@ -61,5 +60,6 @@ module KG {
             ;
             return rect;
         }
-    }
+    
+
 }

@@ -1,43 +1,41 @@
 {
   "name": "kgjs",
-  "version": "0.3.3",
-  "description": "js renderer for kineticgraphs",
-  "main": "kg.js",
-  "devDependencies": {
-    "@types/d3": "latest",
-    "@types/d3-contour": "latest",
-    "@types/js-yaml": "latest",
-    "@types/katex": "latest",
-    "@types/mathjs": "latest",
-    "http-server": "latest",
-    "typescript": "latest",
-    "tufte-css": "latest"
-  },
+  "version": "2.0.0",
+  "description": "Headless js renderer for kineticgraphs",
+  "main": "dist/kgjs.cjs.js",
+  "module": "dist/kgjs.esm.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc --skipLibCheck",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "d3": "^7.8.5",
+    "katex": "^0.16.8",
+    "mathjs": "^11.9.0"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.0",
+    "@types/js-yaml": "^4.0.5",
+    "@types/katex": "^0.16.2",
+    "glob": "^13.0.6",
+    "jsdom": "^22.1.0",
+    "ts-morph": "^27.0.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-plugin-dts": "^3.5.3",
+    "vitest": "^0.34.3"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cmakler/kgjs.git"
   },
-  "author": "Chris Makler",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cmakler/kgjs/issues"
-  },
-  "compilerOptions": {
-    "exclude": [
-      "node_modules"
-    ]
-  },
-  "homepage": "https://github.com/cmakler/kgjs#readme",
-  "dependencies": {
-    "d3": "^5.11.0",
-    "d3-contour": "^1.3.2",
-    "js-yaml": "^3.13.1",
-    "katex": "^0.11.0",
-    "three": "^0.107.0",
-    "mathjs": "^6.0.4"
-  }
+  "author": "Chris Makler / KGJS Equilibria Fork",
+  "license": "MIT"
 }

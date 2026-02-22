@@ -1,6 +1,9 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { extractBudgetLine, EconBudgetLine } from "../constraints/budgetLine";
+import { BundleDefinition, EconBundle, extractUtilityFunction } from "../two_good_utility/bundle";
+import { getUtilityFunction } from "../two_good_utility/utilitySelector";
 
-module KGAuthor {
+
 
     export interface OptimalBundleDefinition extends BundleDefinition {
 
@@ -19,7 +22,7 @@ module KGAuthor {
                 u = extractUtilityFunction(def),
                 coords = u.optimalBundle(bl);
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 coordinates: coords,
                 label: {text: 'X^*'},
                 color: 'demand',
@@ -56,7 +59,7 @@ module KGAuthor {
             if (def.hasOwnProperty('utilityFunction') && def.hasOwnProperty('budgetLine')) {
                 const u = getUtilityFunction(def.utilityFunction),
                     bl = new EconBudgetLine(def.budgetLine, graph);
-                KG.setDefaults(def, {
+                setDefaults(def, {
                     coordinates: u.lagrangeBundle(bl),
                     color: 'colors.incomeOffer',
                     show: u.cornerCondition(bl),
@@ -89,7 +92,7 @@ module KGAuthor {
             delete def.prices;
             delete def.level;
 
-            def.budgetLine = KG.setDefaults(def.budgetLine || {}, {
+            def.budgetLine = setDefaults(def.budgetLine || {}, {
                 p1: p1,
                 p2: p2,
                 m: m
@@ -126,7 +129,7 @@ module KGAuthor {
                 delete def.budgetLine.m;
             }
 
-            def.budgetLine.label = KG.setDefaults(def.budgetLine.label || {}, {
+            def.budgetLine.label = setDefaults(def.budgetLine.label || {}, {
                 text: "BL_D"
             });
 
@@ -155,7 +158,7 @@ module KGAuthor {
             def.budgetLine.p2 = p2;
             def.budgetLine.m = u.expenditure(level, [p1, p2]);
 
-            def.budgetLine.label = KG.setDefaults(def.budgetLine.label || {}, {
+            def.budgetLine.label = setDefaults(def.budgetLine.label || {}, {
                 text: "BL_C"
             });
 
@@ -181,20 +184,23 @@ module KGAuthor {
 
             def.coordinates = [u.laborRequirement(def.level,def.capital), def.capital];
 
-            def.budgetLine = KG.setDefaults(def.budgetLine || {}, {
+            def.budgetLine = setDefaults(def.budgetLine || {}, {
                 p1: p1,
                 p2: p2
             });
 
-            def.budgetLine.label = KG.setDefaults(def.budgetLine.label || {}, {
+            def.budgetLine.label = setDefaults(def.budgetLine.label || {}, {
                 text: "c_s(y)"
             });
 
             delete def.budgetLineObject;
             super(def, graph);
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

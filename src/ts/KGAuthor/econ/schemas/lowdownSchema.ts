@@ -1,6 +1,6 @@
-/// <reference path="../eg.ts" />
+import { EconSchema } from "./econSchema";
 
-module KGAuthor {
+
     export class LowdownSchema extends EconSchema {
 
         constructor(def) {
@@ -20,7 +20,10 @@ module KGAuthor {
             };
             super(def);
 
-        }
-    }
+        
+    
+
+
+}
 
 }

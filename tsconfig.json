@@ -1,9 +1,28 @@
 {
     "compilerOptions": {
-        "lib": ["es2018","dom"],
-        "outFile": "build/kg.js"
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "skipLibCheck": true,
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "strict": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noFallthroughCasesInSwitch": true,
+        "types": [
+            "vite/client"
+        ]
     },
-    "files": [
-        "src/ts/kg.ts"
+    "include": [
+        "src/**/*.ts"
     ]
 }

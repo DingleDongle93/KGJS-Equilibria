@@ -1,7 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { divideDefs, multiplyDefs, subtractDefs } from "../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class QuasilinearFunction extends EconMultivariateFunction {
 
@@ -35,7 +37,10 @@ module KGAuthor {
             const lagr = this.lagrangeBundle(budgetLine),
                 cornerCondition = this.cornerCondition(budgetLine);
             return [`(${cornerCondition} ? ${budgetLine.xIntercept} : ${lagr[0]})`, `(${cornerCondition} ? 0 : ${lagr[1]})`]
-        }
-    }
+        
+    
+
+
+}
 
 }

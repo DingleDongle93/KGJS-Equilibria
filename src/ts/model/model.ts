@@ -1,6 +1,9 @@
-/// <reference path="../kg.ts" />
+import * as math from "mathjs";
+import { Param, ParamDefinition } from "./param";
+import { Restriction } from "./restriction";
+import { UpdateListener } from "./updateListener";
 
-module KG {
+
 
     export interface IModel {
         evaluate: (name: string) => any;
@@ -246,6 +249,7 @@ module KG {
         }
 
 
-    }
+    
+
 
 }

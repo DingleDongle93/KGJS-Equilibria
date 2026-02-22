@@ -1,7 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { divideDefs, subtractDefs, invertDef, addDefs, multiplyDefs } from "../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class MinFunction extends EconMultivariateFunction {
 
@@ -66,7 +68,10 @@ module KGAuthor {
             ]
 
 
-        }
-    }
+        
+    
+
+
+}
 
 }

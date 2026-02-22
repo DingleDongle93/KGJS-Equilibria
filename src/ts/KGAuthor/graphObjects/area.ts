@@ -1,35 +1,41 @@
-/// <reference path="../kgAuthor.ts" />
 
-module KGAuthor {
 
-    import UnivariateFunctionDefinition = KG.UnivariateFunctionDefinition;
 
-    export interface AreaDefinition extends GraphObjectDefinition {
-        fn?: string;
-        fn1?: string;
-        fn2?: string;
-        univariateFunction1?: UnivariateFunctionDefinition;
-        univariateFunction2?: UnivariateFunctionDefinition;
-        above?: any;
-    }
+import { setFillColor, parseFn } from "../parsers/parsingFunctions";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
 
-    export class Area extends GraphObject {
+import { setDefaults } from "../../util";
+import { UnivariateFunctionDefinition } from "../../math/univariateFunction";
 
-        constructor(def:AreaDefinition, graph) {
+export interface AreaDefinition extends GraphObjectDefinition {
+    fn?: string;
+    fn1?: string;
+    fn2?: string;
+    univariateFunction1?: UnivariateFunctionDefinition;
+    univariateFunction2?: UnivariateFunctionDefinition;
+    above?: any;
+}
 
-            KG.setDefaults(def,{
-                color: 'colors.blue',
-                opacity: 0.2
-            });
+export class Area extends GraphObject {
 
-            def = setFillColor(def);
-            parseFn(def,'fn','univariateFunction1');
-            parseFn(def,'fn1','univariateFunction1');
-            parseFn(def,'fn2','univariateFunction2');
-            super(def, graph);
-            this.type = 'Area';
-            this.layer = def.layer || 0;
-        }
+    constructor(def: AreaDefinition, graph) {
+
+        setDefaults(def, {
+            color: 'colors.blue',
+            opacity: 0.2
+        });
+
+        def = setFillColor(def);
+        parseFn(def, 'fn', 'univariateFunction1');
+        parseFn(def, 'fn1', 'univariateFunction1');
+        parseFn(def, 'fn2', 'univariateFunction2');
+        super(def, graph);
+        this.type = 'Area';
+        this.layer = def.layer || 0;
+
+
+
+
 
     }
 

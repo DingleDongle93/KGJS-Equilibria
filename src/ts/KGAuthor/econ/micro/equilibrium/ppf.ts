@@ -1,6 +1,10 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { CurveDefinition, Curve } from "../../../../view/viewObjects/curve";
+import { Point } from "../../../../view/viewObjects/point";
+import { setStrokeColor, divideDefs, raiseDefToDef, subtractDefs, addDefs, paramName, multiplyDefs, invertDef } from "../../../parsers/parsingFunctions";
+import { EconOneInputProductionFunction } from "../producer_theory/oneInputProductionFunction";
 
-module KGAuthor {
+
 
     export interface EconPPFDefinition extends CurveDefinition {
         labor?: string | number;
@@ -39,7 +43,7 @@ module KGAuthor {
 
             def = setStrokeColor(def);
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'ppf',
                 color: 'colors.supply',
                 strokeWidth: 2,
@@ -202,8 +206,11 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
+        
 
-    }
+    
+
+
+}
 
 }

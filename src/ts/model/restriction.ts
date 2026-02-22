@@ -1,6 +1,6 @@
-/// <reference path="model.ts" />
+import { Model } from "./model";
 
-module KG {
+
 
     export interface RestrictionDefinition {
         expression: string;
@@ -39,6 +39,7 @@ module KG {
             //return (value >= min && value <= max);
         }
 
-    }
+    
+
 
 }

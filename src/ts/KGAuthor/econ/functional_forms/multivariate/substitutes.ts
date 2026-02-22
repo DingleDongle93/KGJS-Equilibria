@@ -1,7 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { subtractDefs } from "../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class LinearFunction extends EconMultivariateFunction {
 
@@ -35,6 +37,9 @@ module KGAuthor {
             const c = this.coefficients;
             const buyOnlyGood2 = `((${c[0]})*(${budgetLine.p2}) < (${c[1]})*(${budgetLine.p1}))`;
             return [`${buyOnlyGood2} ? 0 : ${budgetLine.xIntercept}`,`${buyOnlyGood2} ? ${budgetLine.yIntercept} : 0`]
-        }
-    }
+        
+    
+
+}
+
 }

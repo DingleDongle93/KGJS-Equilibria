@@ -1,6 +1,6 @@
-/// <reference path="../kg.ts" />
+import { Model } from "./model";
 
-module KG {
+
 
     export function randomString(length: number) {
         let text = "KGID_";
@@ -94,6 +94,7 @@ module KG {
             return u;
         }
 
-    }
+    
+
 
 }

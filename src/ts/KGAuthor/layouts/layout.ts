@@ -1,6 +1,6 @@
-/// <reference path="../kgAuthor.ts" />
+import { AuthoringObject } from "../parsers/authoringObject";
 
-module KGAuthor {
+
 
     export class Layout extends AuthoringObject {
 
@@ -14,9 +14,7 @@ module KGAuthor {
 
             let l = this;
 
-            if(def.hasOwnProperty('explanation')) {
-                l.subObjects.push(new Explanation(def.explanation));
-            }
+            
         }
 
         parseSelf(parsedData) {
@@ -47,8 +45,13 @@ module KGAuthor {
         constructor(def) {
             super(def);
             this.aspectRatio = 2.44;
-        }
+        
 
-    }
+    
+
+
+}
+
+
 
 }

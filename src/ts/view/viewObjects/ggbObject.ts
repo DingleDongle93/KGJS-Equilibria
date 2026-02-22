@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
 
-module KG {
+
 
     export interface GeoGebraObjectDefinition extends ViewObjectDefinition {
         command: string;
@@ -57,6 +58,8 @@ module KG {
             applet.setLineStyle(obj.name, obj.lineStyle);
 
         }
-    }
+    
+
+
 
 }

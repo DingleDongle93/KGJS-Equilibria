@@ -1,4 +1,6 @@
-module KG {
+import { setProperties } from "../../util";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
+
 
     export interface MarkerDefinition extends ViewObjectDefinition {
         name: string;
@@ -38,5 +40,6 @@ module KG {
             return m;
         }
 
-    }
+    
+
 }

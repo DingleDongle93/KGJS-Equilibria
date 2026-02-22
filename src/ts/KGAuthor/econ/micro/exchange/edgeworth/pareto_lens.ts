@@ -1,6 +1,8 @@
-/// <reference path="../../../eg.ts"/>
+import { Rectangle } from "../../../../../view/viewObjects/rectangle";
+import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
+import { GraphObjectDefinition } from "../../../../graphObjects/graphObject";
 
-module KGAuthor {
+
 
     export interface EconParetoLensDefinition extends GraphObjectDefinition {
         bundleA: string;
@@ -26,8 +28,11 @@ module KGAuthor {
                     show: def.show
                 }, graph))
 
-        }
-    }
+        
+    
 
+
+
+}
 
 }

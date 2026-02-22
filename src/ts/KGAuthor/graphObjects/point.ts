@@ -1,6 +1,16 @@
-/// <reference path="../kgAuthor.ts" />
+import { randomString } from "../../model/updateListener";
+import { setDefaults } from "../../util";
+import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { GraphObjectGenerator } from "../defObjects/graphObjectGenerator";
+import { setFillColor, makeDraggable, copyJSON } from "../parsers/parsingFunctions";
+import { Graph } from "../positionedObjects/graph";
+import { Tree } from "../positionedObjects/tree";
+import { VerticalDropline, HorizontalDropline } from "./dropline";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
+import { LineDefinition, lineRadius } from "./line";
+import { EdgeDefinition, Edge } from "./segment";
 
-module KGAuthor {
+
 
     export interface PointDefinition extends GraphObjectDefinition {
         label?: LabelDefinition;
@@ -21,7 +31,7 @@ module KGAuthor {
         constructor(def: PointDefinition, graph) {
 
 
-            KG.setDefaults(def,{
+            setDefaults(def,{
                 color: 'colors.blue'
             });
 
@@ -39,8 +49,8 @@ module KGAuthor {
             if (def.hasOwnProperty('label')) {
                 let labelDef = copyJSON(def);
                 delete labelDef.label;
-                labelDef = KG.setDefaults(labelDef, def.label);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(labelDef, def.label);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 10,
                     position: 'bl',
                     color: def.color,
@@ -62,7 +72,7 @@ module KGAuthor {
                         verticalDroplineDef.y = graph.yScale.max;
                         let xTopAxisLabelDef = copyJSON(verticalDroplineDef);
                         xTopAxisLabelDef.y = 'OPPAXIS';
-                        KG.setDefaults(xTopAxisLabelDef, {
+                        setDefaults(xTopAxisLabelDef, {
                             text: def.droplines.top,
                             fontSize: 10
                         });
@@ -71,7 +81,7 @@ module KGAuthor {
                     p.subObjects.push(new VerticalDropline(verticalDroplineDef, graph));
                     let xAxisLabelDef = copyJSON(verticalDroplineDef);
                     xAxisLabelDef.y = 'AXIS';
-                    KG.setDefaults(xAxisLabelDef, {
+                    setDefaults(xAxisLabelDef, {
                         text: def.droplines.vertical,
                         fontSize: 10
                     });
@@ -89,7 +99,7 @@ module KGAuthor {
 
                     let yAxisLabelDef = copyJSON(horizontalDroplineDef);
                     yAxisLabelDef.x = 'AXIS';
-                    KG.setDefaults(yAxisLabelDef, {
+                    setDefaults(yAxisLabelDef, {
                         text: def.droplines.horizontal,
                         fontSize: 10
                     });
@@ -126,7 +136,7 @@ module KGAuthor {
             const l = new KGAuthor.Line(def.lineDef, graph);
             const coordinates = lineRadius(l, def.radius);
 
-            KG.setDefaults(def,{
+            setDefaults(def,{
                 coordinates: coordinates,
                 positive: true
             });
@@ -177,8 +187,8 @@ module KGAuthor {
         private selectChildren;
 
         constructor(def: NodeDefinition, tree: Tree) {
-            KG.setDefaults(def, {
-                name: KG.randomString(10)
+            setDefaults(def, {
+                name: randomString(10)
             })
             if(def.hasOwnProperty('payoffs')) {
                 const payoff1: string = "\\\\color{${colors.player1}}{" + def.payoffs.player1 + "}"
@@ -202,8 +212,8 @@ module KGAuthor {
                 for(let i = 0; i < n; i++) {
                     const childNum = i + 1 // number of child, with first being 1 rather than 0;
                     let nodeDef:NodeDefinition = def.children[i];
-                    KG.setDefaults(nodeDef, {
-                        name: KG.randomString(10)
+                    setDefaults(nodeDef, {
+                        name: randomString(10)
                     })
                     let edgeDef:EdgeDefinition = {
                         node1: def.name,
@@ -234,8 +244,11 @@ module KGAuthor {
                     tree.subObjects.push(new Edge(edgeDef, tree));
                 }
             }
-        }
+        
 
-    }
+    
+
+
+}
 
 }

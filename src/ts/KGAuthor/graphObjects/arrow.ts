@@ -1,6 +1,6 @@
-/// <reference path="../kgAuthor.ts" />
+import { SegmentDefinition, Segment } from "./segment";
 
-module KGAuthor {
+
 
     export interface ArrowDefinition extends SegmentDefinition {
         begin: any;
@@ -26,8 +26,11 @@ module KGAuthor {
             
 
             super(def, graph);
-        }
+        
 
-    }
+    
+
+
+}
 
 }

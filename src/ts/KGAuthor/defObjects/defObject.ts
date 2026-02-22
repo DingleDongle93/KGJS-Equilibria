@@ -1,6 +1,7 @@
-/// <reference path="../kgAuthor.ts" />
+import { ViewDefinition } from "../../view/view";
+import { GraphObjectGenerator } from "./graphObjectGenerator";
 
-module KGAuthor {
+
 
     export class DefObject extends GraphObjectGenerator {
 
@@ -9,11 +10,14 @@ module KGAuthor {
             super(def, graph);
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             delete this.def.clipPathName;
             parsedData.clipPaths.push(this.def);
             return parsedData;
-        }
-    }
+        
+    
+
+
+}
 
 }

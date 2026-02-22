@@ -1,6 +1,8 @@
-/// <reference path="../../kg.ts" />
+import math from "mathjs";
+import { UpdateListenerDefinition, IUpdateListener, UpdateListener } from "../../model/updateListener";
+import { setProperties } from "../../util";
 
-module KG {
+
 
     export interface ListenerDefinition extends UpdateListenerDefinition {
         param: string;
@@ -38,6 +40,7 @@ module KG {
             l.model.updateParam(l.param, parsedMath);
         }
 
-    }
+    
+
 
 }

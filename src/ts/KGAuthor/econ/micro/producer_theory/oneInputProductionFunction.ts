@@ -1,6 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { CurveDefinition } from "../../../../view/viewObjects/curve";
+import { AuthoringObject } from "../../../parsers/authoringObject";
+import { invertDef, raiseDefToDef, negativeDef, subtractDefs, multiplyDefs } from "../../../parsers/parsingFunctions";
 
-module KGAuthor {
+
 
     export interface EconOneInputProductionFunctionDefinition extends CurveDefinition {
         coefficient?: string | number;
@@ -28,7 +31,7 @@ module KGAuthor {
 
         constructor(def: EconOneInputProductionFunctionDefinition, graph?) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 coefficient: 1,
                 exponent: 0.5,
                 wage: 1,
@@ -122,8 +125,11 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
+        
 
-    }
+    
+
+
+}
 
 }

@@ -1,6 +1,7 @@
-/// <reference path="../kgAuthor.ts" />
+import { ViewDefinition } from "../../view/view";
+import { Graph } from "../positionedObjects/graph";
 
-module KGAuthor {
+
 
     export interface AuthoringObjectDefinition {
         name?: string;
@@ -10,7 +11,7 @@ module KGAuthor {
     }
 
     export interface IAuthoringObject {
-        parse: (parsedData: KG.ViewDefinition) => KG.ViewDefinition;
+        parse: (parsedData: ViewDefinition) => ViewDefinition;
     }
 
     export class AuthoringObject implements IAuthoringObject {
@@ -39,11 +40,11 @@ module KGAuthor {
             }
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             return parsedData;
         }
 
-        parse(parsedData: KG.ViewDefinition) {
+        parse(parsedData: ViewDefinition) {
             this.subObjects.forEach(function (obj) {
                 parsedData = obj.parse(parsedData);
             });
@@ -61,8 +62,11 @@ module KGAuthor {
             this.subObjects.forEach(function(obj) {
                 obj.addSecondGraph(graph2);
             })
-        }
+        
 
-    }
+    
+
+
+}
 
 }

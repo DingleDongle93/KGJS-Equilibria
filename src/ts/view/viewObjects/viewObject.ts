@@ -1,6 +1,11 @@
-/// <reference path="../../kg.ts" />
+import { InteractionHandler } from "../../controller/interactionHandler";
+import { ClickListenerDefinition, ClickListener } from "../../controller/listeners/clickListener";
+import { DragListenerDefinition, DragListener } from "../../controller/listeners/dragListener";
+import { UpdateListenerDefinition, IUpdateListener, UpdateListener } from "../../model/updateListener";
+import { setDefaults, setProperties } from "../../util";
+import { Scale } from "../scale";
 
-module KG {
+
 
     export interface ViewObjectDefinition extends UpdateListenerDefinition {
         layer?: any;
@@ -299,6 +304,7 @@ module KG {
             return vo;
         }
 
-    }
+    
+
 
 }

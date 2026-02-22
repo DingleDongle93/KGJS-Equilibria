@@ -1,6 +1,8 @@
-/// <reference path="../kg.ts" />
+import d3 from "d3";
+import { UpdateListenerDefinition, UpdateListener } from "../model/updateListener";
+import { setDefaults } from "../util";
 
-module KG {
+
 
     export interface ScaleDefinition extends UpdateListenerDefinition {
         name: string;
@@ -18,8 +20,6 @@ module KG {
     }
 
     export class Scale extends UpdateListener implements IScale {
-
-        public name;
         public axis;
         public scale;
         public domainMin;
@@ -57,6 +57,7 @@ module KG {
             return s.update(true);
         }
 
-    }
+    
+
 
 }

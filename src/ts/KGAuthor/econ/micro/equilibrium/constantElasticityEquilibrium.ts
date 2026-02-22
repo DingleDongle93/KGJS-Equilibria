@@ -1,6 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { PointDefinition, Point } from "../../../../view/viewObjects/point";
+import { GraphObjectGeneratorDefinition, GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
+import { EconConstantElasticityCurveDefinition, EconConstantElasticityCurve } from "./constantElasticityCurve";
 
-module KGAuthor {
+
 
     export interface EconConstantElasticityEquilibriumDefinition extends GraphObjectGeneratorDefinition {
         demand: EconConstantElasticityCurveDefinition;
@@ -19,7 +22,7 @@ module KGAuthor {
 
         constructor(def: EconConstantElasticityEquilibriumDefinition, graph) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'equilibrium',
                 showCS: false,
                 showPS: false
@@ -59,9 +62,12 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

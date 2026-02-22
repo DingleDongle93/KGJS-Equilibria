@@ -1,6 +1,10 @@
-/// <reference path="../kgAuthor.ts" />
+import { randomString } from "../../model/updateListener";
+import { setDefaults } from "../../util";
+import { ViewDefinition } from "../../view/view";
+import { ClipPath } from "../defObjects/clipPath";
+import { GraphObjectGeneratorDefinition, GraphObjectGenerator } from "../defObjects/graphObjectGenerator";
 
-module KGAuthor {
+
 
     export interface GraphObjectDefinition extends GraphObjectGeneratorDefinition {
         type?: string;
@@ -28,11 +32,11 @@ module KGAuthor {
         constructor(def, graph?) {
 
             if(def.hasOwnProperty('clipPaths')) {
-                def.clipPathName = KG.randomString(10)
+                def.clipPathName = randomString(10)
             }
 
-            KG.setDefaults(def,{
-                name: KG.randomString(10)
+            setDefaults(def,{
+                name: randomString(10)
             });
 
             super(def,graph);
@@ -54,10 +58,13 @@ module KGAuthor {
             }
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             parsedData.layers[this.layer].push(this);
             return parsedData;
-        }
-    }
+        
+    
+
+
+}
 
 }

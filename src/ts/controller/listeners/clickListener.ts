@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults } from "../../util";
+import { ListenerDefinition, IListener, Listener } from "./listener";
 
-module KG {
+
 
     export interface ClickListenerDefinition extends ListenerDefinition {
         transitions: number[];
@@ -29,6 +30,7 @@ module KG {
             c.model.updateParam(c.param, newvalue);
         }
 
-    }
+    
+
 
 }

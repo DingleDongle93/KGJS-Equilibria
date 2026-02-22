@@ -1,6 +1,12 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { Point } from "../../../../../view/viewObjects/point";
+import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
+import { subtractDefs } from "../../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../constraints/budgetLine";
+import { getUtilityFunction } from "../two_good_utility/utilitySelector";
+import { OptimalBundleDefinition } from "./optimalBundle";
 
-module KGAuthor {
+
 
     export interface DemandCurveDefinition extends OptimalBundleDefinition {
         good: 1 | 2;
@@ -15,7 +21,7 @@ module KGAuthor {
         constructor(def: DemandCurveDefinition, graph) {
             const u = getUtilityFunction(def.utilityFunction),
                 bl = new EconBudgetLine(def.budgetLine, graph);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 stroke: 'colors.demand',
                 strokeWidth: 2
             });
@@ -30,7 +36,7 @@ module KGAuthor {
             if (def.hasOwnProperty('utilityFunction') && def.hasOwnProperty('budgetLine')) {
                 const u = getUtilityFunction(def.utilityFunction),
                     bl = new EconBudgetLine(def.budgetLine, graph);
-                KG.setDefaults(def, {
+                setDefaults(def, {
                     coordinates: [u.quantityDemanded(bl,def.good),bl['p'+def.good]],
                     fill: 'colors.demand',
                     label: {text: `x_${def.good}(p_${def.good}|p_${3-def.good},m)`},
@@ -51,7 +57,7 @@ module KGAuthor {
         constructor(def: DemandCurveDefinition, graph) {
             const u = getUtilityFunction(def.utilityFunction),
                 bl = new EconBudgetLine(def.budgetLine, graph);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 color: 'colors.demand',
                 strokeWidth: 2
             });
@@ -66,7 +72,7 @@ module KGAuthor {
             if (def.hasOwnProperty('utilityFunction') && def.hasOwnProperty('budgetLine')) {
                 const u = getUtilityFunction(def.utilityFunction),
                     bl = new EconBudgetLine(def.budgetLine, graph);
-                KG.setDefaults(def, {
+                setDefaults(def, {
                     coordinates: [subtractDefs(u.quantityDemanded(bl,def.good), bl.point[def.good-1]),bl['p'+def.good]],
                     fill: 'colors.demand',
                     label: {text: `d_${def.good}(p_${def.good}|p_${3-def.good})`},
@@ -87,7 +93,7 @@ module KGAuthor {
         constructor(def: SupplyCurveDefinition, graph) {
             const u = getUtilityFunction(def.utilityFunction),
                 bl = new EconBudgetLine(def.budgetLine, graph);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 color: 'colors.supply',
                 strokeWidth: 2
             });
@@ -102,7 +108,7 @@ module KGAuthor {
             if (def.hasOwnProperty('utilityFunction') && def.hasOwnProperty('budgetLine')) {
                 const u = getUtilityFunction(def.utilityFunction),
                     bl = new EconBudgetLine(def.budgetLine, graph);
-                KG.setDefaults(def, {
+                setDefaults(def, {
                     coordinates: [subtractDefs(bl.point[def.good-1], u.quantityDemanded(bl,def.good)),bl['p'+def.good]],
                     fill: 'colors.supply',
                     label: {text: `s_${def.good}(p_${def.good}|p_${3-def.good})`},
@@ -128,14 +134,17 @@ module KGAuthor {
         constructor(def: OfferCurveDefinition, graph) {
             const u = getUtilityFunction(def.utilityFunction),
                 bl = new EconBudgetLine(def.budgetLine, graph);
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 stroke: 'colors.offer',
                 strokeWidth: 2
             });
             super(def, graph);
             this.subObjects = u.priceOfferCurve(bl, def.good, def.min, def.max, def, graph);
-        }
-    }
+        
+    
 
+
+
+}
 
 }

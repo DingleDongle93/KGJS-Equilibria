@@ -1,6 +1,7 @@
-/// <reference path="../kgAuthor.ts" />
+import { ViewDefinition } from "../../view/view";
+import { DefObject } from "./defObject";
 
-module KGAuthor {
+
 
     export class Marker extends DefObject {
 
@@ -13,10 +14,13 @@ module KGAuthor {
             this.maskPath = def.maskPath;
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             parsedData.markers.push(this.def);
             return parsedData;
-        }
-    }
+        
+    
+
+
+}
 
 }

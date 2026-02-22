@@ -1,6 +1,9 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { CurveDefinition, Curve } from "../../view/viewObjects/curve";
+import { Label } from "../../view/viewObjects/label";
+import { divideDefs, subtractDefs, multiplyDefs, negativeDef, invertDef, copyJSON, addDefs, squareDef, quadraticRootDef } from "../parsers/parsingFunctions";
 
-module KGAuthor {
+
 
     export interface LineDefinition extends CurveDefinition {
         point?: (string|number)[];
@@ -25,7 +28,7 @@ module KGAuthor {
 
         constructor(def, graph) {
 
-            KG.setDefaults(def,{
+            setDefaults(def,{
                 color: 'colors.orange'
             });
 
@@ -136,8 +139,8 @@ module KGAuthor {
             if (def.hasOwnProperty('label') && def.label.hasOwnProperty('r')) {
                 let labelDef = copyJSON(def);
                 delete labelDef.label;
-                labelDef = KG.setDefaults(labelDef, def.label);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(labelDef, def.label);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 12,
                     color: def.color,
                     coordinates: lineRadius(l, labelDef.r, labelDef.center)
@@ -178,7 +181,7 @@ module KGAuthor {
                     }
                 }
             });
-            parsedData.calcs[l.name] = KG.setDefaults(parsedData.calcs[l.name] || {} ,d);
+            parsedData.calcs[l.name] = setDefaults(parsedData.calcs[l.name] || {} ,d);
             return parsedData;
         }
     }
@@ -200,10 +203,13 @@ module KGAuthor {
             const cy = center[1] || 0;
             b = subtractDefs(b, multiplyDefs(2,addDefs(center[0],multiplyDefs(line.slope,cy))));
             c = addDefs(c, subtractDefs(addDefs(squareDef(cx),squareDef(cy)),multiplyDefs(2,multiplyDefs(line.yIntercept, cy))));
-        }
+        
         const x = quadraticRootDef(a,b,c,true);
         const y = line.yOfX(x);
         return [x,y];
-    }
+    
+
+
+}
 
 }

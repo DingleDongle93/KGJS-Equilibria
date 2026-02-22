@@ -1,6 +1,12 @@
 /// <reference path='../../kg.ts' />
 
-module KG {
+import d3 from "d3";
+import { ParametricFunctionDefinition, ParametricFunction } from "../../math/parametricFunction";
+import { UnivariateFunctionDefinition, UnivariateFunction } from "../../math/univariateFunction";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
+import { setDefaults, setProperties } from "../../util";
+
+
 
     export interface CurveDefinition extends ViewObjectDefinition {
         univariateFunction?: UnivariateFunctionDefinition;
@@ -104,6 +110,7 @@ module KG {
             return curve;
         }
 
-    }
+    
+
 
 }

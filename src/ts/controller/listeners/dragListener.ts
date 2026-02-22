@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { ListenerDefinition, IListener, Listener } from "./listener";
 
-module KG {
+
 
     export interface DragListenerDefinition extends ListenerDefinition {
         draggable?: string;
@@ -53,6 +54,7 @@ module KG {
             return dl;
         }
 
-    }
+    
+
 
 }

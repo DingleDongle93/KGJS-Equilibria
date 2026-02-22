@@ -1,6 +1,8 @@
-/// <reference path="../kgAuthor.ts" />
+import { setDefaults } from "../../util";
+import { ViewDefinition } from "../../view/view";
+import { AuthoringObjectDefinition, AuthoringObject } from "../parsers/authoringObject";
 
-module KGAuthor {
+
 
     export interface SchemaDefinition extends AuthoringObjectDefinition {
         custom: string;
@@ -36,7 +38,7 @@ module KGAuthor {
                 }
             }
 
-            def.colors = KG.setDefaults(def.colors || {}, palette);
+            def.colors = setDefaults(def.colors || {}, palette);
 
             super(def);
 
@@ -45,12 +47,15 @@ module KGAuthor {
 
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             const colors = this.colors;
-            parsedData.colors = KG.setDefaults(parsedData.colors || {}, colors);
+            parsedData.colors = setDefaults(parsedData.colors || {}, colors);
             parsedData.idioms = this.idioms;
             return parsedData;
-        }
-    }
+        
+    
+
+
+}
 
 }

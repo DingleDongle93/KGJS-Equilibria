@@ -1,6 +1,11 @@
 /// <reference path='../../kg.ts' />
 
-module KG {
+import { MultivariateFunction } from "../../math/multivariateFunction";
+import { setDefaults, setProperties } from "../../util";
+import { AreaDefinition } from "./area";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
+
+
 
     export interface ContourDefinition extends ViewObjectDefinition {
         fn: string;
@@ -118,6 +123,7 @@ module KG {
         constructor(def) {
             super(def);
         }
-    }
+    
+
 
 }

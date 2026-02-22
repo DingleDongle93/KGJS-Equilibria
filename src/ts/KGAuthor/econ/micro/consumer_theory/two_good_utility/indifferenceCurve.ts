@@ -1,6 +1,12 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { TypeAndDef } from "../../../../../view/view";
+import { CurveDefinition } from "../../../../../view/viewObjects/curve";
+import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
+import { copyJSON, multiplyDefs } from "../../../../parsers/parsingFunctions";
+import { EconMultivariateFunction } from "../../../functional_forms/multivariate/multivariate";
+import { extractUtilityFunction } from "./bundle";
 
-module KGAuthor {
+
 
     export function extractIndifferenceCurve(def, graph) {
         if (def.hasOwnProperty('indifferenceCurveObject')) {
@@ -16,7 +22,7 @@ module KGAuthor {
     }
 
     export interface IndifferenceCurveDefinition extends CurveDefinition {
-        utilityFunction?: KG.TypeAndDef,
+        utilityFunction?: TypeAndDef,
         showPreferred?: string;
         preferredColor?: string;
         showDispreferred?: string;
@@ -44,7 +50,7 @@ module KGAuthor {
                 def.layer = 0;
             }
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 strokeWidth: 2,
                 color: 'colors.utility',
                 layer: 1,
@@ -56,7 +62,7 @@ module KGAuthor {
 
             if (def.inMap) {
                 if (def.showMapLevels) {
-                    def.label = KG.setDefaults(def.label || {}, {
+                    def.label = setDefaults(def.label || {}, {
                         fontSize: 8,
                         x: multiplyDefs(0.98, graph.xScale.max),
                         text: `${def.level}.toFixed(0)`,
@@ -65,7 +71,7 @@ module KGAuthor {
                     });
                 }
             } else {
-                def.label = KG.setDefaults(def.label || {}, {
+                def.label = setDefaults(def.label || {}, {
                     x: multiplyDefs(0.95, graph.xScale.max),
                     text: "U",
                     color: def.color,
@@ -114,6 +120,9 @@ module KGAuthor {
                 }
                 return new EconIndifferenceCurve(icDef, graph);
             })
-        }
-    }
+        
+    
+
+}
+
 }

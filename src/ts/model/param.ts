@@ -1,6 +1,7 @@
-/// <reference path="model.ts" />
+import d3 from "d3";
+import { setDefaults } from "../util";
 
-module KG {
+
 
     export interface ParamDefinition {
         name: string;     // how to refer to this parameter; e.g. if name is "x", you would refer to this as "params.x"
@@ -88,6 +89,7 @@ module KG {
             return d3.format(`.${precision}f`)(this.value);
         }
 
-    }
+    
+
 
 }

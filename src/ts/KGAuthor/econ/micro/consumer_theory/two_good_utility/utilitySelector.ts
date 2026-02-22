@@ -1,7 +1,6 @@
-/// <reference path="../../../eg.ts"/>
 
 
-module KGAuthor {
+
 
     export function getUtilityFunction(def) {
         if (def != undefined) {
@@ -19,6 +18,9 @@ module KGAuthor {
             } else if (def.type == 'CESFunction' || def.type == 'CES') {
                 return new KGAuthor.CESFunction(def.def)
             }
-        }
-    }
+        
+    
+
+}
+
 }

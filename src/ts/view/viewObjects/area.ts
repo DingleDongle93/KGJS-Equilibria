@@ -1,6 +1,11 @@
 /// <reference path='../../kg.ts' />
 
-module KG {
+import d3 from "d3";
+import { UnivariateFunctionDefinition, UnivariateFunction } from "../../math/univariateFunction";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
+import { setDefaults, setProperties } from "../../util";
+
+
 
     export interface AreaDefinition extends ViewObjectDefinition {
         univariateFunction1: UnivariateFunctionDefinition;
@@ -112,6 +117,7 @@ module KG {
             }
             return area;
         }
-    }
+    
+
 
 }

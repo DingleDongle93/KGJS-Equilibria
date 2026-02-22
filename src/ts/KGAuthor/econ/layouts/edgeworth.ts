@@ -1,6 +1,7 @@
-/// <reference path="../eg.ts" />
+import { Layout, SquareLayout } from "../../layouts/layout";
+import { Graph } from "../../positionedObjects/graph";
 
-module KGAuthor {
+
 
     export class EdgeworthBox extends Layout {
 
@@ -254,13 +255,16 @@ module KGAuthor {
             l.subObjects.push(new Graph(graph));
             l.subObjects.push(new Sidebar(sidebarDef));
 
-        }
+        
 
-    }
-
-
+    
 
 
 
+
+
+
+
+}
 
 }

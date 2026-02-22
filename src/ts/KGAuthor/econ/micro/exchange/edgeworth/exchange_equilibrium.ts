@@ -1,6 +1,9 @@
-/// <reference path="../../../eg.ts"/>
+import { setDefaults } from "../../../../../util";
+import { multiplyDefs, subtractDefs, divideDefs, addDefs } from "../../../../parsers/parsingFunctions";
+import { OptimalBundleDefinition, EconOptimalBundle } from "../../consumer_theory/optimization/optimalBundle";
+import { BundleDefinition, EconBundle } from "../../consumer_theory/two_good_utility/bundle";
 
-module KGAuthor {
+
 
     export interface ExchangeEquilibriumBundleDefinition extends OptimalBundleDefinition {
         agentA: BundleDefinition
@@ -30,7 +33,7 @@ module KGAuthor {
                 console.log("We're just handling Edgeworth equilibrium with Cobb-Douglas so far...")
             }
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 label: {text: 'E'},
                 color: "colors.budget"
             });
@@ -44,8 +47,11 @@ module KGAuthor {
 
             super(def, graph);
 
-        }
-    }
+        
+    
 
+
+
+}
 
 }

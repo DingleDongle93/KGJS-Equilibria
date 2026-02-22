@@ -1,7 +1,9 @@
-/// <reference path="../../eg.ts"/>
+import { divideDefs, negativeDef, multiplyDefs, subtractDefs, addDefs, raiseDefToDef } from "../../../parsers/parsingFunctions";
+import { EconBudgetLine } from "../../micro/consumer_theory/constraints/budgetLine";
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class CobbDouglasFunction extends EconMultivariateFunction {
 
@@ -75,7 +77,10 @@ module KGAuthor {
         laborRequirement(level, capital) {
             const e = this.exponents;
             return `((${level})/(${capital})^(${e[1]}))^(1/(${e[0]}))`
-        }
-    }
+        
+    
+
+
+}
 
 }

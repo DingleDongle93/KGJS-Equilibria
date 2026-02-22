@@ -1,6 +1,9 @@
-/// <reference path="../kgAuthor.ts" />
+import { Grid } from "../graphObjects/grid";
+import { NodeDefinition, Node } from "../graphObjects/point";
+import { EdgeDefinition, Edge } from "../graphObjects/segment";
+import { GraphDefinition, Graph } from "./graph";
 
-module KGAuthor {
+
 
     export interface TreeDefinition extends GraphDefinition {
         nodes: NodeDefinition[]
@@ -38,7 +41,10 @@ module KGAuthor {
             }
 
 
-        }
-    }
+        
+    
+
+
+}
 
 }

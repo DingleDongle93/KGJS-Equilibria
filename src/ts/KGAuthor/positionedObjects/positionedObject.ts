@@ -1,6 +1,10 @@
-/// <reference path="../kgAuthor.ts" />
+import { randomString } from "../../model/updateListener";
+import { setDefaults } from "../../util";
+import { ViewDefinition } from "../../view/view";
+import { AuthoringObject } from "../parsers/authoringObject";
+import { addDefs, extractTypeAndDef } from "../parsers/parsingFunctions";
 
-module KGAuthor {
+
 
     export interface AxisDefinition {
         min: any;
@@ -17,7 +21,7 @@ module KGAuthor {
         public intercept;
 
         constructor(def) {
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 intercept: 0
             });
             super(def);
@@ -26,7 +30,7 @@ module KGAuthor {
             this.intercept = def.intercept;
         }
 
-        parseSelf(parsedData: KG.ViewDefinition) {
+        parseSelf(parsedData: ViewDefinition) {
             parsedData.scales.push(this.def);
             return parsedData;
         }
@@ -50,9 +54,9 @@ module KGAuthor {
 
         constructor(def) {
 
-            KG.setDefaults(def, {xAxis: {}, yAxis: {}});
-            KG.setDefaults(def.xAxis, {min: 0, max: 10, intercept: 0, title: '', orient: 'bottom'});
-            KG.setDefaults(def.yAxis, {min: 0, max: 10, intercept: 0, title: '', orient: 'left'});
+            setDefaults(def, {xAxis: {}, yAxis: {}});
+            setDefaults(def.xAxis, {min: 0, max: 10, intercept: 0, title: '', orient: 'bottom'});
+            setDefaults(def.yAxis, {min: 0, max: 10, intercept: 0, title: '', orient: 'left'});
 
             super(def);
 
@@ -71,7 +75,7 @@ module KGAuthor {
                 topEdge = def.position.y;
 
             po.xScale = new Scale({
-                "name": KG.randomString(10),
+                "name": randomString(10),
                 "axis": "x",
                 "domainMin": xMin,
                 "domainMax": xMax,
@@ -82,7 +86,7 @@ module KGAuthor {
             });
 
             po.yScale = new Scale({
-                "name": KG.randomString(10),
+                "name": randomString(10),
                 "axis": "y",
                 "domainMin": yMin,
                 "domainMax": yMax,
@@ -95,11 +99,14 @@ module KGAuthor {
             po.subObjects = [po.xScale, po.yScale];
 
             if(po.def.hasOwnProperty('objects')) {
-                po.def.objects.map(KGAuthor.extractTypeAndDef);
+                po.def.objects.map(extractTypeAndDef);
             }
 
-        }
+        
 
-    }
+    
+
+
+}
 
 }

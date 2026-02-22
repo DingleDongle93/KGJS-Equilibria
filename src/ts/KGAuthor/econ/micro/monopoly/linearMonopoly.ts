@@ -1,6 +1,12 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { PointDefinition } from "../../../../view/viewObjects/point";
+import { GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
+import { AreaDefinition, Area } from "../../../graphObjects/area";
+import { lineIntersection } from "../../../graphObjects/line";
+import { EconLinearDemandDefinition, EconLinearDemand } from "../equilibrium/linearDemand";
+import { EconLinearMCDefinition, EconLinearMC } from "./linearMC";
 
-module KGAuthor {
+
 
     export interface EconLinearMonopolyDefinition {
         demand: EconLinearDemandDefinition;
@@ -26,7 +32,7 @@ module KGAuthor {
 
         constructor(def: EconLinearMonopolyDefinition, graph) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'monopoly',
                 showCS: false,
                 showPS: false,
@@ -88,9 +94,12 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

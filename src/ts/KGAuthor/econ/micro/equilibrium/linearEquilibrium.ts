@@ -1,6 +1,11 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { PointDefinition, Point } from "../../../../view/viewObjects/point";
+import { GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
+import { lineIntersection } from "../../../graphObjects/line";
+import { EconLinearDemandDefinition, EconLinearDemand } from "./linearDemand";
+import { EconLinearSupplyDefinition, EconLinearSupply } from "./linearSupply";
 
-module KGAuthor {
+
 
     export interface EconLinearEquilibriumDefinition {
         equilibrium: PointDefinition;
@@ -22,7 +27,7 @@ module KGAuthor {
 
         constructor(def: EconLinearEquilibriumDefinition, graph) {
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'equilibrium',
                 showCS: false,
                 showPS: false
@@ -49,7 +54,7 @@ module KGAuthor {
             if (graph) {
 
                 if(def.hasOwnProperty('equilibrium')) {
-                    def.equilibrium = KG.setDefaults(def.equilibrium, {
+                    def.equilibrium = setDefaults(def.equilibrium, {
                     "color": "colors.equilibriumPrice",
                     "x": le.Q,
                     "y": le.P,
@@ -75,9 +80,12 @@ module KGAuthor {
             };
 
             return parsedData;
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

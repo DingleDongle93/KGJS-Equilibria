@@ -1,6 +1,11 @@
-/// <reference path="../../eg.ts"/>
+import { setDefaults } from "../../../../util";
+import { Point } from "../../../../view/viewObjects/point";
+import { Area } from "../../../graphObjects/area";
+import { LineDefinition, Line } from "../../../graphObjects/line";
+import { setStrokeColor, paramName, divideDefs, subtractDefs, addDefs } from "../../../parsers/parsingFunctions";
+import { SurplusDefinition } from "./linearDemand";
 
-module KGAuthor {
+
 
     export interface EconLinearSupplyDefinition extends LineDefinition {
         yInterceptLabel?: string;
@@ -21,7 +26,7 @@ module KGAuthor {
 
             def = setStrokeColor(def);
 
-            KG.setDefaults(def, {
+            setDefaults(def, {
                 name: 'supply',
                 color: 'colors.supply',
                 strokeWidth: 2,
@@ -93,7 +98,7 @@ module KGAuthor {
                 }
 
                 if (def.hasOwnProperty('surplus')) {
-                    let surplusDef = KG.setDefaults(def.surplus || {}, {
+                    let surplusDef = setDefaults(def.surplus || {}, {
                         "fill": "colors.supply"
                     });
                     let price = surplusDef.price || `calcs.${ls.name}.PQ.y`,
@@ -115,9 +120,12 @@ module KGAuthor {
 
             }
 
-        }
+        
 
-    }
+    
 
+
+
+}
 
 }

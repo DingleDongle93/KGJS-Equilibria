@@ -1,13 +1,14 @@
-/// <reference path="../kgAuthor.ts" />
+import { randomString } from "../../model/updateListener";
+import { Marker } from "./marker";
 
-module KGAuthor {
+
 
     export class ArrowDef extends Marker {
         public color;
         public arrowPath;
 
         constructor(def,graph) {
-            def.name = KG.randomString(10);
+            def.name = randomString(10);
             super(def,graph);
             this.color = def.color;
             this.arrowPath = def.arrowPath;
@@ -33,7 +34,10 @@ module KGAuthor {
             def.arrowPath = "M2,2 L2,11 L10,6 L2,2";
             super(def, graph);
             this.markerType = 'EndArrow';
-        }
-    }
+        
+    
+
+
+}
 
 }

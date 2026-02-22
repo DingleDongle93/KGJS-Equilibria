@@ -1,6 +1,6 @@
-/// <reference path="../eg.ts" />
+import { TreeDefinition, Tree } from "../../positionedObjects/tree";
 
-module KGAuthor {
+
 
     export interface EntryDeterrenceDefinition extends TreeDefinition {
 
@@ -11,7 +11,10 @@ module KGAuthor {
         constructor(def) {
 
             super(def);
-        }
+        
 
-    }
+    
+
+}
+
 }

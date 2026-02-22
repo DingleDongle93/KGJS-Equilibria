@@ -1,7 +1,7 @@
-/// <reference path="../../eg.ts"/>
+import { EconMultivariateFunction } from "./multivariate";
 
 
-module KGAuthor {
+
 
     export class ConcaveFunction extends EconMultivariateFunction {
 
@@ -38,7 +38,10 @@ module KGAuthor {
                     "samplePoints": 30
                 }
             ]
-        }
-    }
+        
+    
+
+
+}
 
 }

@@ -1,14 +1,20 @@
-/// <reference path="../kgAuthor.ts" />
+import { ParametricFunctionDefinition, ParametricFunction } from "../../math/parametricFunction";
+import { UnivariateFunctionDefinition, UnivariateFunction } from "../../math/univariateFunction";
+import { setDefaults } from "../../util";
+import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { setStrokeColor, parseFn, parseFill, copyJSON, replaceVariable } from "../parsers/parsingFunctions";
+import { AreaDefinition, Area } from "./area";
+import { GraphObjectDefinition, GraphObject } from "./graphObject";
 
-module KGAuthor {
+
 
     export interface CurveDefinition extends GraphObjectDefinition {
         label?: LabelDefinition
         fn?: string;
         xFn?: string;
         yFn?: string;
-        univariateFunction?: KG.UnivariateFunctionDefinition;
-        parametricFunction?: KG.ParametricFunctionDefinition;
+        univariateFunction?: UnivariateFunctionDefinition;
+        parametricFunction?: ParametricFunctionDefinition;
         pts?: { name: string; x?: string; y?: string; }[];
         areaBelow?: string | AreaDefinition;
         areaAbove?: string | AreaDefinition;
@@ -17,8 +23,8 @@ module KGAuthor {
     export class Curve extends GraphObject {
 
         public pts: string[];
-        public univariateFunction: KG.UnivariateFunction;
-        public parametricFunction: KG.ParametricFunction;
+        public univariateFunction: UnivariateFunction;
+        public parametricFunction: ParametricFunction;
 
 
         constructor(def, graph) {
@@ -35,21 +41,21 @@ module KGAuthor {
             c.pts = def.pts || [];
 
             if (def.hasOwnProperty('areaBelow')) {
-                KG.setDefaults(def.areaBelow,{
+                setDefaults(def.areaBelow,{
                     color: def.color
                 });
                 parseFill(def, 'areaBelow');
-                KG.setDefaults(def.areaBelow, def.univariateFunction);
+                setDefaults(def.areaBelow, def.univariateFunction);
                 parseFn(def.areaBelow, 'fn', 'univariateFunction1');
                 c.subObjects.push(new Area(def.areaBelow, graph));
             }
 
             if (def.hasOwnProperty('areaAbove')) {
-                KG.setDefaults(def.areaBelow,{
+                setDefaults(def.areaBelow,{
                     color: def.color
                 });
                 parseFill(def, 'areaAbove');
-                KG.setDefaults(def.areaAbove, def.univariateFunction);
+                setDefaults(def.areaAbove, def.univariateFunction);
                 parseFn(def.areaAbove, 'fn', 'univariateFunction1');
                 def.areaAbove.above = true;
                 c.subObjects.push(new Area(def.areaAbove, graph));
@@ -58,8 +64,8 @@ module KGAuthor {
             if (def.hasOwnProperty('label')) {
                 let labelDef = copyJSON(def);
                 delete labelDef.label;
-                labelDef = KG.setDefaults(labelDef, def.label);
-                labelDef = KG.setDefaults(labelDef, {
+                labelDef = setDefaults(labelDef, def.label);
+                labelDef = setDefaults(labelDef, {
                     fontSize: 12,
                     color: def.color
                 });
@@ -121,8 +127,11 @@ module KGAuthor {
                 }
             });
             return parsedData;
-        }
+        
 
-    }
+    
+
+
+}
 
 }

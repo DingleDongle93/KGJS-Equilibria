@@ -1,6 +1,7 @@
-/// <reference path="../../kg.ts" />
+import { setDefaults, setProperties } from "../../util";
+import { ViewObjectDefinition, ViewObject } from "./viewObject";
 
-module KG {
+
 
     export interface LabelDefinition extends ViewObjectDefinition {
         x: any;
@@ -151,6 +152,7 @@ module KG {
 
             return label;
         }
-    }
+    
+
 
 }

@@ -1,6 +1,7 @@
-/// <reference path="../kgAuthor.ts" />
+import { AuthoringObjectDefinition, AuthoringObject } from "../parsers/authoringObject";
+import { Graph } from "../positionedObjects/graph";
 
-module KGAuthor {
+
 
     export interface GraphObjectGeneratorDefinition extends AuthoringObjectDefinition {
         include3d?: boolean;
@@ -39,7 +40,10 @@ module KGAuthor {
             obj[xKey] = def[xKey].toString();
             obj[yKey] = def[yKey].toString();
 
-        }
-    }
+        
+    
+
+
+}
 
 }
