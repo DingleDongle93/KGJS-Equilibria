@@ -1,5 +1,5 @@
 import { setDefaults } from "../../../../util";
-import { Point } from "../../../../view/viewObjects/point";
+import { Point } from "../../../../KGAuthor/graphObjects/point";
 import { Area } from "../../../graphObjects/area";
 import { LineDefinition, Line } from "../../../graphObjects/line";
 import { setStrokeColor, paramName, divideDefs, subtractDefs, addDefs } from "../../../parsers/parsingFunctions";

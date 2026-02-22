@@ -28,7 +28,7 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
                 .attr("d", m.maskPath)
                 .attr("fill", "white");
 
-            m.arrowElement = layer.append("svg:path")
+            m.arrowElement = layer.selectAll('path.arrowElement-' + m.id).data([1]).join('svg:path').attr('class', 'arrowElement-' + m.id)
                 .attr("d", m.arrowPath);
             return m;
 

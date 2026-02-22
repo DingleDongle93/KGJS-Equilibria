@@ -190,10 +190,10 @@ import { Scale } from "../scale";
                 //vo.rootElement.attr('tabindex','0');
             }
             if (vo.def.hasOwnProperty('srTitle') && vo.def['srTitle'] != undefined) {
-                vo.screenReaderTitle = el.append('title');
+                vo.screenReaderTitle = el.selectAll('title.screenReaderTitle-' + vo.id).data([1]).join('title').attr('class', 'screenReaderTitle-' + vo.id);
             }
             if (vo.def.hasOwnProperty('srDesc') && vo.def['srDesc'] != undefined) {
-                vo.screenReaderDescription = el.append('desc');
+                vo.screenReaderDescription = el.selectAll('desc.screenReaderDescription-' + vo.id).data([1]).join('desc').attr('class', 'screenReaderDescription-' + vo.id);
             }
             return vo;
         }

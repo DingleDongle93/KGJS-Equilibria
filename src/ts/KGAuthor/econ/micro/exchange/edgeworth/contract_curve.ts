@@ -1,5 +1,5 @@
 import { setDefaults } from "../../../../../util";
-import { CurveDefinition, Curve } from "../../../../../view/viewObjects/curve";
+import { CurveDefinition, Curve } from "../../../../../KGAuthor/graphObjects/curve";
 import { multiplyDefs, subtractDefs } from "../../../../parsers/parsingFunctions";
 
 

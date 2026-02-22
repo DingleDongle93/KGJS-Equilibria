@@ -1,5 +1,5 @@
 import { setDefaults } from "../../../../../util";
-import { Point } from "../../../../../view/viewObjects/point";
+import { Point } from "../../../../../KGAuthor/graphObjects/point";
 import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
 import { subtractDefs } from "../../../../parsers/parsingFunctions";
 import { EconBudgetLine } from "../constraints/budgetLine";

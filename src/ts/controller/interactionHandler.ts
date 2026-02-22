@@ -29,6 +29,9 @@ export class InteractionHandler extends UpdateListener implements IInteractionHa
         def.clickListeners = def.clickListeners || [];
         def.constants = (def.constants || []).concat(["viewObject", "dragListeners", "clickListeners"]);
         super(def);
+        this.dragListeners = def.dragListeners;
+        this.clickListeners = def.clickListeners;
+        this.viewObject = def.viewObject;
         this.update(true);
         this.scope = { params: {}, calcs: {}, colors: {}, drag: {} }
     }

@@ -2,6 +2,14 @@
 import { Graph } from "../positionedObjects/graph";
 import { Layout } from "./layout";
 
+class DivContainer {
+    name: string; def: any; subObjects: any[]; tabbable: boolean; srTitle: string; srDesc: string;
+    constructor(def) { }
+    parseSelf(parsedData) { return parsedData; }
+    parse(parsedData) { return parsedData; }
+    addSecondGraph(graph) { }
+}
+
 
 
 export class ThreeHorizontalGraphs extends Layout {

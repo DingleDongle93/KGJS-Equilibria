@@ -1,104 +1,104 @@
-import { KGAuthorClasses } from "..";
+import { KGAuthorClasses } from "../classRegistry";
 import { randomString } from "../../model/updateListener";
 import { setDefaults } from "../../util";
 import { TypeAndDef } from "../../view/view";
-import { Rectangle } from "../../view/viewObjects/rectangle";
+import { Rectangle } from "../graphObjects/rectangle";
 import { ClipPath } from "../defObjects/clipPath";
 import { PositionedObjectDefinition, PositionedObject } from "./positionedObject";
 
 
 
-    export interface GraphDefinition extends PositionedObjectDefinition {
-        objects: TypeAndDef[]
+export interface GraphDefinition extends PositionedObjectDefinition {
+    objects: TypeAndDef[]
+}
+
+export class Graph extends PositionedObject {
+
+    public clipPath;
+    public markerNames;
+
+    constructor(def) {
+        def = setDefaults(def, { objects: [] });
+        super(def);
+
+        const g = this;
+
+        //axes need to update when the other one's domain changes
+        def.xAxis.otherMin = def.yAxis.min;
+        def.xAxis.otherMax = def.yAxis.max;
+        def.yAxis.otherMin = def.xAxis.min;
+        def.yAxis.otherMax = def.xAxis.max;
+
+        g.clipPath = new ClipPath({
+            "name": randomString(10),
+            "paths": [new Rectangle({
+                x1: def.xAxis.min,
+                x2: def.xAxis.max,
+                y1: def.yAxis.min,
+                y2: def.yAxis.max,
+                inDef: true
+            }, g)]
+        }, g);
+        g.subObjects.push(g.clipPath);
+        g.def.objects.unshift({
+            type: 'Axis',
+            def: g.def.xAxis
+        });
+        g.def.objects.unshift({
+            type: 'Axis',
+            def: g.def.yAxis
+        });
+        g.def.objects.forEach(function (obj) {
+            g.subObjects.push(new KGAuthorClasses[obj.type](obj.def, g))
+        });
+
+        console.log(g);
+
     }
 
-    export class Graph extends PositionedObject {
+    getMarkerName(lookup: { markerType: string, color: string }) {
+        const g = this;
+        let name = '',
+            found = false;
 
-        public clipPath;
-        public markerNames;
-
-        constructor(def) {
-            def = setDefaults(def,{objects: []});
-            super(def);
-
-            const g = this;
-
-            //axes need to update when the other one's domain changes
-            def.xAxis.otherMin = def.yAxis.min;
-            def.xAxis.otherMax = def.yAxis.max;
-            def.yAxis.otherMin = def.xAxis.min;
-            def.yAxis.otherMax = def.xAxis.max;
-
-            g.clipPath = new ClipPath({
-                "name": randomString(10),
-                "paths": [new Rectangle({
-                    x1: def.xAxis.min,
-                    x2: def.xAxis.max,
-                    y1: def.yAxis.min,
-                    y2: def.yAxis.max,
-                    inDef: true
-                }, g)]
-            }, g);
-            g.subObjects.push(g.clipPath);
-            g.def.objects.unshift({
-                type: 'Axis',
-                def: g.def.xAxis
-            });
-            g.def.objects.unshift({
-                type: 'Axis',
-                def: g.def.yAxis
-            });
-            g.def.objects.forEach(function (obj) {
-                g.subObjects.push(new KGAuthorClasses[obj.type](obj.def, g))
-            });
-
-            console.log(g);
-
-        }
-
-        getMarkerName(lookup: { markerType: string, color: string }) {
-            const g = this;
-            let name = '',
-                found = false;
-
-            // look to see if there is already a marker of that name and type
-            g.subObjects.forEach(function (obj) {
-                if (obj.hasOwnProperty('color') && obj['color'] == lookup.color && obj.hasOwnProperty('markerType') && obj['markerType'] == lookup.markerType) {
-                    name = obj.name;
-                    found = true;
-                }
-            });
-
-            // if there is, return its name
-            if (found) {
-                return name;
+        // look to see if there is already a marker of that name and type
+        g.subObjects.forEach(function (obj) {
+            if (obj.hasOwnProperty('color') && obj['color'] == lookup.color && obj.hasOwnProperty('markerType') && obj['markerType'] == lookup.markerType) {
+                name = obj.name;
+                found = true;
             }
+        });
 
-            // otherwise create a new marker, add to the graph's subobjects, and return the new marker's name
-            else {
-                const newMarker = new KGAuthorClasses[lookup.markerType]({color: lookup.color});
-                g.subObjects.push(newMarker);
-                return newMarker.name;
-            }
-
+        // if there is, return its name
+        if (found) {
+            return name;
         }
 
-        getEndArrowName(color: string) {
-            return this.getMarkerName({
-                markerType: 'EndArrow',
-                color: color
-            })
+        // otherwise create a new marker, add to the graph's subobjects, and return the new marker's name
+        else {
+            const newMarker = new KGAuthorClasses[lookup.markerType]({ color: lookup.color });
+            g.subObjects.push(newMarker);
+            return newMarker.name;
         }
 
-        getStartArrowName(color: string) {
-            return this.getMarkerName({
-                markerType: 'StartArrow',
-                color: color
-            })
-        
-    
+    }
+
+    getEndArrowName(color: string) {
+        return this.getMarkerName({
+            markerType: 'EndArrow',
+            color: color
+        })
+    }
+
+    getStartArrowName(color: string) {
+        return this.getMarkerName({
+            markerType: 'StartArrow',
+            color: color
+        })
 
 
-}
+
+
+    }
 
 }

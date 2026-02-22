@@ -1,5 +1,5 @@
 import { setDefaults } from "../../../../util";
-import { PointDefinition, Point } from "../../../../view/viewObjects/point";
+import { PointDefinition, Point } from "../../../../KGAuthor/graphObjects/point";
 import { GraphObjectGeneratorDefinition, GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
 import { EconConstantElasticityCurveDefinition, EconConstantElasticityCurve } from "./constantElasticityCurve";
 

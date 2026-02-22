@@ -1,4 +1,4 @@
-import { Rectangle } from "../../../../../view/viewObjects/rectangle";
+import { Rectangle } from "../../../../../KGAuthor/graphObjects/rectangle";
 import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
 import { GraphObjectDefinition } from "../../../../graphObjects/graphObject";
 

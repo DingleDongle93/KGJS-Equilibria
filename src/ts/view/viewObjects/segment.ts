@@ -40,9 +40,9 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
         // create SVG elements
         draw(layer) {
             let segment = this;
-            segment.rootElement = layer.append('g');
-            segment.dragLine = segment.rootElement.append('line').attr('stroke-width', '20px').style('stroke-opacity', 0);
-            segment.line = segment.rootElement.append('line');
+            segment.rootElement = layer.selectAll('g.rootElement-' + segment.id).data([1]).join('g').attr('class', 'rootElement-' + segment.id);
+            segment.dragLine = segment.rootElement.selectAll('line.dragLine-' + segment.id).data([1]).join('line').attr('class', 'dragLine-' + segment.id).attr('stroke-width', '20px').style('stroke-opacity', 0);
+            segment.line = segment.rootElement.selectAll('line.line-' + segment.id).data([1]).join('line').attr('class', 'line-' + segment.id);
             segment.markedElement = segment.line;
             return segment.addClipPathAndArrows().addInteraction();
         }

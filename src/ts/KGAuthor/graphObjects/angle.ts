@@ -1,5 +1,5 @@
 import { setDefaults } from "../../util";
-import { LabelDefinition, Label } from "../../view/viewObjects/label";
+import { LabelDefinition, Label } from "../../KGAuthor/graphObjects/label";
 import { multiplyDefs, subtractDefs, setStrokeColor, addDefs, divideDefs, copyJSON } from "../parsers/parsingFunctions";
 import { CurveDefinition, Curve } from "./curve";
 import { PointDefinition, Point } from "./point";

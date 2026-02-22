@@ -1,7 +1,7 @@
 import { setDefaults } from "../../../../../util";
 import { TypeAndDef } from "../../../../../view/view";
-import { LabelDefinition } from "../../../../../view/viewObjects/label";
-import { PointDefinition, Point } from "../../../../../view/viewObjects/point";
+import { LabelDefinition } from "../../../../../KGAuthor/graphObjects/label";
+import { PointDefinition, Point } from "../../../../../KGAuthor/graphObjects/point";
 import { setFillColor, negativeDef } from "../../../../parsers/parsingFunctions";
 import { EconMultivariateFunction } from "../../../functional_forms/multivariate/multivariate";
 import { EconBudgetLineDefinition, EconBudgetLine, extractBudgetLine } from "../constraints/budgetLine";

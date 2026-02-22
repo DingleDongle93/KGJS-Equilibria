@@ -1,7 +1,7 @@
 import { randomString } from "../../../../../model/updateListener";
 import { setDefaults } from "../../../../../util";
-import { Point } from "../../../../../view/viewObjects/point";
-import { Segment } from "../../../../../view/viewObjects/segment";
+import { Point } from "../../../../../KGAuthor/graphObjects/point";
+import { Segment } from "../../../../../KGAuthor/graphObjects/segment";
 import { Area } from "../../../../graphObjects/area";
 import { setStrokeColor, addDefs, multiplyDefs, divideDefs, paramName } from "../../../../parsers/parsingFunctions";
 import { EconBundle } from "../two_good_utility/bundle";

@@ -1,6 +1,6 @@
 import { setDefaults } from "../../../../../util";
 import { TypeAndDef } from "../../../../../view/view";
-import { CurveDefinition } from "../../../../../view/viewObjects/curve";
+import { CurveDefinition } from "../../../../../KGAuthor/graphObjects/curve";
 import { GraphObjectGenerator } from "../../../../defObjects/graphObjectGenerator";
 import { copyJSON, multiplyDefs } from "../../../../parsers/parsingFunctions";
 import { EconMultivariateFunction } from "../../../functional_forms/multivariate/multivariate";

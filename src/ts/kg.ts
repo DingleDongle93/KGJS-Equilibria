@@ -31,13 +31,13 @@ export class KineticGraph extends EventEmitter {
             // Update params explicitly if they were passed
             if (newConfig.params) {
                 newConfig.params.forEach((param: any) => {
-                    this.view!.model.updateParam(param.name, param.value);
+                    (this.view as any).model.updateParam(param.name, param.value);
                 });
             } else {
                 // Generic update if underlying structure changed
                 // (In a true React flow, we'd diff the config and re-parse strings,
                 // but for now we expect param interactions)
-                this.view.model.update(true);
+                (this.view as any).model.update(true);
             }
         }
     }

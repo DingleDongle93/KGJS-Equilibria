@@ -2,7 +2,7 @@ import { ParametricFunctionDefinition } from "../../math/parametricFunction";
 import { UnivariateFunctionDefinition } from "../../math/univariateFunction";
 import { TypeAndDef } from "../../view/view";
 import { Curve } from "../graphObjects/curve";
-import { KGAuthorClasses } from "../index";
+import { KGAuthorClasses } from "../classRegistry";
 
 export function extractTypeAndDef(def) {
     if (def.hasOwnProperty('type')) {
@@ -16,7 +16,7 @@ export function extractTypeAndDef(def) {
 
 export function parse(data: TypeAndDef[], parsedData) {
     data.forEach(function (obj) {
-        if (KGAuthorClasses.hasOwnProperty(obj.type)) {
+        if (Object.prototype.hasOwnProperty.call(KGAuthorClasses, obj.type)) {
             parsedData = new KGAuthorClasses[obj.type](obj.def).parse(parsedData);
         } else {
             console.log("Sorry, there's no ", obj.type, " object type in KGAuthor. Maybe you have a typo?")

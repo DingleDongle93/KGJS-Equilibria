@@ -1,6 +1,6 @@
 import { setDefaults } from "../../../../util";
-import { CurveDefinition, Curve } from "../../../../view/viewObjects/curve";
-import { Point } from "../../../../view/viewObjects/point";
+import { CurveDefinition, Curve } from "../../../../KGAuthor/graphObjects/curve";
+import { Point } from "../../../../KGAuthor/graphObjects/point";
 import { setStrokeColor, divideDefs, raiseDefToDef, subtractDefs, addDefs, paramName, multiplyDefs, invertDef } from "../../../parsers/parsingFunctions";
 import { EconOneInputProductionFunction } from "../producer_theory/oneInputProductionFunction";
 

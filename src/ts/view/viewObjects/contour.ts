@@ -62,12 +62,12 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
         draw(layer) {
             let c = this;
             if (c.inDef) {
-                c.rootElement = layer.append('path');
+                c.rootElement = layer.selectAll('path.rootElement-' + c.id).data([1]).join('path').attr('class', 'rootElement-' + c.id);
                 c.path = c.rootElement;
             } else {
-                c.rootElement = layer.append('g');
-                c.negativePath = c.rootElement.append('path');
-                c.path = c.rootElement.append('path');
+                c.rootElement = layer.selectAll('g.rootElement-' + c.id).data([1]).join('g').attr('class', 'rootElement-' + c.id);
+                c.negativePath = c.rootElement.selectAll('path.negativePath-' + c.id).data([1]).join('path').attr('class', 'negativePath-' + c.id);
+                c.path = c.rootElement.selectAll('path.path-' + c.id).data([1]).join('path').attr('class', 'path-' + c.id);
             }
 
             return c.addClipPathAndArrows();

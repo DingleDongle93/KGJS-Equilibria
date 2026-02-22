@@ -41,9 +41,9 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
         // create SVG elements
         draw(layer) {
             let p = this;
-            p.rootElement = layer.append('g'); // SVG group
-            p.dragCircle = p.rootElement.append('circle').style('fill','yellow').style('fill-opacity', 0).attr('r', 20);
-            p.circle = p.rootElement.append('circle');
+            p.rootElement = layer.selectAll('g.rootElement-' + p.id).data([1]).join('g').attr('class', 'rootElement-' + p.id); // SVG group
+            p.dragCircle = p.rootElement.selectAll('circle.dragCircle-' + p.id).data([1]).join('circle').attr('class', 'dragCircle-' + p.id).style('fill','yellow').style('fill-opacity', 0).attr('r', 20);
+            p.circle = p.rootElement.selectAll('circle.circle-' + p.id).data([1]).join('circle').attr('class', 'circle-' + p.id);
             //p.addClipPathAndArrows()
             p.addScreenReaderDescriptions(p.circle);
             //p.rootElement.on("focus", function() {p.dragCircle.style('fill-opacity','30%')});

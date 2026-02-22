@@ -1,8 +1,8 @@
 import { UnivariateFunctionDefinition } from "../../../../math/univariateFunction";
 import { randomString } from "../../../../model/updateListener";
 import { setDefaults } from "../../../../util";
-import { Curve } from "../../../../view/viewObjects/curve";
-import { Rectangle } from "../../../../view/viewObjects/rectangle";
+import { Curve } from "../../../../KGAuthor/graphObjects/curve";
+import { Rectangle } from "../../../../KGAuthor/graphObjects/rectangle";
 import { ClipPath } from "../../../defObjects/clipPath";
 import { Area } from "../../../graphObjects/area";
 import { AuthoringObject } from "../../../parsers/authoringObject";

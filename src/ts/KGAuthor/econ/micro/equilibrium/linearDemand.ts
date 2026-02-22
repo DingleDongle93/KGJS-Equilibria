@@ -1,7 +1,6 @@
-import { Line } from "d3";
-import { Point } from "../../../../view/viewObjects/point";
+import { Point } from "../../../graphObjects/point";
 import { AreaDefinition, Area } from "../../../graphObjects/area";
-import { LineDefinition, Line, Line, Line, Line, Line, Line, Line, Line, Line, Line, Line } from "../../../graphObjects/line";
+import { LineDefinition, Line } from "../../../graphObjects/line";
 import { setStrokeColor, paramName, addDefs, negativeDef, divideDefs, multiplyDefs } from "../../../parsers/parsingFunctions";
 import { setDefaults } from "../../../../util";
 

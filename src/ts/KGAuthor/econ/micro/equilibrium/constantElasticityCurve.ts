@@ -1,7 +1,7 @@
 import { randomString } from "../../../../model/updateListener";
 import { setDefaults } from "../../../../util";
-import { CurveDefinition, Curve } from "../../../../view/viewObjects/curve";
-import { PointDefinition, Point } from "../../../../view/viewObjects/point";
+import { CurveDefinition, Curve } from "../../../../KGAuthor/graphObjects/curve";
+import { PointDefinition, Point } from "../../../../KGAuthor/graphObjects/point";
 import { GraphObjectGenerator } from "../../../defObjects/graphObjectGenerator";
 import { setStrokeColor, copyJSON, multiplyDefs, raiseDefToDef, divideDefs, invertDef, subtractDefs } from "../../../parsers/parsingFunctions";
 

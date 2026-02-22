@@ -37,7 +37,7 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
         // create SVG elements
         draw(layer) {
             let c = this;
-            c.rootElement = layer.append('ellipse');
+            c.rootElement = layer.selectAll('ellipse.rootElement-' + c.id).data([1]).join('ellipse').attr('class', 'rootElement-' + c.id);
             return c.addClipPathAndArrows().addInteraction();
         }
 

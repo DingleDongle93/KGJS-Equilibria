@@ -32,9 +32,9 @@ import { ViewObjectDefinition, ViewObject } from "./viewObject";
             if (rect.inDef) {
                 rect.rootElement = layer;
             } else {
-                rect.rootElement = layer.append('g');
+                rect.rootElement = layer.selectAll('g.rootElement-' + rect.id).data([1]).join('g').attr('class', 'rootElement-' + rect.id);
             }
-            rect.rootElement2 = rect.rootElement.append('rect');
+            rect.rootElement2 = rect.rootElement.selectAll('rect.rootElement2-' + rect.id).data([1]).join('rect').attr('class', 'rootElement2-' + rect.id);
 
             //rect.interactionHandler.addTrigger(rect.rootElement);
             return rect.addClipPathAndArrows().addInteraction();
