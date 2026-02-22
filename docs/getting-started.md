@@ -11,13 +11,13 @@ The engine can be incorporated into modern module bundler setups (like Vite, Web
 If you are building an application in React, Vue, or Vanilla JS using a bundler:
 
 ```bash
-npm install equilibria-engine
+npm install equilibria-engine-js
 ```
 
 Within your javascript or typescript files, you can then import the engine class:
 
 ```js
-import { KineticGraph, KG_EVENTS } from "equilibria-engine";
+import { KineticGraph, KG_EVENTS } from "equilibria-engine-js";
 ```
 
 ### Option 2: Using CDN (For Vanilla HTML/JS)
@@ -29,7 +29,7 @@ You can load the bundled module directly in your browser. Since the engine expos
 <div id="graph-container"></div>
 
 <script type="module">
-  import { KineticGraph } from "https://cdn.jsdelivr.net/npm/equilibria-engine@latest/dist/kgjs.es.js";
+  import { KineticGraph } from "https://cdn.jsdelivr.net/npm/equilibria-engine-js@latest/dist/kgjs.es.js";
   
   // Use KineticGraph here...
 </script>
@@ -48,7 +48,7 @@ To render a graph:
 Here is a minimal functional component in Vanilla JS:
 
 ```js
-import { KineticGraph } from 'equilibria-engine';
+import { KineticGraph } from 'equilibria-engine-js';
 
 // Grab the host HTML element
 const containerElement = document.getElementById('graph-container');

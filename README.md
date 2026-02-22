@@ -1,32 +1,35 @@
-# kg.js
-Javascript Renderer for KineticGraphs
+# KGJS-Equilibria
 
-## See documentation page
-[Here](https://cmakler.github.io/kgjs/)
+Welcome to **KGJS-Equilibria**, a headless Javascript rendering engine for interactive kinetic graphs. 
 
-## What it does
+> [!NOTE] 
+> **Acknowlegement:** This project is a hard fork of the excellent [KGJS](https://github.com/cmakler/kgjs) engine originally created by Chris Makler. The intent of the Equilibria fork is to decouple the core mathematical engine from its original monolithic application structure, making it substantially easier for developers to integrate economic models into modern websites, SPAs (React/Vue/Svelte), and custom data visualization pipelines.
 
-The purpose of kg.js is to provide a way to render interactive diagrams ("KineticGraphs") defined as a JSON.
+## Installation
 
-Once the page is loaded, kg.js looks for any elements with a class name `kg-container`. These elements should have a `src` attribute with a URL pointing to a JSON file. This file contains all the information necessary to render a KineticGraph and handle user interactions with it.
+```bash
+npm install equilibria-engine-js
+```
 
-Each KineticGraph is a standalone diagram, and does not communicate with the outside page. In particular, you can have multiple graphs rendered from the same JSON and interact with them separately.
+## Documentation
 
-Each KineticGraph maintains its aspect ratio as the page window changes dimensions. If a KineticGraph includes a `sidebar` (an area to the right, which generally contains a caption as well as user controls like sliders), that `sidebar` is positioned to the right of the diagram for wide pages, and below the diagram for smaller ones. This responsive flow and layout is designed to work seamlessly with [Tufte CSS](https://edwardtufte.github.io/tufte-css/); just place a KineticGraph within a `figure` element with class `fullwidth`.
+Comprehensive documentation has been added to assist developers in utilizing and configuring the headless engine. 
+
+Please see the local `/docs` directory for guides:
+
+1. [Getting Started](./docs/getting-started.md)
+2. [Architecture Overview](./docs/architecture.md)
+3. [Configuration Specification](./docs/configuration.md)
+4. [API & Interactivity](./docs/interactivity.md)
 
 ## Dependencies
 
-Fundamentally, it uses a number of amazing open-source JavaScript technologies:
+The engine relies heavily on:
 
 * [D3](https://d3js.org) for drawing 2D diagrams
-* [MathBox](https://github.com/unconed/mathbox) for drawing 3D diagrams
-* [mathjs](https://mathjs.org/) for easy math description
-* [KaTeX](https://katex.org) for displaying math
-* [underscore](https://underscorejs.org/) and [js-yaml](https://github.com/nodeca/js-yaml) for parsing things
+* [mathjs](https://mathjs.org/) for mathematical constraint solving and evaluation
+* [KaTeX](https://katex.org) for rendering mathematical typographic text
 
-For convenience, minified versions of the JS and CSS dependencies are included in this repository in the build/lib folder. This folder includes the necessary JS and CSS files as well as the fonts required for KaTex and Tufte CSS. To use these, add kg-lib.js and either kg-lib.css or kg-tufte.css. If your project already includes those libraries, you can just use kg.js.
+## Repository
+[https://github.com/Kinetonomics-Equilibria/KGJS-Equilibria](https://github.com/Kinetonomics-Equilibria/KGJS-Equilibria)
 
-
-## Code Development
-
-Please email me if you're interested in helping develop the code. Most development occurs during the summer months when I'm not teaching. :)

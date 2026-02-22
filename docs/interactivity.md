@@ -9,7 +9,7 @@ The `KineticGraph` class inherits from `EventEmitter3`. This gives the host appl
 Currently, the engine exposes a global `KG_EVENTS` enum:
 
 ```js
-import { KineticGraph, KG_EVENTS } from "equilibria-engine";
+import { KineticGraph, KG_EVENTS } from "equilibria-engine-js";
 
 const kg = new KineticGraph(config);
 kg.mount(document.getElementById('container'));

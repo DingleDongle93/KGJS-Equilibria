@@ -1,6 +1,6 @@
 {
-  "name": "kgjs",
-  "version": "2.0.0",
+  "name": "equilibria-engine-js",
+  "version": "1.0.1",
   "description": "Headless js renderer for kineticgraphs",
   "main": "dist/kgjs.cjs.js",
   "module": "dist/kgjs.es.js",
@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cmakler/kgjs.git"
+    "url": "git+https://github.com/Kinetonomics-Equilibria/KGJS-Equilibria.git"
   },
   "author": "Chris Makler / KGJS Equilibria Fork",
   "license": "MIT"
