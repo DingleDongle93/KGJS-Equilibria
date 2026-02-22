@@ -102,4 +102,10 @@ export { EndArrow } from './defObjects/arrowDef';
 
 import * as AllClasses from './index';
 import { KGAuthorClasses } from './classRegistry';
-Object.assign(KGAuthorClasses, AllClasses);
+
+for (const key in AllClasses) {
+    Object.defineProperty(KGAuthorClasses, key, {
+        get: () => (AllClasses as any)[key],
+        enumerable: true
+    });
+}

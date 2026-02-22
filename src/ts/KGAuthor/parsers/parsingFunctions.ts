@@ -19,7 +19,7 @@ export function parse(data: TypeAndDef[], parsedData) {
         if (Object.prototype.hasOwnProperty.call(KGAuthorClasses, obj.type)) {
             parsedData = new KGAuthorClasses[obj.type](obj.def).parse(parsedData);
         } else {
-            console.log("Sorry, there's no ", obj.type, " object type in KGAuthor. Maybe you have a typo?")
+            // console.log("Sorry, there's no ", obj.type, " object type in KGAuthor. Maybe you have a typo?")
         }
     });
     return parsedData;

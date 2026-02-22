@@ -145,14 +145,15 @@ export class Model implements IModel {
                 params: params,
                 calcs: calcs,
                 idioms: idioms,
-                colors: colors
+                colors: colors,
+                d3: { schemeCategory10: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'] }
             });
             //onsole.log('parsed', name, 'as ', result);
             return result;
         } catch (err: any) {
 
             // if that doesn't work, try to evaluate using native js eval
-            console.log('MathJS error evaluating', name, ':', err.message);
+            // console.log('MathJS error evaluating', name, ':', err.message);
 
             if (onlyJSMath) {
                 return name;

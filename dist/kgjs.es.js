@@ -148,10 +148,11 @@ class Model {
         params,
         calcs,
         idioms,
-        colors
+        colors,
+        d3: { schemeCategory10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] }
       });
     } catch (err) {
-      if (console.log("MathJS error evaluating", name, ":", err.message), onlyJSMath)
+      if (onlyJSMath)
         return name;
       try {
         let result = eval(name);
@@ -443,7 +444,7 @@ class Marker extends ViewObject {
 const KGAuthorClasses = {};
 function parse(i, e) {
   return i.forEach(function(t) {
-    Object.prototype.hasOwnProperty.call(KGAuthorClasses, t.type) ? e = new KGAuthorClasses[t.type](t.def).parse(e) : console.log("Sorry, there's no ", t.type, " object type in KGAuthor. Maybe you have a typo?");
+    Object.prototype.hasOwnProperty.call(KGAuthorClasses, t.type) && (e = new KGAuthorClasses[t.type](t.def).parse(e));
   }), e;
 }
 function replaceVariable(i, e, t) {
