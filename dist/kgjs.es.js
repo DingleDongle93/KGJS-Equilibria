@@ -201,7 +201,7 @@ class Model {
   }
   update(i) {
     const e = this;
-    e.currentParamValues = e.evalParams(), e.evalCalcs(), console.log("calcs", e.currentCalcValues), e.currentColors = e.evalObject(e.colors), e.updateListeners.forEach(function(t) {
+    e.currentParamValues = e.evalParams(), e.evalCalcs(), e.currentColors = e.evalObject(e.colors), e.updateListeners.forEach(function(t) {
       t.update(i);
     });
   }
@@ -975,12 +975,12 @@ class View {
         const a = Object.keys(e.layout)[0], l = e.layout[a];
         e.objects.push({ type: a, def: l });
       }
-    return e.hasOwnProperty("explanation") && e.objects.push({ type: "Explanation", def: e.explanation }), e.hasOwnProperty("schema") && (r.get("custom") && (n.custom = r.get("custom")), e.objects.push({ type: e.schema, def: { custom: n.custom } })), console.log("parsed data: ", n), parse(e.objects, n);
+    return e.hasOwnProperty("explanation") && e.objects.push({ type: "Explanation", def: e.explanation }), e.hasOwnProperty("schema") && (r.get("custom") && (n.custom = r.get("custom")), e.objects.push({ type: e.schema, def: { custom: n.custom } })), parse(e.objects, n);
   }
   render(e, t) {
     let r = this;
     const n = r.parse(e, t);
-    console.log("parsedData: ", n), t.innerHTML = "", r.aspectRatio = e.aspectRatio || n.aspectRatio || 1, r.model = new Model(n), r.scales = n.scales.map(function(a) {
+    t.innerHTML = "", r.aspectRatio = e.aspectRatio || n.aspectRatio || 1, r.model = new Model(n), r.scales = n.scales.map(function(a) {
       return a.model = r.model, new Scale(a);
     }), r.div = d3.select(t).style("position", "relative"), r.svgContainerDiv = r.div.append("div").style("position", "absolute").style("left", "0px").style("top", "0px"), n.nosvg || (r.svg = r.svgContainerDiv.append("svg").style("overflow", "visible").style("pointer-events", "none")), r.addViewObjects(n), r.parsedData = n;
   }

@@ -239,7 +239,7 @@ export class Model implements IModel {
         const model = this;
         model.currentParamValues = model.evalParams();
         model.evalCalcs();
-        console.log('calcs', model.currentCalcValues);
+
         model.currentColors = model.evalObject(model.colors);
         model.updateListeners.forEach(function (listener) {
             listener.update(force)

@@ -192,7 +192,7 @@ export class View implements IView {
             data.objects.push({ type: data.schema, def: { custom: parsedData.custom } })
         }
 
-        console.log('parsed data: ', parsedData)
+
 
         return parse(data.objects, parsedData);
     }
@@ -200,7 +200,7 @@ export class View implements IView {
     render(data, div) {
         let view = this;
         const parsedData = view.parse(data, div);
-        console.log('parsedData: ', parsedData);
+
         div.innerHTML = "";
 
         view.aspectRatio = data.aspectRatio || parsedData.aspectRatio || 1;
