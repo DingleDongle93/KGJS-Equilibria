@@ -446,15 +446,20 @@ class ye {
     const n = this;
     if (!isNaN(parseFloat(t)))
       return parseFloat(t);
-    const r = n.currentParamValues, i = n.currentCalcValues, s = n.currentColors, a = n.currentIdioms;
+    const r = n.currentParamValues, i = n.currentCalcValues, s = n.currentColors, a = n.currentIdioms, l = {
+      ...r,
+      ...i,
+      ...s,
+      ...a,
+      // Preserve the nested objects for backwards compatibility
+      params: r,
+      calcs: i,
+      idioms: a,
+      colors: s,
+      d3: { schemeCategory10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] }
+    };
     try {
-      return z.compile(t).evaluate({
-        params: r,
-        calcs: i,
-        idioms: a,
-        colors: s,
-        d3: { schemeCategory10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] }
-      });
+      return z.compile(t).evaluate(l);
     } catch {
       return t;
     }

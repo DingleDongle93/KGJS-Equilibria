@@ -133,18 +133,24 @@ export class Model implements IModel {
             colors = model.currentColors,
             idioms = model.currentIdioms;
 
-        //console.log('trying to parse ', name);
+        // Create a flattened scope for MathJS so names like "demand" or "price" work directly
+        const flatScope = {
+            ...params,
+            ...calcs,
+            ...colors,
+            ...idioms,
+            // Preserve the nested objects for backwards compatibility
+            params: params,
+            calcs: calcs,
+            idioms: idioms,
+            colors: colors,
+            d3: { schemeCategory10: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'] }
+        };
 
         // try to evaluate using mathjs
         try {
             const compiledMath = math.compile(name);
-            let result = compiledMath.evaluate({
-                params: params,
-                calcs: calcs,
-                idioms: idioms,
-                colors: colors,
-                d3: { schemeCategory10: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'] }
-            });
+            let result = compiledMath.evaluate(flatScope);
             //onsole.log('parsed', name, 'as ', result);
             return result;
         } catch (err: any) {
