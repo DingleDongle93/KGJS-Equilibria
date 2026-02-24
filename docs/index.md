@@ -1,9 +1,9 @@
-# KGJS-Equilibria documentation
+# Equilibria Engine Documentation
 
-Welcome to the documentation for **KGJS-Equilibria**, a headless Javascript rendering engine for interactive kinetic graphs. 
+Welcome to the documentation for the **Equilibria Engine** (`equilibria-engine-js`), a headless Javascript rendering engine for interactive kinetic graphs. 
 
 > [!NOTE] 
-> **Acknowlegement:** This project is a hard fork of the excellent [KGJS](https://github.com/cmakler/kgjs) engine originally created by Chris Makler. The intent of the Equilibria fork is to decouple the core mathematical engine from its original monolithic application structure, making it substantially easier for developers to integrate economic models into modern websites, SPAs (React/Vue/Svelte), and custom data visualization pipelines.
+> **Acknowledgement:** This project is a hard fork of the excellent [KGJS](https://github.com/cmakler/kgjs) engine originally created by Chris Makler. The intent of the Equilibria fork is to decouple the core mathematical engine from its original monolithic application structure, making it substantially easier for developers to integrate economic models into modern websites, SPAs (React/Vue/Svelte), and custom data visualization pipelines.
 
 The primary purpose of the engine is to interpret economic models, data structures, and views defined in JSON/YAML configuration formats and render them into standalone, highly interactive diagrams.
 
@@ -25,8 +25,19 @@ The engine focuses solely on translating configuration logic into an interactive
 1. [Getting Started](./getting-started.md)
    Learn how to import the engine into your project, initialize it, and mount a graphic.
 2. [Architecture Overview](./architecture.md)
-   Understand the Model/View separation that makes the engine fast and flexible.
+   Understand the Model/View/Controller/KGAuthor separation that makes the engine fast and flexible.
 3. [Configuration Specification](./configuration.md)
-   Reference for the JSON schema: declaring params, scales, and view objects.
+   Reference for the configuration schema: declaring params, scales, layouts, and view objects.
 4. [Interactivity & API](./interactivity.md)
    Communicate with the running engine by triggering updates and listening to events.
+
+### Schema Guides
+
+For detailed guidance on authoring YAML schemas with the KGAuthor transpiler:
+
+5. [Schema: Getting Started](./schema/01-getting-started.md)
+6. [Schema: Parameters & Interactions](./schema/02-parameters-and-interactions.md)
+7. [Schema: Layouts](./schema/03-layouts.md)
+8. [Schema: Graphs & Scales](./schema/04-graphs-and-scales.md)
+9. [Schema: Graph Objects](./schema/05-graph-objects.md)
+10. [Schema: Economic Components](./schema/06-econ-objects.md)

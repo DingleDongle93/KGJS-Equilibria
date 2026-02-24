@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide explains how to integrate the KGJS-Equilibria engine into a website or web application.
+This guide explains how to integrate the Equilibria engine into a website or web application.
 
 ## Installation
 
@@ -48,7 +48,7 @@ The engine reads a `config` object (typically from parsed JSON or YAML) that dic
 To render a graph:
 1. Create a container element in your HTML.
 2. Define or fetch the configuration object.
-3. Instantiate a new `KineticGraph`.
+3. Instantiate a new `KineticGraph`, optionally passing a second argument for engine options.
 4. Call `.mount()` to attach the graph to your container element.
 
 Here is a minimal functional component in Vanilla JS:
@@ -92,11 +92,34 @@ const kg = new KineticGraph(graphConfig);
 kg.mount(containerElement);
 ```
 
+### Engine Options
+
+The `KineticGraph` constructor accepts an optional second argument for engine-level options:
+
+```js
+const kg = new KineticGraph(graphConfig, {
+    legacyUrlOverrides: false // default: false. If true, reads URL query params
+                              // and container div attributes for param overrides.
+});
+```
+
 ## Responsive Layouts
 
-When `kg.mount()` is called, the engine binds an event listener to the `window` resize event. The graphic will naturally expand to fill the width of the `containerElement` you passed in, scaling the height based on the `aspectRatio` defined in the configuration. 
+When `kg.mount()` is called, the engine attaches a `ResizeObserver` scoped to the `containerElement`. The graphic will naturally expand to fill the width of the container, scaling the height based on the `aspectRatio` defined in the configuration.
+
+The engine also applies the `.kg-container` CSS class to the container element for theme activation.
 
 Ensure the container has a defined width logic (e.g. `width: 100%`) in your CSS.
+
+## Error Handling
+
+If the engine encounters an error during rendering, it emits an `'error'` event that you can listen for:
+
+```js
+kg.on('error', (err) => {
+    console.error("Engine rendering error:", err);
+});
+```
 
 ## Tearing Down
 
@@ -107,4 +130,8 @@ If you are using a single-page application framework (like React or Vue), it is 
 kg.destroy();
 ```
 
-This will clear the DOM contents, decouple D3 listeners, and remove any event emitter subscriptions.
+This will:
+- Disconnect the `ResizeObserver` monitoring the container
+- Remove the `.kg-container` CSS class from the container
+- Clear the container's `innerHTML`
+- Remove all event listeners

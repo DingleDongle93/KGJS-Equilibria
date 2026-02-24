@@ -1,12 +1,20 @@
 # API & Interactivity
 
-The power of the KGJS-Equilibria engine lies in allowing the host web application (the outside code) to communicate two-ways with the configured mathematical visualizations.
+The power of the Equilibria engine lies in allowing the host web application (the outside code) to communicate two-ways with the configured mathematical visualizations.
 
-## Emitting Events
+## Events
 
-The `KineticGraph` class inherits from `EventEmitter3`. This gives the host application the ability to attach subscriptions to interactions happening on the graph.
+The `KineticGraph` class extends `EventEmitter3`. This gives the host application the ability to attach subscriptions to interactions happening on the graph.
 
-Currently, the engine exposes a global `KG_EVENTS` enum:
+The engine exposes a `KG_EVENTS` object with the following event keys:
+
+| Event Key | Event Name | Description |
+|-----------|------------|-------------|
+| `KG_EVENTS.PARAM_CHANGED` | `'kg:param_changed'` | Fired when a parameter value changes (e.g., via drag interaction). |
+| `KG_EVENTS.CURVE_DRAGGED` | `'kg:curve_dragged'` | Fired when a curve element is dragged by the user. |
+| `KG_EVENTS.NODE_HOVER` | `'kg:node_hover'` | Fired when the user hovers over an interactive node. |
+
+### Listening for Events
 
 ```js
 import { KineticGraph, KG_EVENTS } from "equilibria-engine-js";
@@ -14,12 +22,26 @@ import { KineticGraph, KG_EVENTS } from "equilibria-engine-js";
 const kg = new KineticGraph(config);
 kg.mount(document.getElementById('container'));
 
-// Listen for updates explicitly triggered from the interaction layer
-kg.on('update', (eventData) => {
-    console.log("Graph model updated!", eventData);
+// Listen for parameter changes from user interactions
+kg.on(KG_EVENTS.PARAM_CHANGED, (eventData) => {
+    console.log("Parameter changed!", eventData);
+});
+
+// Listen for curve drag interactions
+kg.on(KG_EVENTS.CURVE_DRAGGED, (eventData) => {
+    console.log("Curve dragged!", eventData);
 });
 ```
-*(Note: Complete payloads emitting the full parameter slate on interaction are continually being extended into the main `interactionHandler.ts` update loop.)*
+
+### Error Handling
+
+The engine emits an `'error'` event if the rendering pipeline encounters an exception during `mount()`:
+
+```js
+kg.on('error', (err) => {
+    console.error("Engine error:", err);
+});
+```
 
 ## Updating Param State Programmatically
 
@@ -34,7 +56,7 @@ You perform updates by feeding partial configs, specifically targeting the `para
 
 function handlePriceSliderChange(newPriceValue) {
     
-    // Call .update() with a partial config containing the new parameter parameters
+    // Call .update() with a partial config containing the new parameter values
     kg.update({
         params: [
             { name: "price", value: newPriceValue }

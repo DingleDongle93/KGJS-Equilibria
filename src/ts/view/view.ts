@@ -8,6 +8,7 @@ import { ScaleDefinition, Scale } from "./scale";
 import { MarkerDefinition, Marker } from "./viewObjects/marker";
 import { ViewObjectDefinition } from "./viewObjects/viewObject";
 import { parse } from "../KGAuthor/parsers/parsingFunctions";
+import "../KGAuthor/index"; // side-effect: registers all KGAuthor classes into the registry
 import { ViewObjectClasses } from "./viewObjects/index";
 import * as d3 from "d3";
 
@@ -211,6 +212,8 @@ export class View implements IView {
     render(data, div) {
         let view = this;
         const parsedData = view.parse(data, div);
+
+
 
         div.innerHTML = "";
 

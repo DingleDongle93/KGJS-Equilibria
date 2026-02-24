@@ -30,8 +30,12 @@ export class KineticGraph extends EventEmitter {
         this.container.classList.add('kg-container');
 
         try {
+            // Deep-clone the config so View.parse() mutations don't
+            // contaminate the caller's original object (avoids circular refs)
+            const configClone = JSON.parse(JSON.stringify(this.config));
+
             // The View binds to the DOM and sets up D3 automatically
-            this.view = new View(this.container, this.config, {
+            this.view = new View(this.container, configClone, {
                 legacyUrlOverrides: !!this.options.legacyUrlOverrides
             });
 

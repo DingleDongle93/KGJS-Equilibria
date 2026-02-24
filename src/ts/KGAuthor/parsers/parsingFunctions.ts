@@ -244,13 +244,17 @@ export function parseFn(def, authorName, codeName) {
                 samplePoints: def.samplePoints
             }
         } else {
-            def[codeName] = {
+            // Only include min/max/samplePoints if they are actually defined;
+            // otherwise setDefaults downstream won't apply proper defaults
+            // (hasOwnProperty returns true for explicit undefined values).
+            const fnDef: any = {
                 fn: def[authorName],
-                ind: (def[authorName].indexOf('(y)') > -1) ? 'y' : 'x',
-                min: def.min,
-                max: def.max,
-                samplePoints: def.samplePoints
-            }
+                ind: (def[authorName].indexOf('(y)') > -1) ? 'y' : 'x'
+            };
+            if (def.min != null) fnDef.min = def.min;
+            if (def.max != null) fnDef.max = def.max;
+            if (def.samplePoints != null) fnDef.samplePoints = def.samplePoints;
+            def[codeName] = fnDef;
         }
     }
 }

@@ -19,16 +19,16 @@ export class Schema extends AuthoringObject {
     constructor(def: SchemaDefinition) {
 
         const palette = {
-            blue: 'd3.schemeCategory10[0]',     //#3182bd
-            orange: 'd3.schemeCategory10[1]',   //#e6550d
-            green: 'd3.schemeCategory10[2]',    //#31a354
-            red: 'd3.schemeCategory10[3]',      //#d62728
-            purple: 'd3.schemeCategory10[4]',   //#756bb1
-            brown: 'd3.schemeCategory10[5]',    //#8c6d31
-            magenta: 'd3.schemeCategory10[6]',  //#7b4173
-            grey: 'd3.schemeCategory10[7]',     //#636363
-            gray: 'd3.schemeCategory10[7]',     //#636363
-            olive: 'd3.schemeCategory10[8]'     //#637939
+            blue: 'd3.schemeCategory10[1]',     //#1f77b4
+            orange: 'd3.schemeCategory10[2]',   //#ff7f0e
+            green: 'd3.schemeCategory10[3]',    //#2ca02c
+            red: 'd3.schemeCategory10[4]',      //#d62728
+            purple: 'd3.schemeCategory10[5]',   //#9467bd
+            brown: 'd3.schemeCategory10[6]',    //#8c564b
+            magenta: 'd3.schemeCategory10[7]',  //#e377c2
+            grey: 'd3.schemeCategory10[8]',     //#7f7f7f
+            gray: 'd3.schemeCategory10[8]',     //#7f7f7f
+            olive: 'd3.schemeCategory10[9]'     //#bcbd22
         };
 
         for (const color in def.colors) {
