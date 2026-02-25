@@ -1,6 +1,7 @@
 import { setDefaults, setProperties } from "../../util";
 import { ViewObjectDefinition, ViewObject } from "./viewObject";
 import * as katex from "katex";
+import * as d3 from "d3";
 
 
 
@@ -88,8 +89,10 @@ export class Label extends ViewObject {
     draw(layer) {
         let label = this;
 
-        label.rootElement = layer.selectAll('div.rootElement-' + label.id).data([1]).join('div').attr('class', 'rootElement-' + label.id)
-            .attr('class', 'draggable')
+        const container = (label.def as ViewObjectDefinition).svgContainerDiv || d3.select(layer.node().parentNode.parentNode);
+
+        label.rootElement = container.selectAll('div.rootElement-' + label.id).data([1]).join('div')
+            .attr('class', 'rootElement-' + label.id + ' draggable')
             .style('position', 'absolute')
             .style('font-size', label.fontSize + 'pt')
             .style('text-align', 'center')
@@ -108,20 +111,30 @@ export class Label extends ViewObject {
 
         const x = label.xScale.scale(label.x) + (+label.xPixelOffset),
             y = label.yScale.scale(label.y) - (+label.yPixelOffset);
-        if (undefined != label.text) {
-            if (label.plainText) {
-                //console.log('rendering label as plain text: ', label.text)
-                label.rootElement.text(label.text);
-            } else {
-                //console.log('rendering label as LaTeX: ', label.text)
-                try {
-                    katex.render(label.text.toString(), label.rootElement.node());
-                }
-                catch (e) {
-                    console.log("Error rendering KaTeX: ", label.text);
-                }
+
+        let displayText = label.text;
+        if (undefined != displayText) {
+            if (typeof displayText === 'string') {
+                // Dynamically evaluate templates wrapped in `(varName)` using the model
+                displayText = displayText.replace(/`\(([^)]+)\)`/g, (match, p1) => {
+                    const evaluated = label.model.evaluate(p1);
+                    // Ensure we don't return [object Object] or undefined if eval fails softly
+                    return (evaluated !== undefined && typeof evaluated !== 'object') ? String(evaluated) : match;
+                });
             }
 
+            if (label.plainText) {
+                //console.log('rendering label as plain text: ', displayText)
+                label.rootElement.text(displayText);
+            } else {
+                //console.log('rendering label as LaTeX: ', displayText)
+                try {
+                    katex.render(displayText, label.rootElement.node());
+                }
+                catch (e) {
+                    console.log("Error rendering KaTeX: ", displayText);
+                }
+            }
         }
         label.rootElement.style('left', x + 'px');
         label.rootElement.style('top', y + 'px');

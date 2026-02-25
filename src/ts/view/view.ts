@@ -264,6 +264,7 @@ export class View implements IView {
 
         def.model = view.model;
         def.layer = layer;
+        def.svgContainerDiv = view.svgContainerDiv;
         def.xScale = getScale(def['xScaleName']);
         def.yScale = getScale(def['yScaleName']);
         if (def.hasOwnProperty('xScale2Name')) {
@@ -344,7 +345,15 @@ export class View implements IView {
 
         } // close view.svg check
 
-        // divs processing removed to support headless pattern
+        // process divs (like labels that overlay the svg)
+        if (data.divs && data.divs.length > 0) {
+            const divLayer = view.svgContainerDiv;
+            data.divs.forEach(function (td: TypeAndDef) {
+                let def: ViewObjectDefinition = td.def;
+                def = view.addViewToDef(def, divLayer);
+                new ViewObjectClasses[td.type](def);
+            });
+        }
 
         view.updateDimensions();
     }

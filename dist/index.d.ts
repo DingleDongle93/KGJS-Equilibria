@@ -238,6 +238,7 @@ declare interface ViewDefinition {
 
 declare interface ViewObjectDefinition extends UpdateListenerDefinition {
     layer?: any;
+    svgContainerDiv?: any;
     name?: string;
     tabbable?: boolean;
     srTitle?: string;

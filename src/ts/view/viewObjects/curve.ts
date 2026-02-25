@@ -64,7 +64,7 @@ export class Curve extends ViewObject {
             });
 
         curve.rootElement = layer.selectAll('g.rootElement-' + curve.id).data([1]).join('g').attr('class', 'rootElement-' + curve.id);
-        curve.dragPath = curve.rootElement.selectAll('path.dragPath-' + curve.id).data([1]).join('path').attr('class', 'dragPath-' + curve.id).attr('stroke-width', '20px').style('stroke-opacity', 0).style('fill', 'none');
+        curve.dragPath = curve.rootElement.selectAll('path.dragPath-' + curve.id).data([1]).join('path').attr('class', 'dragPath-' + curve.id).attr('stroke-width', '20px').style('stroke', 'yellow').style('stroke-opacity', 0).style('fill', 'none');
         curve.path = curve.rootElement.selectAll('path.path-' + curve.id).data([1]).join('path').attr('class', 'path-' + curve.id).style('fill', 'none');
         curve.addScreenReaderDescriptions(curve.path);
         curve.path.on("focus", function () { curve.dragPath.style('fill', 'yellow') });
