@@ -37,7 +37,7 @@ export class UnivariateFunction extends MathFunction implements IUnivariateFunct
     public yFnZStringDef;
 
     constructor(def: UnivariateFunctionDefinition) {
-
+        if (!def) { def = {} as UnivariateFunctionDefinition; }
         setDefaults(def, {
             ind: 'x'
         });

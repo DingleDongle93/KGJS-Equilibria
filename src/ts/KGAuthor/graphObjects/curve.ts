@@ -51,7 +51,7 @@ export class Curve extends GraphObject {
         }
 
         if (def.hasOwnProperty('areaAbove')) {
-            setDefaults(def.areaBelow, {
+            setDefaults(def.areaAbove, {
                 color: def.color
             });
             parseFill(def, 'areaAbove');

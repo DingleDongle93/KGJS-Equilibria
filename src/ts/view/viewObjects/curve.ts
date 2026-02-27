@@ -75,14 +75,14 @@ export class Curve extends ViewObject {
     // update properties
     redraw() {
         let curve = this;
-        if (curve.hasOwnProperty('univariateFunction')) {
+        if (curve.univariateFunction != undefined) {
             const fn = curve.univariateFunction,
                 scale = fn.ind == 'y' ? curve.yScale : curve.xScale;
             fn.generateData(scale.domainMin, scale.domainMax);
             curve.dragPath.data([fn.data]).attr('d', curve.dataLine);
             curve.path.data([fn.data]).attr('d', curve.dataLine);
         }
-        if (curve.hasOwnProperty('parametricFunction')) {
+        if (curve.parametricFunction != undefined) {
             const fn = curve.parametricFunction;
             fn.generateData();
             curve.dragPath.data([fn.data]).attr('d', curve.dataLine);
@@ -96,12 +96,12 @@ export class Curve extends ViewObject {
     update(force) {
         let curve = super.update(force);
         if (!curve.hasChanged) {
-            if (curve.hasOwnProperty('univariateFunction')) {
+            if (curve.univariateFunction != undefined) {
                 if (curve.univariateFunction.hasChanged) {
                     curve.redraw();
                 }
             }
-            if (curve.hasOwnProperty('parametricFunction')) {
+            if (curve.parametricFunction != undefined) {
                 if (curve.parametricFunction.hasChanged) {
                     curve.redraw();
                 }
