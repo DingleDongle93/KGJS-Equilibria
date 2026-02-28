@@ -49,7 +49,11 @@ export class Graph extends PositionedObject {
             def: g.def.yAxis
         });
         g.def.objects.forEach(function (obj) {
-            g.subObjects.push(new KGAuthorClasses[obj.type](obj.def, g))
+            if (Object.prototype.hasOwnProperty.call(KGAuthorClasses, obj.type)) {
+                g.subObjects.push(new KGAuthorClasses[obj.type](obj.def, g));
+            } else {
+                console.warn("Graph object type not found in KGAuthorClasses: ", obj.type);
+            }
         });
 
     }

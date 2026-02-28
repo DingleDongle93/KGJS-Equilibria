@@ -43,6 +43,7 @@ export { Circle } from './graphObjects/circle';
 export { Axis } from './graphObjects/axis';
 export { Arrow } from './graphObjects/arrow';
 export { Area } from './graphObjects/area';
+export { Label } from './graphObjects/label';
 export { AngleMarker } from './graphObjects/angle';
 export { Angle } from './graphObjects/angle';
 export { LowdownSchema } from './econ/schemas/lowdownSchema';

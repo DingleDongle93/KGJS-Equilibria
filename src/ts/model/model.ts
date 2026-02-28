@@ -107,7 +107,7 @@ export class Model implements IModel {
                 newObj[stringOrObj] = def;
             }
             else if (typeof def === 'string') {
-                newObj[stringOrObj] = model.evaluate(def, onlyJSMath)
+                newObj[stringOrObj] = model.evaluate(def, onlyJSMath);
             } else {
                 newObj[stringOrObj] = model.evalObject(def, onlyJSMath)
             }
@@ -188,30 +188,35 @@ export class Model implements IModel {
     }
 
 
-    // method exposed to viewObjects to allow them to try to change a parameter
     updateParam(name: string, newValue: any) {
         let model = this,
             param = model.getParam(name);
         const oldValue = param.value;
         param.update(newValue);
-        // if param has changed, check to make sure the change is val
+
+        // if param has changed, check to make sure the change is valid
         if (oldValue != param.value) {
 
-            //restrictions aren't working right now
+            // Hypothesize the new state values computationally so restrictions evaluate the NEW mathematical state
+            model.currentParamValues = model.evalParams();
+            model.evalCalcs();
 
             let valid = true;
             model.restrictions.forEach(function (r) {
                 if (!r.valid(model)) {
-                    valid = false
+                    valid = false;
                 }
             });
+
             if (valid) {
+                // If the hypothetical is strictly legal, proceed with a full broadcast update
                 model.update(false);
             } else {
+                // Otherwise rollback safely
                 param.update(oldValue);
+                model.currentParamValues = model.evalParams();
+                model.evalCalcs();
             }
-
-            model.update(false);
         }
     }
 
@@ -236,6 +241,8 @@ export class Model implements IModel {
         model.evalCalcs();
 
         model.currentColors = model.evalObject(model.colors);
+        model.currentIdioms = model.evalObject(model.idioms);
+
         model.updateListeners.forEach(function (listener) {
             listener.update(force)
         });

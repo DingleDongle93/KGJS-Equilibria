@@ -50,7 +50,7 @@ export class Schema extends AuthoringObject {
     parseSelf(parsedData: ViewDefinition) {
         const colors = this.colors;
         parsedData.colors = setDefaults(parsedData.colors || {}, colors);
-        parsedData.idioms = this.idioms;
+        parsedData.idioms = this.idioms || parsedData.idioms;
         return parsedData;
     }
 

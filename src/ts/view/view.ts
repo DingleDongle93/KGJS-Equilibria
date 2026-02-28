@@ -157,7 +157,7 @@ export class View implements IView {
             calcs: data.calcs || {},
             colors: data.colors || {},
             custom: data.custom || "",
-            idioms: {},
+            idioms: data.idioms || {},
             restrictions: data.restrictions,
             clipPaths: data.clipPaths || [],
             markers: data.markers || [],
@@ -245,7 +245,7 @@ export class View implements IView {
         }
 
         view.addViewObjects(parsedData);
-        view.parsedData = parsedData;
+        this.parsedData = parsedData;
     }
 
     // add view information (model, layer, scales) to an object
@@ -291,7 +291,11 @@ export class View implements IView {
                     const clipPathLayer = defLayer.append('clipPath').attr('id', clipPathURL);
                     def.paths.forEach(function (td) {
                         td.def.inDef = true;
-                        new ViewObjectClasses[td.type](view.addViewToDef(td.def, clipPathLayer));
+                        if (Object.prototype.hasOwnProperty.call(ViewObjectClasses, td.type)) {
+                            new ViewObjectClasses[td.type](view.addViewToDef(td.def, clipPathLayer));
+                        } else {
+                            console.warn("ViewObject type not found in ViewObjectClasses: ", td.type);
+                        }
                     });
                     defURLS[def.name] = clipPathURL;
                 });
@@ -338,7 +342,11 @@ export class View implements IView {
                             def.endArrow = defURLS[def['endArrowName']]
                         }
                         def = view.addViewToDef(def, layer);
-                        new ViewObjectClasses[td.type](def);
+                        if (Object.prototype.hasOwnProperty.call(ViewObjectClasses, td.type)) {
+                            new ViewObjectClasses[td.type](def);
+                        } else {
+                            console.warn("ViewObject type not found in ViewObjectClasses: ", td.type);
+                        }
                     })
                 }
             });
@@ -351,7 +359,11 @@ export class View implements IView {
             data.divs.forEach(function (td: TypeAndDef) {
                 let def: ViewObjectDefinition = td.def;
                 def = view.addViewToDef(def, divLayer);
-                new ViewObjectClasses[td.type](def);
+                if (Object.prototype.hasOwnProperty.call(ViewObjectClasses, td.type)) {
+                    new ViewObjectClasses[td.type](def);
+                } else {
+                    console.warn("ViewObject type not found in ViewObjectClasses: ", td.type);
+                }
             });
         }
 

@@ -1,16 +1,16 @@
-import * as V from "mathjs";
+import * as _ from "mathjs";
 import * as f from "d3";
 import * as ce from "katex";
 const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   get Angle() {
-    return _e;
+    return Ve;
   },
   get AngleMarker() {
     return Zt;
   },
   get Area() {
-    return z;
+    return q;
   },
   get Arrow() {
     return Ne;
@@ -34,7 +34,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Be;
   },
   get ClipPath() {
-    return ot;
+    return st;
   },
   get CobbDouglasFunction() {
     return re;
@@ -52,10 +52,10 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Se;
   },
   get CrossGraphSegment() {
-    return Pe;
+    return Oe;
   },
   get CrossGraphVerticalDropline() {
-    return Oe;
+    return Pe;
   },
   get Curve() {
     return H;
@@ -70,7 +70,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return D;
   },
   get EconBundle() {
-    return pt;
+    return ht;
   },
   get EconCompetitiveDemand() {
     return qe;
@@ -121,7 +121,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Lt;
   },
   get EconMultivariateFunction() {
-    return et;
+    return nt;
   },
   get EconNetDemandCurve() {
     return cn;
@@ -139,7 +139,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return St;
   },
   get EconOptimalBundle() {
-    return at;
+    return lt;
   },
   get EconPPF() {
     return nn;
@@ -181,7 +181,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Yt;
   },
   get EndArrow() {
-    return On;
+    return Pn;
   },
   get EntryDeterrence() {
     return mn;
@@ -210,11 +210,14 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   get HorizontalDropline() {
     return Xt;
   },
+  get Label() {
+    return L;
+  },
   get Layout() {
     return N;
   },
   get Line() {
-    return ut;
+    return pt;
   },
   get LineCircleIntersection() {
     return Ge;
@@ -223,7 +226,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Kt;
   },
   get LowdownSchema() {
-    return Ve;
+    return _e;
   },
   get LowestCostBundle() {
     return Ye;
@@ -262,7 +265,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return te;
   },
   get Rectangle() {
-    return J;
+    return K;
   },
   get Scale() {
     return wt;
@@ -280,7 +283,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return Le;
   },
   get StartArrow() {
-    return Pn;
+    return On;
   },
   get ThreeHorizontalGraphs() {
     return je;
@@ -351,7 +354,7 @@ const It = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     return I;
   },
   get ViewObjectClasses() {
-    return yt;
+    return Z;
   }
 }, Symbol.toStringTag, { value: "Module" }));
 function u(o, t) {
@@ -394,8 +397,9 @@ class he {
     this.expression = t.expression, this.type = t.type, this.min = t.min, this.max = t.max;
   }
   valid(t) {
-    const e = this;
-    return t.evaluate(e.expression), t.evaluate(e.min), t.evaluate(e.max), !0;
+    const e = this, n = t.evaluate(e.expression);
+    let r = !0;
+    return e.min !== void 0 && (r = r && n >= t.evaluate(e.min)), e.max !== void 0 && (r = r && n <= t.evaluate(e.max)), r;
   }
 }
 class ye {
@@ -459,7 +463,7 @@ class ye {
       d3: { schemeCategory10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"] }
     };
     try {
-      return V.compile(t).evaluate(l);
+      return _.compile(t).evaluate(l);
     } catch {
       return t;
     }
@@ -479,15 +483,15 @@ class ye {
       if (e[n].name == t)
         return e[n];
   }
-  // method exposed to viewObjects to allow them to try to change a parameter
   updateParam(t, e) {
     let n = this, r = n.getParam(t);
     const i = r.value;
     if (r.update(e), i != r.value) {
+      n.currentParamValues = n.evalParams(), n.evalCalcs();
       let s = !0;
       n.restrictions.forEach(function(a) {
         a.valid(n) || (s = !1);
-      }), s ? n.update(!1) : r.update(i), n.update(!1);
+      }), s ? n.update(!1) : (r.update(i), n.currentParamValues = n.evalParams(), n.evalCalcs());
     }
   }
   // method exposed to viewObjects to allow them to toggle a binary param
@@ -503,25 +507,25 @@ class ye {
   }
   update(t) {
     const e = this;
-    e.currentParamValues = e.evalParams(), e.evalCalcs(), e.currentColors = e.evalObject(e.colors), e.updateListeners.forEach(function(n) {
+    e.currentParamValues = e.evalParams(), e.evalCalcs(), e.currentColors = e.evalObject(e.colors), e.currentIdioms = e.evalObject(e.idioms), e.updateListeners.forEach(function(n) {
       n.update(t);
     });
   }
 }
-function L(o) {
+function $(o) {
   let t = "KGID_";
   const e = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let n = 0; n < o; n++)
     t += e.charAt(Math.floor(Math.random() * e.length));
   return t;
 }
-class ht {
+class yt {
   constructor(t) {
     t.constants = (t.constants || []).concat(["model", "updatables", "name"]);
     let e = this;
     e.def = t, t.constants.forEach(function(n) {
       e[n] = isNaN(parseFloat(t[n])) ? t[n] : +t[n];
-    }), e.id = L(10), e.model.addUpdateListener(this);
+    }), e.id = $(10), e.model.addUpdateListener(this);
   }
   updateArray(t) {
     let e = this;
@@ -555,7 +559,7 @@ class ht {
     }), e;
   }
 }
-let me = class extends ht {
+let me = class extends yt {
   constructor(t) {
     u(t, {
       log: !1
@@ -574,7 +578,7 @@ let me = class extends ht {
     return n.extent = n.axis == "x" ? t : e, n.update(!0);
   }
 };
-class xe extends ht {
+class xe extends yt {
   constructor(t) {
     t.dragListeners = t.dragListeners || [], t.clickListeners = t.clickListeners || [], t.constants = (t.constants || []).concat(["viewObject", "dragListeners", "clickListeners"]), super(t), this.dragListeners = t.dragListeners, this.clickListeners = t.clickListeners, this.viewObject = t.viewObject, this.update(!0), this.scope = { params: {}, calcs: {}, colors: {}, drag: {} };
   }
@@ -607,13 +611,13 @@ class xe extends ht {
     ), e.update(!0);
   }
 }
-class Tt extends ht {
+class Tt extends yt {
   constructor(t) {
     C(t, "updatables", ["expression"]), C(t, "constants", ["param"]), super(t);
   }
   onChange(t) {
     const e = this;
-    let r = V.compile(e.expression).evaluate(t);
+    let r = _.compile(e.expression).evaluate(t);
     e.model.updateParam(e.param, r);
   }
 }
@@ -637,7 +641,7 @@ class be extends Tt {
     return e.def.hasOwnProperty("draggable") || (e.draggable = e.directions.length > 0), e;
   }
 }
-class I extends ht {
+class I extends yt {
   constructor(t) {
     u(t, {
       alwaysUpdate: !1,
@@ -778,72 +782,72 @@ class Et extends M {
     return delete this.def.clipPathName, t.clipPaths.push(this.def), t;
   }
 }
-class ot extends Et {
+class st extends Et {
   parseSelf(t) {
     return delete this.def.clipPathName, t.clipPaths.push(this.def), t;
   }
 }
-const Q = {};
+const z = {};
 class T extends M {
   constructor(t, e) {
-    t.hasOwnProperty("clipPaths") && (t.clipPathName = L(10)), u(t, {
-      name: L(10)
+    t.hasOwnProperty("clipPaths") && (t.clipPathName = $(10)), u(t, {
+      name: $(10)
     }), super(t, e);
     let n = this;
     if (t.hasOwnProperty("color") && (n.color = t.color), t.hasOwnProperty("clipPaths")) {
       let r = t.clipPaths.map(function(i) {
         const s = Object.keys(i)[0];
         let a = i[s];
-        return a.inDef = !0, new Q[s](a, e);
+        return a.inDef = !0, new z[s](a, e);
       });
-      n.subObjects.push(new ot({ name: t.clipPathName, paths: r }, e));
+      n.subObjects.push(new st({ name: t.clipPathName, paths: r }, e));
     }
   }
   parseSelf(t) {
     return t.layers[this.layer].push(this), t;
   }
 }
-let k = class extends T {
+let L = class extends T {
   constructor(t, e) {
     t.hasOwnProperty("position") && (t.position.toLowerCase() == "bl" && (t.xPixelOffset = 5, t.yPixelOffset = 10, t.align = "left"), t.position.toLowerCase() == "tr" && (t.xPixelOffset = -5, t.yPixelOffset = -12, t.align = "right")), super(t, e), this.type = "Label", this.extractCoordinates();
   }
   parseSelf(t) {
     return t.divs.push({ type: this.type, def: this.def }), t;
   }
-}, z = class extends T {
+}, q = class extends T {
   constructor(t, e) {
     u(t, {
       color: "colors.blue",
       opacity: 0.2
-    }), t = st(t), Z(t, "fn", "univariateFunction1"), Z(t, "fn1", "univariateFunction1"), Z(t, "fn2", "univariateFunction2"), super(t, e), this.type = "Area", this.layer = t.layer || 0;
+    }), t = at(t), J(t, "fn", "univariateFunction1"), J(t, "fn1", "univariateFunction1"), J(t, "fn2", "univariateFunction2"), super(t, e), this.type = "Area", this.layer = t.layer || 0;
   }
 }, H = class extends T {
   constructor(t, e) {
-    t = q(t), Z(t, "fn", "univariateFunction"), Z(t, "xFn", "parametricFunction"), super(t, e);
+    t = X(t), J(t, "fn", "univariateFunction"), J(t, "xFn", "parametricFunction"), super(t, e);
     const n = this;
     if (n.type = "Curve", n.layer = t.layer || 1, n.pts = t.pts || [], t.hasOwnProperty("areaBelow") && (u(t.areaBelow, {
       color: t.color
-    }), Rt(t, "areaBelow"), u(t.areaBelow, t.univariateFunction), Z(t.areaBelow, "fn", "univariateFunction1"), n.subObjects.push(new z(t.areaBelow, e))), t.hasOwnProperty("areaAbove") && (u(t.areaAbove, {
+    }), Rt(t, "areaBelow"), u(t.areaBelow, t.univariateFunction), J(t.areaBelow, "fn", "univariateFunction1"), n.subObjects.push(new q(t.areaBelow, e))), t.hasOwnProperty("areaAbove") && (u(t.areaAbove, {
       color: t.color
-    }), Rt(t, "areaAbove"), u(t.areaAbove, t.univariateFunction), Z(t.areaAbove, "fn", "univariateFunction1"), t.areaAbove.above = !0, n.subObjects.push(new z(t.areaAbove, e))), t.hasOwnProperty("label")) {
+    }), Rt(t, "areaAbove"), u(t.areaAbove, t.univariateFunction), J(t.areaAbove, "fn", "univariateFunction1"), t.areaAbove.above = !0, n.subObjects.push(new q(t.areaAbove, e))), t.hasOwnProperty("label")) {
       let r = d(t);
       delete r.label, r = u(r, t.label), r = u(r, {
         fontSize: 12,
         color: t.color
-      }), t.hasOwnProperty("univariateFunction") && (r.hasOwnProperty("x") && t.univariateFunction.ind != "y" ? (r.coordinates = [r.x, n.yOfX(r.x)], n.subObjects.push(new k(r, e))) : r.hasOwnProperty("y") && t.univariateFunction.ind != "x" && (r.coordinates = [n.xOfY(r.y), r.y], n.subObjects.push(new k(r, e)))), t.hasOwnProperty("parametricFunction") && r.hasOwnProperty("t") && (r.coordinates = n.xyOfT(r.t), n.subObjects.push(new k(r, e)));
+      }), t.hasOwnProperty("univariateFunction") && (r.hasOwnProperty("x") && t.univariateFunction.ind != "y" ? (r.coordinates = [r.x, n.yOfX(r.x)], n.subObjects.push(new L(r, e))) : r.hasOwnProperty("y") && t.univariateFunction.ind != "x" && (r.coordinates = [n.xOfY(r.y), r.y], n.subObjects.push(new L(r, e)))), t.hasOwnProperty("parametricFunction") && r.hasOwnProperty("t") && (r.coordinates = n.xyOfT(r.t), n.subObjects.push(new L(r, e)));
     }
   }
   yOfX(t) {
-    return `(${it(this.def.univariateFunction.fn, "(x)", `(${t})`)})`;
+    return `(${ot(this.def.univariateFunction.fn, "(x)", `(${t})`)})`;
   }
   xOfY(t) {
     const e = this;
-    return e.def.univariateFunction.hasOwnProperty("yFn") ? `(${it(e.def.univariateFunction.yFn, "(y)", `(${t})`)})` : `(${it(e.def.univariateFunction.fn, "(y)", `(${t})`)})`;
+    return e.def.univariateFunction.hasOwnProperty("yFn") ? `(${ot(e.def.univariateFunction.yFn, "(y)", `(${t})`)})` : `(${ot(e.def.univariateFunction.fn, "(y)", `(${t})`)})`;
   }
   xyOfT(t) {
     return [
-      it(this.def.parametricFunction.xFunction, "(t)", `(${t})`),
-      it(this.def.parametricFunction.yFunction, "(t)", `(${t})`)
+      ot(this.def.parametricFunction.xFunction, "(t)", `(${t})`),
+      ot(this.def.parametricFunction.yFunction, "(t)", `(${t})`)
     ];
   }
   parseSelf(t) {
@@ -859,21 +863,21 @@ let k = class extends T {
     }), t;
   }
 };
-function _t(o) {
+function Vt(o) {
   return o.hasOwnProperty("type") || (o.type = Object.keys(o)[0], o.def = o[o.type]), o;
 }
 function we(o, t) {
   return o.forEach(function(e) {
-    Object.prototype.hasOwnProperty.call(Q, e.type) && (t = new Q[e.type](e.def).parse(t));
+    Object.prototype.hasOwnProperty.call(z, e.type) && (t = new z[e.type](e.def).parse(t));
   }), t;
 }
-function ct(o) {
+function ut(o) {
   return typeof o == "string" && o.match(/[\*/+-]/) ? "(" + o + ")" : o;
 }
 function R(o) {
   return p(-1, o);
 }
-function K(o, t, e) {
+function tt(o, t, e) {
   if (typeof o == "number" && typeof t == "number")
     switch (e) {
       case "+":
@@ -888,61 +892,61 @@ function K(o, t, e) {
         return Math.pow(o, t);
     }
   else
-    return "(" + ct(o) + e + ct(t) + ")";
+    return "(" + ut(o) + e + ut(t) + ")";
 }
-function O(o, t) {
-  return o == 0 ? t : t == 0 ? o : K(o, t, "+");
+function P(o, t) {
+  return o == 0 ? t : t == 0 ? o : tt(o, t, "+");
 }
 function x(o, t) {
-  return t == 0 ? o : K(o, t, "-");
+  return t == 0 ? o : tt(o, t, "-");
 }
 function y(o, t) {
-  return o == 0 ? 0 : t == 1 ? o : K(o, t, "/");
+  return o == 0 ? 0 : t == 1 ? o : tt(o, t, "/");
 }
 function j(o) {
-  return K(1, o, "/");
+  return tt(1, o, "/");
 }
 function p(o, t) {
-  return o == 0 || t == 0 ? 0 : o == 1 ? t : t == 1 ? o : K(o, t, "*");
+  return o == 0 || t == 0 ? 0 : o == 1 ? t : t == 1 ? o : tt(o, t, "*");
 }
 function G(o, t, e) {
-  return e = e || 0.5, O(p(e, o), p(x(1, e), t));
+  return e = e || 0.5, P(p(e, o), p(x(1, e), t));
 }
-function rt(o) {
-  return K(o, o, "*");
+function it(o) {
+  return tt(o, o, "*");
 }
 function Gt(o) {
   return w(o, 0.5);
 }
 function w(o, t) {
-  return K(o, t, "^");
+  return tt(o, t, "^");
 }
 function ve(o, t, e, n) {
-  const r = R(t), i = x(rt(t), p(4, p(o, e))), s = n ? O(r, Gt(i)) : x(r, Gt(i)), a = p(2, o);
+  const r = R(t), i = x(it(t), p(4, p(o, e))), s = n ? P(r, Gt(i)) : x(r, Gt(i)), a = p(2, o);
   return y(s, a);
 }
 function A(o) {
   return typeof o == "string" ? o.replace("params.", "") : o;
 }
-function Vt(o) {
+function _t(o) {
   return o.hasOwnProperty("draggable") && !o.hasOwnProperty("drag") && (o.draggable == !0 || o.draggable == "true") && (o.drag = [], o.x == `params.${A(o.x)}` && o.drag.push({ horizontal: A(o.x) }), o.y == `params.${A(o.y)}` && o.drag.push({ vertical: A(o.y) })), o;
 }
-function nt(o, t, e) {
+function rt(o, t, e) {
   return o.map(function(n) {
     let r = d(t);
     return r.hasOwnProperty("min") && (n.min = r.min), r.hasOwnProperty("max") && (n.max = r.max), n.hasOwnProperty("show") && (r.show = n.show), n.hasOwnProperty("parametric") ? r.parametricFunction = n : r.univariateFunction = n, new H(r, e);
   });
 }
-function st(o) {
+function at(o) {
   return o.open ? (o.fill = "white", o.color = o.color || o.stroke, o.stroke = o.stroke || o.color, o) : (o.color = o.color || o.fill, o.fill = o.fill || o.color, o);
 }
-function q(o) {
+function X(o) {
   return o.color = o.color || o.stroke, o.stroke = o.stroke || o.color, o;
 }
 function d(o) {
   return JSON.parse(JSON.stringify(o));
 }
-function it(o, t, e) {
+function ot(o, t, e) {
   typeof o != "string" && (o = String(o));
   let n = o.split(t).join(e), r = t.replace(/[\(\)]/g, "");
   if (r) {
@@ -951,7 +955,7 @@ function it(o, t, e) {
   }
   return `(${n})`;
 }
-function Z(o, t, e) {
+function J(o, t, e) {
   if (!o.hasOwnProperty(e) && o.hasOwnProperty(t))
     if (e == "parametricFunction")
       o.parametricFunction = {
@@ -1008,12 +1012,12 @@ class zt extends U {
   }
   parseSelf(t) {
     const e = this.colors;
-    return t.colors = u(t.colors || {}, e), t.idioms = this.idioms, t;
+    return t.colors = u(t.colors || {}, e), t.idioms = this.idioms || t.idioms, t;
   }
 }
 let B = class extends T {
   constructor(t, e) {
-    t = q(t), t.hasOwnProperty("startArrow") && (t.startArrowName = e.getStartArrowName(t.color)), t.hasOwnProperty("endArrow") && (t.endArrowName = e.getEndArrowName(t.color)), super(t, e);
+    t = X(t), t.hasOwnProperty("startArrow") && (t.startArrowName = e.getStartArrowName(t.color)), t.hasOwnProperty("endArrow") && (t.endArrowName = e.getEndArrowName(t.color)), super(t, e);
     const n = this;
     if (n.type = "Segment", n.layer = 1, n.extractCoordinates("a", "x1", "y1"), n.extractCoordinates("b", "x2", "y2"), t.hasOwnProperty("trim")) {
       const r = n.x1, i = n.y1, s = n.x2, a = n.y2;
@@ -1028,7 +1032,7 @@ let B = class extends T {
       }), r.coordinates = [
         G(n.x1, n.x2, r.location),
         G(n.y1, n.y2, r.location)
-      ], n.subObjects.push(new k(r, e));
+      ], n.subObjects.push(new L(r, e));
     }
     if (t.hasOwnProperty("handles")) {
       let r = {
@@ -1046,11 +1050,11 @@ let B = class extends T {
         draggable: t.draggable,
         show: t.show
       };
-      n.subObjects.push(new Q.Point(r, e)), n.subObjects.push(new Q.Point(i, e));
+      n.subObjects.push(new z.Point(r, e)), n.subObjects.push(new z.Point(i, e));
     }
   }
 };
-class Pe extends B {
+class Oe extends B {
   constructor(t, e) {
     t.xScale2Name = "", super(t, e);
   }
@@ -1070,7 +1074,7 @@ class qt extends ft {
     t.a = [t.x, e.xScale.intercept], t.b = [t.x, t.y], super(t, e);
   }
 }
-class Oe extends qt {
+class Pe extends qt {
   constructor(t, e) {
     t.xScale2Name = "", super(t, e);
   }
@@ -1116,16 +1120,16 @@ let E = class extends T {
   constructor(t, e) {
     u(t, {
       color: "colors.blue"
-    }), t = st(t), super(t, e);
+    }), t = at(t), super(t, e);
     const n = this;
-    if (n.type = "Point", n.layer = 3, n.extractCoordinates(), t = Vt(t), t.hasOwnProperty("label")) {
+    if (n.type = "Point", n.layer = 3, n.extractCoordinates(), t = _t(t), t.hasOwnProperty("label")) {
       let r = d(t);
       delete r.label, r = u(r, t.label), r = u(r, {
         fontSize: 10,
         position: "bl",
         color: t.color,
         bgcolor: null
-      }), n.subObjects.push(new k(r, e));
+      }), n.subObjects.push(new L(r, e));
     }
     if (t.hasOwnProperty("droplines")) {
       if (t.droplines.hasOwnProperty("vertical")) {
@@ -1138,14 +1142,14 @@ let E = class extends T {
           s.y = "OPPAXIS", u(s, {
             text: t.droplines.top,
             fontSize: 10
-          }), n.subObjects.push(new k(s, e));
+          }), n.subObjects.push(new L(s, e));
         }
         r.lineStyle = "dotted", delete r.label, r.a = [r.x, e.xScale.intercept], r.b = [r.x, r.y], n.subObjects.push(new B(r, e));
         let i = d(r);
         i.y = "AXIS", u(i, {
           text: t.droplines.vertical,
           fontSize: 10
-        }), n.subObjects.push(new k(i, e));
+        }), n.subObjects.push(new L(i, e));
       }
       if (t.droplines.hasOwnProperty("horizontal")) {
         let r = d(t);
@@ -1156,7 +1160,7 @@ let E = class extends T {
         i.x = "AXIS", u(i, {
           text: t.droplines.horizontal,
           fontSize: 10
-        }), n.subObjects.push(new k(i, e));
+        }), n.subObjects.push(new L(i, e));
       }
     }
   }
@@ -1181,7 +1185,7 @@ class de extends M {
 class mt extends E {
   constructor(t, e) {
     if (u(t, {
-      name: L(10)
+      name: $(10)
     }), t.hasOwnProperty("payoffs")) {
       const r = "\\\\color{${colors.player1}}{" + t.payoffs.player1 + "}", i = "\\\\color{black}{,\\\\ }", s = "\\\\color{${colors.player2}}{" + t.payoffs.player2 + "}";
       t.label = {
@@ -1198,7 +1202,7 @@ class mt extends E {
         const s = i + 1;
         let a = t.children[i];
         u(a, {
-          name: L(10)
+          name: $(10)
         });
         let l = {
           node1: t.name,
@@ -1221,9 +1225,9 @@ class mt extends E {
     }
   }
 }
-let J = class extends T {
+let K = class extends T {
   constructor(t, e) {
-    st(t), super(t, e);
+    at(t), super(t, e);
     let n = this;
     if (n.type = "Rectangle", n.layer = t.layer || 0, n.extractCoordinates("a", "x1", "y1"), n.extractCoordinates("b", "x2", "y2"), t.hasOwnProperty("label")) {
       let r = d(t);
@@ -1233,14 +1237,14 @@ let J = class extends T {
         bgcolor: null,
         x: G(n.x1, n.x2),
         y: G(n.y1, n.y2)
-      }), n.subObjects.push(new k(r, e));
+      }), n.subObjects.push(new L(r, e));
     }
   }
 };
-class Ce extends J {
+class Ce extends K {
   constructor(t, e) {
-    const n = L(10), r = L(10);
-    t = st(t), u(t, {
+    const n = $(10), r = $(10);
+    t = at(t), u(t, {
       x1: e.def.xAxis.min,
       x2: e.def.xAxis.max,
       y1: e.def.yAxis.min,
@@ -1251,9 +1255,9 @@ class Ce extends J {
     let i = this, s = t.shapes.map(function(a) {
       const l = Object.keys(a)[0];
       let c = a[l];
-      return c.inDef = !0, new Q[l](c, e);
+      return c.inDef = !0, new z[l](c, e);
     });
-    i.subObjects.push(new ot({ name: n, paths: [s[0]] }, e)), i.subObjects.push(new ot({ name: r, paths: [s[1]] }, e));
+    i.subObjects.push(new st({ name: n, paths: [s[0]] }, e)), i.subObjects.push(new st({ name: r, paths: [s[1]] }, e));
   }
 }
 class wt extends U {
@@ -1269,9 +1273,9 @@ class wt extends U {
 class Wt extends U {
   constructor(t) {
     u(t, { xAxis: {}, yAxis: {} }), u(t.xAxis, { min: 0, max: 10, intercept: 0, title: "", orient: "bottom" }), u(t.yAxis, { min: 0, max: 10, intercept: 0, title: "", orient: "left" }), super(t);
-    const e = this, n = t.xAxis.min, r = t.xAxis.max, i = t.xAxis.intercept, s = t.xAxis.log, a = t.yAxis.min, l = t.yAxis.max, c = t.yAxis.intercept, h = t.yAxis.log, m = t.position.x, g = O(t.position.x, t.position.width), v = O(t.position.y, t.position.height), P = t.position.y;
+    const e = this, n = t.xAxis.min, r = t.xAxis.max, i = t.xAxis.intercept, s = t.xAxis.log, a = t.yAxis.min, l = t.yAxis.max, c = t.yAxis.intercept, h = t.yAxis.log, m = t.position.x, g = P(t.position.x, t.position.width), v = P(t.position.y, t.position.height), O = t.position.y;
     e.xScale = new wt({
-      name: L(10),
+      name: $(10),
       axis: "x",
       domainMin: n,
       domainMax: r,
@@ -1280,24 +1284,24 @@ class Wt extends U {
       log: s,
       intercept: i
     }), e.yScale = new wt({
-      name: L(10),
+      name: $(10),
       axis: "y",
       domainMin: a,
       domainMax: l,
       rangeMin: v,
-      rangeMax: P,
+      rangeMax: O,
       log: h,
       intercept: c
-    }), e.subObjects = [e.xScale, e.yScale], e.def.hasOwnProperty("objects") && e.def.objects.map(_t);
+    }), e.subObjects = [e.xScale, e.yScale], e.def.hasOwnProperty("objects") && e.def.objects.map(Vt);
   }
 }
 class S extends Wt {
   constructor(t) {
     t = u(t, { objects: [] }), super(t);
     const e = this;
-    t.xAxis.otherMin = t.yAxis.min, t.xAxis.otherMax = t.yAxis.max, t.yAxis.otherMin = t.xAxis.min, t.yAxis.otherMax = t.xAxis.max, e.clipPath = new ot({
-      name: L(10),
-      paths: [new J({
+    t.xAxis.otherMin = t.yAxis.min, t.xAxis.otherMax = t.yAxis.max, t.yAxis.otherMin = t.xAxis.min, t.yAxis.otherMax = t.xAxis.max, e.clipPath = new st({
+      name: $(10),
+      paths: [new K({
         x1: t.xAxis.min,
         x2: t.xAxis.max,
         y1: t.yAxis.min,
@@ -1311,7 +1315,7 @@ class S extends Wt {
       type: "Axis",
       def: e.def.yAxis
     }), e.def.objects.forEach(function(n) {
-      e.subObjects.push(new Q[n.type](n.def, e));
+      Object.prototype.hasOwnProperty.call(z, n.type) ? e.subObjects.push(new z[n.type](n.def, e)) : console.warn("Graph object type not found in KGAuthorClasses: ", n.type);
     });
   }
   getMarkerName(t) {
@@ -1322,7 +1326,7 @@ class S extends Wt {
     }), r)
       return n;
     {
-      const i = new Q[t.markerType]({ color: t.color });
+      const i = new z[t.markerType]({ color: t.color });
       return e.subObjects.push(i), i.name;
     }
   }
@@ -1575,22 +1579,22 @@ class je extends N {
         }
       ]
     })), v = !0);
-    let P = v ? 0.5 : 0.9;
+    let O = v ? 0.5 : 0.9;
     this.aspectRatio = v ? 2 : 4, n.position = {
       x: s,
       y: c,
       width: m,
-      height: P
+      height: O
     }, e.subObjects.push(new S(n)), r.position = {
       x: a,
       y: c,
       width: m,
-      height: P
+      height: O
     }, e.subObjects.push(new S(r)), i.position = {
       x: l,
       y: c,
       width: m,
-      height: P
+      height: O
     }, e.subObjects.push(new S(i));
   }
 }
@@ -1709,7 +1713,7 @@ class Ie extends Y {
     }, e.subObjects.push(new S(n)), e.subObjects.push(new S(r)), e.subObjects.push(new S(i)), e.subObjects.push(new S(s));
   }
 }
-class ut extends H {
+class pt extends H {
   constructor(t, e) {
     u(t, {
       color: "colors.orange"
@@ -1727,8 +1731,8 @@ class ut extends H {
       delete l.label, l = u(l, t.label), l = u(l, {
         fontSize: 12,
         color: t.color,
-        coordinates: Ot(a, l.r, l.center)
-      }), a.subObjects.push(new k(l, e));
+        coordinates: Pt(a, l.r, l.center)
+      }), a.subObjects.push(new L(l, e));
     }
   }
   parseSelf(t) {
@@ -1740,7 +1744,7 @@ class ut extends H {
     };
     return e.xIntercept && (n.xIntercept = e.xIntercept.toString()), e.yIntercept && (n.yIntercept = e.yIntercept.toString()), e.xIntercept ? e.yIntercept ? n.fixedPoint = `(${n.invSlope} == 0 ? (${n.xIntercept})/(1 - ${e.invSlope.toString()}) : (${n.yIntercept})/(1 - ${e.slope.toString()}))` : n.fixedPoint = `((${n.xIntercept})/(1 - ${e.invSlope.toString()}))` : n.fixedPoint = `((${n.yIntercept})/(1 - ${e.slope.toString()}))`, e.pts.forEach(function(r) {
       if (r.hasOwnProperty("r")) {
-        const i = Ot(e, r.r, r.center);
+        const i = Pt(e, r.r, r.center);
         t.calcs[e.name][r.name] = {
           x: i[0],
           y: i[1]
@@ -1749,26 +1753,26 @@ class ut extends H {
     }), t.calcs[e.name] = u(t.calcs[e.name] || {}, n), t;
   }
 }
-function Pt(o, t) {
+function Ot(o, t) {
   const e = y(
-    O(o.xIntercept, p(o.invSlope, t.yIntercept)),
+    P(o.xIntercept, p(o.invSlope, t.yIntercept)),
     x("1", p(o.invSlope, t.slope))
   ), n = t.yOfX(e);
   return [e, n];
 }
-function Ot(o, t, e) {
-  const n = O(1, rt(o.slope));
-  let r = p(2, p(o.slope, o.yIntercept)), i = x(rt(o.yIntercept), rt(t));
+function Pt(o, t, e) {
+  const n = P(1, it(o.slope));
+  let r = p(2, p(o.slope, o.yIntercept)), i = x(it(o.yIntercept), it(t));
   if (e) {
     const s = e[0], a = e[1] || 0;
-    r = x(r, p(2, O(e[0], p(o.slope, a)))), i = O(i, x(O(rt(s), rt(a)), p(2, p(o.yIntercept, a))));
+    r = x(r, p(2, P(e[0], p(o.slope, a)))), i = P(i, x(P(it(s), it(a)), p(2, p(o.yIntercept, a))));
     const l = ve(n, r, i, !0), c = o.yOfX(l);
     return [l, c];
   }
 }
 class Ge extends E {
   constructor(t, e) {
-    const n = new ut(t.lineDef, e), r = Ot(n, t.radius);
+    const n = new pt(t.lineDef, e), r = Pt(n, t.radius);
     u(t, {
       coordinates: r,
       positive: !0
@@ -1777,7 +1781,7 @@ class Ge extends E {
 }
 let Ut = class extends T {
   constructor(t, e) {
-    t = q(t), super(t, e);
+    t = X(t), super(t, e);
     let n = this;
     n.type = "Contour", n.layer = t.layer || 1, t.hasOwnProperty("coordinates") && n.extractCoordinates(), t.hasOwnProperty("level") || (t.level = t.fn.replace(/\(x\)/g, `(${t.x})`).replace(/\(y\)/g, `(${t.y})`)), n.level = t.level;
   }
@@ -1804,15 +1808,15 @@ let Ut = class extends T {
       opacity: 0.2,
       rx: 1,
       ry: t.rx
-    }), t = st(t), t = q(t), super(t, e);
+    }), t = at(t), t = X(t), super(t, e);
     const n = this;
-    if (n.type = "Circle", n.layer = t.layer || 0, t.hasOwnProperty("c") ? n.extractCoordinates("c") : t.hasOwnProperty("center") ? n.extractCoordinates("center") : n.extractCoordinates(), t = Vt(t), t.hasOwnProperty("label")) {
+    if (n.type = "Circle", n.layer = t.layer || 0, t.hasOwnProperty("c") ? n.extractCoordinates("c") : t.hasOwnProperty("center") ? n.extractCoordinates("center") : n.extractCoordinates(), t = _t(t), t.hasOwnProperty("label")) {
       let r = d(t);
       delete r.label, r = u(r, t.label), r = u(r, {
         fontSize: 10,
         color: t.color,
         bgcolor: null
-      }), n.subObjects.push(new k(r, e));
+      }), n.subObjects.push(new L(r, e));
     }
   }
 }, Be = class extends Yt {
@@ -1826,14 +1830,14 @@ let Ut = class extends T {
       xPixelOffset: 40
     }), super(t, e);
     let n = this;
-    n.type = "Axis", n.layer = 2, t.hasOwnProperty("title") && t.title != "" && (t.orient == "bottom" ? n.subObjects.push(new k({
+    n.type = "Axis", n.layer = 2, t.hasOwnProperty("title") && t.title != "" && (t.orient == "bottom" ? n.subObjects.push(new L({
       text: `\\text{${t.title}}`,
       //text: def.title,
       //plainText: true,
       x: G(e.xScale.min, e.xScale.max),
       y: e.yScale.min,
       yPixelOffset: -1 * t.yPixelOffset
-    }, e)) : t.orient == "left" ? n.subObjects.push(new k({
+    }, e)) : t.orient == "left" ? n.subObjects.push(new L({
       text: `\\text{${t.title}}`,
       //text: def.title,
       //plainText: true,
@@ -1841,12 +1845,12 @@ let Ut = class extends T {
       y: G(e.yScale.min, e.yScale.max),
       xPixelOffset: -1 * t.xPixelOffset,
       rotate: 90
-    }, e)) : t.orient == "top" ? n.subObjects.push(new k({
+    }, e)) : t.orient == "top" ? n.subObjects.push(new L({
       text: `\\text{${t.title}}`,
       x: G(e.xScale.min, e.xScale.max),
       y: e.yScale.min,
       yPixelOffset: t.yPixelOffset
-    }, e)) : n.subObjects.push(new k({
+    }, e)) : n.subObjects.push(new L({
       text: `\\text{${t.title}}`,
       x: e.xScale.min,
       y: G(e.yScale.min, e.yScale.max),
@@ -1870,19 +1874,19 @@ class Zt extends H {
       start: 0,
       r: p(0.05, x(e.def.xAxis.max, e.def.xAxis.min)),
       strokeWidth: 0.75
-    }), t = q(t), t.hasOwnProperty("measure") ? t.end = O(t.start, t.measure) : t.measure = x(t.end, t.start);
-    let n = t.radians ? t.start : p(t.start, 0.01745329252), r = t.radians ? t.measure : p(t.measure, 0.01745329252), i = t.radians ? t.end : p(t.end, 0.01745329252), s = O(n, p(0.5, r));
+    }), t = X(t), t.hasOwnProperty("measure") ? t.end = P(t.start, t.measure) : t.measure = x(t.end, t.start);
+    let n = t.radians ? t.start : p(t.start, 0.01745329252), r = t.radians ? t.measure : p(t.measure, 0.01745329252), i = t.radians ? t.end : p(t.end, 0.01745329252), s = P(n, p(0.5, r));
     t.parametricFunction = {
-      xFunction: O(t.coordinates[0], p(t.r, "cos(t)")),
-      yFunction: O(t.coordinates[1], p(t.r, "sin(t)")),
+      xFunction: P(t.coordinates[0], p(t.r, "cos(t)")),
+      yFunction: P(t.coordinates[1], p(t.r, "sin(t)")),
       min: n,
       max: i
     }, super(t, e);
     let a = this;
     a.measureDegrees = t.radians ? p(t.measure, 57.2957795131) : t.measure, a.measureRadians = y(r, Math.PI);
     let l = u(t.label || {}, {
-      x: O(t.coordinates[0], p(p(1.7, t.r), `cos(${s})`)),
-      y: O(t.coordinates[1], p(p(1.7, t.r), `sin(${s})`)),
+      x: P(t.coordinates[0], p(p(1.7, t.r), `cos(${s})`)),
+      y: P(t.coordinates[1], p(p(1.7, t.r), `sin(${s})`)),
       fontSize: 8,
       color: t.stroke,
       bgcolor: "none",
@@ -1890,7 +1894,7 @@ class Zt extends H {
       show: t.show
     });
     const c = "`${calcs." + a.name + ".measureRadians.toFixed(2)}\\\\pi`", h = "`${calcs." + a.name + ".measureDegrees.toFixed(0)}^{\\\\circ}`";
-    l.text = l.hasOwnProperty("text") ? t.label.text : l.radians ? c : h, a.subObjects.push(new k(l, e));
+    l.text = l.hasOwnProperty("text") ? t.label.text : l.radians ? c : h, a.subObjects.push(new L(l, e));
   }
   parseSelf(t) {
     let e = this;
@@ -1900,7 +1904,7 @@ class Zt extends H {
     }, t;
   }
 }
-class _e extends Zt {
+class Ve extends Zt {
   constructor(t, e) {
     const n = new E(t.pointA, e), r = new E(t.pointB, e), i = new E(t.pointC, e);
     t.start = `atan2(${n.y} - ${r.y},${n.x} - ${r.x})`, t.end = `atan2(${i.y} - ${r.y},${i.x} - ${r.x})`, t.coordinates = [r.x, r.y], t.radians = !0, u(t, {
@@ -1990,7 +1994,7 @@ class jt extends zt {
     }), super(t), this.idiomMenu = e;
   }
 }
-class Ve extends jt {
+class _e extends jt {
   constructor(t) {
     let e = "'#0000AA'", n = "'#AA0000'";
     t.colors = {
@@ -2073,9 +2077,9 @@ class St extends U {
     }, t;
   }
 }
-class xt extends ut {
+class xt extends pt {
   constructor(t, e) {
-    t = q(t), u(t, {
+    t = X(t), u(t, {
       name: "demand",
       point: [0, t.yIntercept],
       slope: 0,
@@ -2086,11 +2090,11 @@ class xt extends ut {
     }), t.draggable && typeof t.xIntercept == "string" ? t.drag = [{
       directions: "x",
       param: A(t.xIntercept),
-      expression: O(t.xIntercept, "drag.dx")
+      expression: P(t.xIntercept, "drag.dx")
     }] : t.draggable && typeof t.yIntercept == "string" && (t.drag = [{
       directions: "y",
       param: A(t.yIntercept),
-      expression: O(t.yIntercept, "drag.dy")
+      expression: P(t.yIntercept, "drag.dy")
     }]), t.hasOwnProperty("price") && t.pts.push({
       name: "PQ",
       y: t.price
@@ -2109,7 +2113,7 @@ class xt extends ut {
       t.draggable && typeof n.xIntercept == "string" && (i.drag = [{
         directions: "x",
         param: A(n.xIntercept),
-        expression: O(n.xIntercept, "drag.dx")
+        expression: P(n.xIntercept, "drag.dx")
       }]), t.hasOwnProperty("xInterceptLabel") && (i.droplines = {
         vertical: t.xInterceptLabel
       }), n.xInterceptPoint = new E(i, e);
@@ -2134,7 +2138,7 @@ class xt extends ut {
             x: p(0.6, n.xIntercept)
           }
         });
-        n.marginalRevenue = new ut(a, e), n.subObjects.push(n.marginalRevenue);
+        n.marginalRevenue = new pt(a, e), n.subObjects.push(n.marginalRevenue);
       }
       if (t.hasOwnProperty("surplus")) {
         let a = u(t.surplus || {}, {
@@ -2150,7 +2154,7 @@ class xt extends ut {
           min: 0,
           max: c,
           samplePoints: 2
-        }, n.subObjects.push(new z(a, e));
+        }, n.subObjects.push(new q(a, e));
       }
     }
   }
@@ -2158,9 +2162,9 @@ class xt extends ut {
 }
 class qe extends xt {
 }
-class Lt extends ut {
+class Lt extends pt {
   constructor(t, e) {
-    t = q(t), u(t, {
+    t = X(t), u(t, {
       name: "supply",
       color: "colors.supply",
       strokeWidth: 2,
@@ -2177,7 +2181,7 @@ class Lt extends ut {
     }] : t.draggable && typeof t.yIntercept == "string" && (t.drag = [{
       directions: "y",
       param: A(t.yIntercept),
-      expression: O(t.yIntercept, "drag.dy")
+      expression: P(t.yIntercept, "drag.dy")
     }]), t.hasOwnProperty("price") && t.pts.push({
       name: "PQ",
       y: t.price
@@ -2194,7 +2198,7 @@ class Lt extends ut {
       if (t.draggable && typeof n.yIntercept == "string" && (i.drag = [{
         directions: "y",
         param: A(n.yIntercept),
-        expression: O(n.yIntercept, "drag.dy")
+        expression: P(n.yIntercept, "drag.dy")
       }]), t.hasOwnProperty("yInterceptLabel") && (i.droplines = {
         horizontal: t.yInterceptLabel
       }), n.yInterceptPoint = new E(i, e), t.handles && r.push(n.yInterceptPoint), t.hasOwnProperty("surplus")) {
@@ -2211,7 +2215,7 @@ class Lt extends ut {
           min: 0,
           max: l,
           samplePoints: 2
-        }, n.subObjects.push(new z(s, e));
+        }, n.subObjects.push(new q(s, e));
       }
     }
   }
@@ -2232,9 +2236,9 @@ class Xe extends M {
     }), super(t, e);
     let n = this;
     t.demand.surplus = { show: t.showCS, price: `calcs.${n.name}.P`, quantity: `calcs.${n.name}.Q` }, t.cost.surplus = { show: t.showPS, price: `calcs.${n.name}.P`, quantity: `calcs.${n.name}.Q` }, n.demand = new xt(t.demand, e), n.cost = new Jt(t.cost, e);
-    let r = Pt(n.demand.marginalRevenue, n.cost);
+    let r = Ot(n.demand.marginalRevenue, n.cost);
     n.Q = r[0], n.P = n.demand.yOfX(n.Q), n.MRMC = n.cost.yOfX(n.Q);
-    let i = Pt(n.demand, n.cost);
+    let i = Ot(n.demand, n.cost);
     if (n.competitiveQ = i[0], n.competitiveP = n.demand.yOfX(n.competitiveQ), t.hasOwnProperty("showDWL")) {
       let s = {
         show: t.showDWL,
@@ -2250,7 +2254,7 @@ class Xe extends M {
         min: n.Q,
         max: n.competitiveQ,
         samplePoints: 2
-      }, n.subObjects.push(new z(s, e));
+      }, n.subObjects.push(new q(s, e));
     }
     n.subObjects.push(this.demand), n.subObjects.push(this.cost);
   }
@@ -2266,7 +2270,7 @@ class Xe extends M {
 }
 class Qe extends M {
   constructor(t, e) {
-    super(t, e), this.subObjects.push(new J({
+    super(t, e), this.subObjects.push(new K({
       clipPathName: t.bundleA + "_IC_above",
       clipPathName2: t.bundleB + "_IC_above",
       x1: e.def.xAxis.min,
@@ -2289,7 +2293,7 @@ function gt(o, t) {
 }
 class D extends B {
   constructor(t, e) {
-    t = q(t), t.name = t.name || "BL" + L(5), t.hasOwnProperty("m") || (t.hasOwnProperty("x") && t.hasOwnProperty("y") && (t.point = [t.x, t.y]), t.hasOwnProperty("point") && t.point.length == 2 && (t.m = O(p(t.p1, t.point[0]), p(t.p2, t.point[1]))));
+    t = X(t), t.name = t.name || "BL" + $(5), t.hasOwnProperty("m") || (t.hasOwnProperty("x") && t.hasOwnProperty("y") && (t.point = [t.x, t.y]), t.hasOwnProperty("point") && t.point.length == 2 && (t.m = P(p(t.p1, t.point[0]), p(t.p2, t.point[1]))));
     const n = y(t.m, t.p1), r = y(t.m, t.p2), i = y(t.p1, t.p2), s = { x: t.x, y: t.y };
     t.inMap && (t.strokeWidth = 1, t.lineStyle = "dotted", t.layer = 0, t.handles = !1, t.draggable = !1), u(t, {
       a: [`calcs.${t.name}.xIntercept`, 0],
@@ -2302,7 +2306,7 @@ class D extends B {
     }), t.sellOnly && (t.a = [t.x, t.y]), t.buyOnly && (t.b = [t.x, t.y]), t.draggable && typeof t.m == "string" && (t.drag = [{
       directions: "xy",
       param: A(t.m),
-      expression: O(p("drag.x", t.p1), p("drag.y", t.p2))
+      expression: P(p("drag.x", t.p1), p("drag.y", t.p2))
     }]), t.label == "none" ? delete t.label : t.inMap || (t.label = u(t.label || {}, {
       text: "BL",
       location: t.sellOnly ? 0.1 : 0.9
@@ -2333,7 +2337,7 @@ class D extends B {
         expression: y("calcs." + a.name + ".m", "drag.y")
       }]), t.hasOwnProperty("yInterceptLabel") && (h.droplines = {
         horizontal: t.yInterceptLabel
-      }), a.yInterceptPoint = new E(h, e), a.budgetSetArea = new z({
+      }), a.yInterceptPoint = new E(h, e), a.budgetSetArea = new q({
         fill: "colors.budget",
         univariateFunction1: {
           fn: `calcs.${a.name}.yIntercept - calcs.${a.name}.priceRatio*(x)`,
@@ -2341,7 +2345,7 @@ class D extends B {
           max: `calcs.${a.name}.xIntercept`
         },
         show: t.set
-      }, e), a.costlierArea = new z({
+      }, e), a.costlierArea = new q({
         fill: "colors.costlier",
         univariateFunction1: {
           fn: `calcs.${a.name}.yIntercept - calcs.${a.name}.priceRatio*(x)`,
@@ -2400,7 +2404,7 @@ class $t extends M {
       position: "bl"
     }), super(t, e);
     let n = this;
-    const r = tt(t);
+    const r = et(t);
     if (n.utilityFunction = r, n.subObjects = n.subObjects.concat(r.levelCurve(t, e)), !t.inMap) {
       if (t.showPreferred) {
         let i = d(t);
@@ -2423,7 +2427,7 @@ class He extends M {
 }
 function W(o) {
   if (o != null) {
-    if (o = _t(o), o.type == "CobbDouglas")
+    if (o = Vt(o), o.type == "CobbDouglas")
       return new re(o.def);
     if (o.type == "Substitutes" || o.type == "PerfectSubstitutes")
       return new Kt(o.def);
@@ -2437,10 +2441,10 @@ function W(o) {
       return new ie(o.def);
   }
 }
-function tt(o) {
+function et(o) {
   return o.utilityFunctionObject || W(o.utilityFunction);
 }
-class pt extends E {
+class ht extends E {
   constructor(t, e) {
     u(t, {
       label: { text: "X" },
@@ -2449,9 +2453,9 @@ class pt extends E {
         horizontal: "x_2"
       },
       color: "colors.utility"
-    }), st(t), super(t, e);
+    }), at(t), super(t, e);
     const n = this;
-    n.budgetLine = gt(t, e), n.budgetLine && n.subObjects.push(n.budgetLine), n.utilityFunction = tt(t), n.utilityFunction && (n.subObjects.push(n.utilityFunction), t.hasOwnProperty("indifferenceCurve") && (t.indifferenceCurve.level = `calcs.${n.name}.level`, t.indifferenceCurve.utilityFunction = t.utilityFunction, n.subObjects.push(We(t, e))));
+    n.budgetLine = gt(t, e), n.budgetLine && n.subObjects.push(n.budgetLine), n.utilityFunction = et(t), n.utilityFunction && (n.subObjects.push(n.utilityFunction), t.hasOwnProperty("indifferenceCurve") && (t.indifferenceCurve.level = `calcs.${n.name}.level`, t.indifferenceCurve.utilityFunction = t.utilityFunction, n.subObjects.push(We(t, e))));
   }
   parseSelf(t) {
     let e = this;
@@ -2464,9 +2468,9 @@ class pt extends E {
     }, t;
   }
 }
-class at extends pt {
+class lt extends ht {
   constructor(t, e) {
-    const n = gt(t, e), r = tt(t), i = r.optimalBundle(n);
+    const n = gt(t, e), r = et(t), i = r.optimalBundle(n);
     u(t, {
       coordinates: i,
       label: { text: "X^*" },
@@ -2479,7 +2483,7 @@ class at extends pt {
     }), n.hasOwnProperty("endowment") && (n.def.sellOnly && (t.show = `(${t.show || !0} && (${i[0]} < ${n.endowment.x}))`), n.def.buyOnly && (t.show = `(${t.show || !0} && (${i[0]} > ${n.endowment.x}))`)), t.budgetLineObject = n, super(t, e), this.level = r.value(i);
   }
 }
-class Ue extends at {
+class Ue extends lt {
   constructor(t, e) {
     if (t.hasOwnProperty("utilityFunction") && t.hasOwnProperty("budgetLine")) {
       const n = W(t.utilityFunction), r = new D(t.budgetLine, e);
@@ -2493,9 +2497,9 @@ class Ue extends at {
     super(t, e);
   }
 }
-class Ye extends at {
+class Ye extends lt {
   constructor(t, e) {
-    const n = tt(t), r = t.prices[0], i = t.prices[1], s = n.expenditure(t.level, t.prices);
+    const n = et(t), r = t.prices[0], i = t.prices[1], s = n.expenditure(t.level, t.prices);
     delete t.prices, delete t.level, t.budgetLine = u(t.budgetLine || {}, {
       p1: r,
       p2: i,
@@ -2503,25 +2507,25 @@ class Ye extends at {
     }), super(t, e);
   }
 }
-class Ze extends at {
+class Ze extends lt {
   constructor(t, e) {
-    const n = gt(t, e), r = tt(t);
+    const n = gt(t, e), r = et(t);
     t.budgetLine = t.budgetLine || {}, t.hasOwnProperty("p1") && (t.budgetLine.p1 = t.p1, delete t.budgetLine.m), t.hasOwnProperty("p2") && (t.budgetLine.p2 = t.p2, delete t.budgetLine.m), t.budgetLine.label = u(t.budgetLine.label || {}, {
       text: "BL_D"
     }), t.budgetLine.point = r.optimalBundle(n), delete t.budgetLineObject, super(t, e);
   }
 }
-class Je extends at {
+class Je extends lt {
   constructor(t, e) {
-    const n = gt(t, e), r = tt(t), i = t.hasOwnProperty("p1") ? t.p1 : t.budgetLine.p1, s = t.hasOwnProperty("p2") ? t.p2 : t.budgetLine.p2, a = r.value(r.optimalBundle(n));
+    const n = gt(t, e), r = et(t), i = t.hasOwnProperty("p1") ? t.p1 : t.budgetLine.p1, s = t.hasOwnProperty("p2") ? t.p2 : t.budgetLine.p2, a = r.value(r.optimalBundle(n));
     t.budgetLine.p1 = i, t.budgetLine.p2 = s, t.budgetLine.m = r.expenditure(a, [i, s]), t.budgetLine.label = u(t.budgetLine.label || {}, {
       text: "BL_C"
     }), t.coordinates = r.lowestCostBundle(a, [i, s]), delete t.budgetLineObject, super(t, e);
   }
 }
-class Ke extends pt {
+class Ke extends ht {
   constructor(t, e) {
-    const n = tt(t), r = t.prices[0], i = t.prices[1];
+    const n = et(t), r = t.prices[0], i = t.prices[1];
     t.coordinates = [n.laborRequirement(t.level, t.capital), t.capital], t.budgetLine = u(t.budgetLine || {}, {
       p1: r,
       p2: i
@@ -2530,9 +2534,9 @@ class Ke extends pt {
     }), delete t.budgetLineObject, super(t, e);
   }
 }
-class tn extends at {
+class tn extends lt {
   constructor(t, e) {
-    const n = new pt(t.agentA, e), r = new pt(t.agentB, e);
+    const n = new ht(t.agentA, e), r = new ht(t.agentB, e);
     let i;
     if (t.agentA.utilityFunction.type == "CobbDouglas" && t.agentB.utilityFunction.type == "CobbDouglas") {
       let s = function(l) {
@@ -2540,7 +2544,7 @@ class tn extends at {
       }, a = function(l) {
         return p(l.x, x(1, l.utilityFunction.alpha));
       };
-      i = y(O(s(n), s(r)), O(a(n), a(r)));
+      i = y(P(s(n), s(r)), P(a(n), a(r)));
     }
     u(t, {
       label: { text: "E" },
@@ -2567,7 +2571,7 @@ class en extends H {
 }
 class nn extends H {
   constructor(t, e) {
-    t = q(t), u(t, {
+    t = X(t), u(t, {
       name: "ppf",
       color: "colors.supply",
       strokeWidth: 2,
@@ -2594,7 +2598,7 @@ class nn extends H {
       yFunction: s.f(x(t.labor, "(t)")),
       max: t.labor
     }, t.draggable) {
-      const m = O(i.laborRequirement("drag.x"), s.laborRequirement("drag.y"));
+      const m = P(i.laborRequirement("drag.x"), s.laborRequirement("drag.y"));
       t.drag = [
         {
           directions: "xy",
@@ -2617,7 +2621,7 @@ class nn extends H {
     else {
       a.mrt = p(l, w(c, x(t.curvature, 1)));
       const m = w(y(l, h), j(x(t.curvature, 1)));
-      a.optimalL1 = p(y(m, O(1, m)), a.labor), a.optimalL2 = p(y(1, O(1, m)), a.labor);
+      a.optimalL1 = p(y(m, P(1, m)), a.labor), a.optimalL2 = p(y(1, P(1, m)), a.labor);
     }
     if (a.optimaly1 = a.prodFn1.f(a.optimalL1), a.optimaly2 = a.prodFn2.f(a.optimalL2), e) {
       const m = a.subObjects;
@@ -2629,7 +2633,7 @@ class nn extends H {
       t.draggable && typeof t.max1 == "string" && (g.drag = [{
         directions: "x",
         param: A(t.max1),
-        expression: O(t.max1, "drag.dx")
+        expression: P(t.max1, "drag.dx")
       }]), t.hasOwnProperty("xInterceptLabel") && (g.droplines = {
         vertical: t.xInterceptLabel
       }), a.xInterceptPoint = new E(g, e);
@@ -2641,7 +2645,7 @@ class nn extends H {
       t.draggable && typeof t.max2 == "string" && (v.drag = [{
         directions: "y",
         param: A(t.max2),
-        expression: O(t.max2, "drag.dy")
+        expression: P(t.max2, "drag.dy")
       }]), t.hasOwnProperty("yInterceptLabel") && (v.droplines = {
         horizontal: t.yInterceptLabel
       }), a.yInterceptPoint = new E(v, e), t.handles && (m.push(a.xInterceptPoint), m.push(a.yInterceptPoint));
@@ -2671,7 +2675,7 @@ class rn extends M {
     }), super(t, e);
     let n = this;
     t.demand.price = `calcs.${n.name}.P`, t.supply.price = `calcs.${n.name}.P`, n.demand = new xt(t.demand, e), n.supply = new Lt(t.supply, e), n.subObjects.push(this.demand), n.subObjects.push(this.supply);
-    let r = Pt(n.demand, n.supply);
+    let r = Ot(n.demand, n.supply);
     n.Q = r[0], n.P = r[1], e && t.hasOwnProperty("equilibrium") && (t.equilibrium = u(t.equilibrium, {
       color: "colors.equilibriumPrice",
       x: n.Q,
@@ -2692,8 +2696,8 @@ class rn extends M {
 }
 class dt extends H {
   constructor(t, e) {
-    t = q(t), u(t, {
-      name: "constElasticityCurve" + L(5),
+    t = X(t), u(t, {
+      name: "constElasticityCurve" + $(5),
       color: "colors.demand",
       strokeWidth: 2,
       lineStyle: "solid",
@@ -2747,10 +2751,10 @@ class on extends M {
     n.name = t.name;
     const r = "(calcs." + t.curve1 + ".coefficient)", i = "(calcs." + t.curve1 + ".elasticity)", s = "(calcs." + t.curve2 + ".coefficient)", a = "(calcs." + t.curve2 + ".elasticity)", l = "(calcs." + t.curve1 + "inverse.coefficient)", c = "(calcs." + t.curve1 + "inverse.elasticity)", h = "(calcs." + t.curve2 + "inverse.coefficient)", m = "(calcs." + t.curve2 + "inverse.elasticity)", g = w(y(r, s), j(x(a, i))), v = p(r, w(g, i));
     n.Pdirect = g, n.Qcalc = v;
-    const P = w(y(l, h), j(x(m, c))), $ = p(l, w(P, c));
-    n.Qdirect = P, n.Pcalc = $;
+    const O = w(y(l, h), j(x(m, c))), k = p(l, w(O, c));
+    n.Qdirect = O, n.Pcalc = k;
     const b = "(" + p(i, a) + " == 0)";
-    n.Q = "(" + b + " ? " + v + " : " + P + ")", n.P = "(" + b + " ? " + g + " : " + $ + ")";
+    n.Q = "(" + b + " ? " + v + " : " + O + ")", n.P = "(" + b + " ? " + g + " : " + k + ")";
   }
   parseSelf(t) {
     let e = this;
@@ -2988,13 +2992,13 @@ class vn extends Y {
     }, n.xAxis.max = r.xAxis.max = t.totalGood1, n.yAxis.max = r.yAxis.max = t.totalGood2, r.xAxis.orient = "top", r.yAxis.orient = "right", e.subObjects.push(new S(r)), e.subObjects.push(new S(n)), e.subObjects.push(new S(i)), e.subObjects.push(new kt(s));
   }
 }
-class et extends U {
+class nt extends U {
   constructor(t) {
     u(t, {
-      name: L(10)
+      name: $(10)
     }), super(t);
     let e = this;
-    e.interpolation = "curveMonotoneX", t.hasOwnProperty("alpha") ? (e.alpha = t.alpha, e.exponents = t.exponents || [t.alpha, x(1, t.alpha)], e.coefficients = t.coefficients || [t.alpha, x(1, t.alpha)]) : t.hasOwnProperty("exponents") ? (e.exponents = t.exponents, e.alpha = y(e.exponents[0], O(e.exponents[0], e.exponents[1])), e.coefficients = t.coefficients) : t.hasOwnProperty("coefficients") && (e.exponents = t.coefficients, e.coefficients = t.coefficients, e.alpha = y(e.coefficients[0], O(e.coefficients[0], e.coefficients[1])));
+    e.interpolation = "curveMonotoneX", t.hasOwnProperty("alpha") ? (e.alpha = t.alpha, e.exponents = t.exponents || [t.alpha, x(1, t.alpha)], e.coefficients = t.coefficients || [t.alpha, x(1, t.alpha)]) : t.hasOwnProperty("exponents") ? (e.exponents = t.exponents, e.alpha = y(e.exponents[0], P(e.exponents[0], e.exponents[1])), e.coefficients = t.coefficients) : t.hasOwnProperty("coefficients") && (e.exponents = t.coefficients, e.coefficients = t.coefficients, e.alpha = y(e.coefficients[0], P(e.coefficients[0], e.coefficients[1])));
   }
   value(t) {
     return null;
@@ -3002,7 +3006,7 @@ class et extends U {
   extractLevel(t) {
     const e = this;
     if (t.hasOwnProperty("level") && t.level != null)
-      return ct(t.level);
+      return ut(t.level);
     if (t.hasOwnProperty("point") && t.point != null)
       return e.value(t.point);
     if (t.hasOwnProperty("budgetLine")) {
@@ -3014,7 +3018,7 @@ class et extends U {
     return [];
   }
   levelCurve(t, e) {
-    return t.interpolation = this.interpolation, nt(this.levelSet(t), t, e);
+    return t.interpolation = this.interpolation, rt(this.levelSet(t), t, e);
   }
   levelCurveSlope(t) {
     return null;
@@ -3026,8 +3030,8 @@ class et extends U {
     let i = [];
     return r.forEach(function(s) {
       let a = d(t);
-      a.univariateFunction1 = s, i.push(new z(a, e));
-    }), n.fillBelowRect && (n.fillBelowRect.show = t.show, n.fillBelowRect.fill = t.fill, i.push(new J(n.fillBelowRect, e))), i;
+      a.univariateFunction1 = s, i.push(new q(a, e));
+    }), n.fillBelowRect && (n.fillBelowRect.show = t.show, n.fillBelowRect.fill = t.fill, i.push(new K(n.fillBelowRect, e))), i;
   }
   areaAboveLevelCurve(t, e) {
     const n = this;
@@ -3036,11 +3040,11 @@ class et extends U {
     let i = [];
     r.forEach(function(a) {
       let l = d(t);
-      l.univariateFunction1 = a, l.above = !0, i.push(new z(l, e));
-    }), n.fillAboveRect && (n.fillAboveRect.show = t.show, n.fillAboveRect.fill = t.fill, n.fillAboveRect.inDef = !0, i.push(new J(n.fillAboveRect, e)));
-    const s = t.hasOwnProperty("name") ? t.name + "_above" : L(10);
+      l.univariateFunction1 = a, l.above = !0, i.push(new q(l, e));
+    }), n.fillAboveRect && (n.fillAboveRect.show = t.show, n.fillAboveRect.fill = t.fill, n.fillAboveRect.inDef = !0, i.push(new K(n.fillAboveRect, e)));
+    const s = t.hasOwnProperty("name") ? t.name + "_above" : $(10);
     return [
-      new J({
+      new K({
         clipPathName: s,
         x1: e.def.xAxis.min,
         x2: e.def.xAxis.max,
@@ -3049,7 +3053,7 @@ class et extends U {
         fill: t.fill,
         show: t.show
       }, e),
-      new ot({
+      new st({
         name: s,
         paths: i
       }, e)
@@ -3097,7 +3101,7 @@ class et extends U {
   }
   priceOfferCurve(t, e, n, r, i, s) {
     const a = this;
-    return i.interpolation = "curveMonotoneX", nt(a.priceOfferFunction(t, e, n, r, s), i, s);
+    return i.interpolation = "curveMonotoneX", rt(a.priceOfferFunction(t, e, n, r, s), i, s);
   }
   demandFunction(t, e, n) {
     const r = this, i = e == 1 ? { p1: "(y)", p2: t.p2, m: t.m } : {
@@ -3115,7 +3119,7 @@ class et extends U {
   }
   demandCurve(t, e, n, r) {
     const i = this;
-    return n.interpolation = "curveMonotoneX", nt(i.demandFunction(t, e, r), n, r);
+    return n.interpolation = "curveMonotoneX", rt(i.demandFunction(t, e, r), n, r);
   }
   /* Net demand and supply from an endowment */
   endowmentDemandFunction(t, e, n) {
@@ -3153,27 +3157,27 @@ class et extends U {
   }
   grossDemandCurve(t, e, n, r) {
     const i = this;
-    return n.interpolation = "curveMonotoneX", nt(i.endowmentDemandFunction(t, e, r).grossDemand, n, r);
+    return n.interpolation = "curveMonotoneX", rt(i.endowmentDemandFunction(t, e, r).grossDemand, n, r);
   }
   netDemandCurve(t, e, n, r) {
     const i = this;
-    return n.interpolation = "curveMonotoneX", nt(i.endowmentDemandFunction(t, e, r).netDemand, n, r);
+    return n.interpolation = "curveMonotoneX", rt(i.endowmentDemandFunction(t, e, r).netDemand, n, r);
   }
   netSupplyCurve(t, e, n, r) {
     const i = this;
-    return n.interpolation = "curveMonotoneX", nt(i.endowmentDemandFunction(t, e, r).netSupply, n, r);
+    return n.interpolation = "curveMonotoneX", rt(i.endowmentDemandFunction(t, e, r).netSupply, n, r);
   }
   indirectUtility(t, e) {
     return this.extractLevel({ budgetLine: { p1: e[0], p2: e[1], m: t } });
   }
   expenditure(t, e) {
     const n = this.lowestCostBundle(t, e);
-    return O(p(n[0], e[0]), p(n[1], e[1]));
+    return P(p(n[0], e[0]), p(n[1], e[1]));
   }
   laborRequirement(t, e) {
   }
 }
-class Kt extends et {
+class Kt extends nt {
   constructor(t) {
     super(t);
     let e = this;
@@ -3198,7 +3202,7 @@ class Kt extends et {
     return [`${n} ? 0 : ${t.xIntercept}`, `${n} ? ${t.yIntercept} : 0`];
   }
 }
-class te extends et {
+class te extends nt {
   value(t) {
     return `(${this.coefficients[0]}*log(${t[0]})+${t[1]})`;
   }
@@ -3224,7 +3228,7 @@ class te extends et {
     return [`(${n} ? ${t.xIntercept} : ${e[0]})`, `(${n} ? 0 : ${e[1]})`];
   }
 }
-class ee extends et {
+class ee extends nt {
   value(t) {
     const e = this.coefficients;
     return `(${e[0]})*(${t[0]})^2+(${e[1]})*(${t[1]})^2`;
@@ -3255,7 +3259,7 @@ class ee extends et {
     ];
   }
 }
-class ne extends et {
+class ne extends nt {
   constructor(t) {
     super(t);
     let e = this;
@@ -3289,7 +3293,7 @@ class ne extends et {
     ];
   }
   optimalBundle(t) {
-    const e = j(this.coefficients[0]), n = j(this.coefficients[1]), r = y(t.m, O(
+    const e = j(this.coefficients[0]), n = j(this.coefficients[1]), r = y(t.m, P(
       p(t.p1, e),
       p(t.p2, n)
     ));
@@ -3303,7 +3307,7 @@ class ne extends et {
     ];
   }
 }
-class re extends et {
+class re extends nt {
   value(t) {
     const e = this.exponents;
     return `(${this.coefficients.length == 1 ? this.coefficients[0] : 1}*(${t[0]})^(${e[0]}))*((${t[1]})^(${e[1]}))`;
@@ -3343,7 +3347,7 @@ class re extends et {
     const n = this.exponents, r = p(
       y(e[0], e[1]),
       y(n[1], n[0])
-    ), i = O(n[0], n[1]), s = w(t, y(1, i));
+    ), i = P(n[0], n[1]), s = w(t, y(1, i));
     return [
       y(
         s,
@@ -3360,7 +3364,7 @@ class re extends et {
     return `((${t})/(${e})^(${n[1]}))^(1/(${n[0]}))`;
   }
 }
-class ie extends et {
+class ie extends nt {
   constructor(t) {
     super(t);
     let e = this;
@@ -3368,10 +3372,10 @@ class ie extends et {
   }
   value(t) {
     const e = this.coefficients, n = this.r;
-    return w(O(p(e[0], w(t[0], n)), p(e[1], w(t[1], n))), y(1, n));
+    return w(P(p(e[0], w(t[0], n)), p(e[1], w(t[1], n))), y(1, n));
   }
   levelSet(t) {
-    const e = this, n = ct(e.alpha), r = ct(e.r), i = x(1, e.alpha), s = this.extractLevel(t);
+    const e = this, n = ut(e.alpha), r = ut(e.r), i = x(1, e.alpha), s = this.extractLevel(t);
     return this.fillBelowRect = {
       x1: 0,
       x2: s,
@@ -3393,12 +3397,12 @@ class ie extends et {
   }
   // see http://www.gamsworld.org/mpsge/debreu/ces.pdf
   optimalBundle(t) {
-    const e = this.s, n = x(1, e), r = this.alpha, i = x(1, r), s = y(t.m, O(p(w(r, e), w(t.p1, n)), p(w(i, e), w(t.p2, n)))), a = p(w(y(r, t.p1), e), s), l = p(w(y(i, t.p2), e), s);
+    const e = this.s, n = x(1, e), r = this.alpha, i = x(1, r), s = y(t.m, P(p(w(r, e), w(t.p1, n)), p(w(i, e), w(t.p2, n)))), a = p(w(y(r, t.p1), e), s), l = p(w(y(i, t.p2), e), s);
     return [a, l];
   }
   denominator(t, e) {
     const n = this.alpha, r = x(1, n), i = this.r, s = y(t, n), a = y(e, r), l = y(1, i), c = y(i, x(i, 1));
-    return w(O(
+    return w(P(
       p(
         n,
         w(s, c)
@@ -3434,21 +3438,21 @@ class oe extends Et {
 }
 class Mt extends oe {
   constructor(t, e) {
-    t.name = L(10), super(t, e), this.color = t.color, this.arrowPath = t.arrowPath;
+    t.name = $(10), super(t, e), this.color = t.color, this.arrowPath = t.arrowPath;
   }
 }
-class Pn extends Mt {
+class On extends Mt {
   constructor(t, e) {
     t.refX = 2, t.maskPath = "M10,1 L10,12 L0,7 L0,5 L10,1", t.arrowPath = "M11,2 L11,11 L2,6 L11,2", super(t, e), this.markerType = "StartArrow";
   }
 }
-class On extends Mt {
+class Pn extends Mt {
   constructor(t, e) {
     t.refX = 11, t.maskPath = "M3,1 L3,12 L12,7 L12,5 L3,1", t.arrowPath = "M2,2 L2,11 L10,6 L2,2", super(t, e), this.markerType = "EndArrow";
   }
 }
 for (const o in It)
-  Object.defineProperty(Q, o, {
+  Object.defineProperty(z, o, {
     get: () => It[o],
     enumerable: !0
   });
@@ -3584,7 +3588,7 @@ class Fn extends I {
     t.setColor(n.name, i.r, i.g, i.b), t.evalCommand("SetLineThickness[" + n.name + ", " + n.lineThickness + "]"), t.setLineStyle(n.name, n.lineStyle);
   }
 }
-class Dt extends ht {
+class Dt extends yt {
   constructor(t) {
     u(t, {
       samplePoints: 50
@@ -3607,7 +3611,7 @@ class Dt extends ht {
       return null;
     const r = /((calcs|params).[.\w]*)+/g, i = t.match(r);
     return i && i.forEach(function(s) {
-      t = it(t, s, n(e, s));
+      t = ot(t, s, n(e, s));
     }), t;
   }
 }
@@ -3637,7 +3641,7 @@ class fn extends Dt {
       params: e.model.currentParamValues,
       calcs: e.model.currentCalcValues,
       colors: e.model.currentColors
-    }, e.xFunctionString != e.updateFunctionString(e.xFunctionStringDef, e.scope) && (e.hasChanged = !0, e.xFunctionString = e.updateFunctionString(e.xFunctionStringDef, e.scope), e.xCompiledFunction = V.compile(e.xFunctionString)), e.yFunctionString != e.updateFunctionString(e.yFunctionStringDef, e.scope) && (e.hasChanged = !0, e.yFunctionString = e.updateFunctionString(e.yFunctionStringDef, e.scope), e.yCompiledFunction = V.compile(e.yFunctionString)), e;
+    }, e.xFunctionString != e.updateFunctionString(e.xFunctionStringDef, e.scope) && (e.hasChanged = !0, e.xFunctionString = e.updateFunctionString(e.xFunctionStringDef, e.scope), e.xCompiledFunction = _.compile(e.xFunctionString)), e.yFunctionString != e.updateFunctionString(e.yFunctionStringDef, e.scope) && (e.hasChanged = !0, e.yFunctionString = e.updateFunctionString(e.yFunctionStringDef, e.scope), e.yCompiledFunction = _.compile(e.yFunctionString)), e;
   }
 }
 class Ct extends Dt {
@@ -3679,7 +3683,7 @@ class Ct extends Dt {
       params: e.model.currentParamValues,
       calcs: e.model.currentCalcValues,
       colors: e.model.currentColors
-    }, e.fnString != e.updateFunctionString(e.fnStringDef, e.scope) && (e.hasChanged = !0, e.fnString = e.updateFunctionString(e.fnStringDef, e.scope), e.compiledFunction = V.compile(e.fnString)), e.def.hasOwnProperty("yFn") && e.yFnString != e.updateFunctionString(e.yFnStringDef, e.scope) && (e.hasChanged = !0, e.yFnString = e.updateFunctionString(e.yFnStringDef, e.scope), e.yCompiledFunction = V.compile(e.yFnString)), e.def.hasOwnProperty("fnZ") && e.fnZString != e.updateFunctionString(e.fnZStringDef, e.scope) && (e.hasChanged = !0, e.fnZString = e.updateFunctionString(e.fnZStringDef, e.scope), e.zCompiledFunction = V.compile(e.fnZString)), e.def.hasOwnProperty("yFnZ") && e.yFnZString != e.updateFunctionString(e.yFnZStringDef, e.scope) && (e.hasChanged = !0, e.yFnZString = e.updateFunctionString(e.yFnZStringDef, e.scope), e.yzCompiledFunction = V.compile(e.yFnZString)), e;
+    }, e.fnString != e.updateFunctionString(e.fnStringDef, e.scope) && (e.hasChanged = !0, e.fnString = e.updateFunctionString(e.fnStringDef, e.scope), e.compiledFunction = _.compile(e.fnString)), e.def.hasOwnProperty("yFn") && e.yFnString != e.updateFunctionString(e.yFnStringDef, e.scope) && (e.hasChanged = !0, e.yFnString = e.updateFunctionString(e.yFnStringDef, e.scope), e.yCompiledFunction = _.compile(e.yFnString)), e.def.hasOwnProperty("fnZ") && e.fnZString != e.updateFunctionString(e.fnZStringDef, e.scope) && (e.hasChanged = !0, e.fnZString = e.updateFunctionString(e.fnZStringDef, e.scope), e.zCompiledFunction = _.compile(e.fnZString)), e.def.hasOwnProperty("yFnZ") && e.yFnZString != e.updateFunctionString(e.yFnZStringDef, e.scope) && (e.hasChanged = !0, e.yFnZString = e.updateFunctionString(e.yFnZStringDef, e.scope), e.yzCompiledFunction = _.compile(e.yFnZString)), e;
   }
 }
 class An extends I {
@@ -3750,14 +3754,14 @@ class Bt extends Dt {
     });
     let s = 100, a = 100, l = new Array(s * a);
     for (let g = 0.5, v = 0; g < a; ++g)
-      for (let P = 0.5; P < s; ++P, ++v) {
-        let $ = r.xMin + P * (r.xMax - r.xMin) / s, b = r.yMin + g * (r.yMax - r.yMin) / a;
-        l[v] = i.evaluate($, b);
+      for (let O = 0.5; O < s; ++O, ++v) {
+        let k = r.xMin + O * (r.xMax - r.xMin) / s, b = r.yMin + g * (r.yMax - r.yMin) / a;
+        l[v] = i.evaluate(k, b);
       }
-    let c = ({ type: g, value: v, coordinates: P }) => ({
+    let c = ({ type: g, value: v, coordinates: O }) => ({
       type: g,
       value: v,
-      coordinates: P.map(($) => $.map((b) => b.map(([_, X]) => [e.scale(r.xMin + _ * (r.xMax - r.xMin) / 100), n.scale(r.yMin + X * (r.yMax - r.yMin) / 100)])))
+      coordinates: O.map((k) => k.map((b) => b.map(([V, Q]) => [e.scale(r.xMin + V * (r.xMax - r.xMin) / 100), n.scale(r.yMin + Q * (r.yMax - r.yMin) / 100)])))
     });
     const h = f.geoPath(), m = f.contours().size([s, a]).contour(l, t);
     return h(c(m));
@@ -3770,7 +3774,7 @@ class Bt extends Dt {
       colors: e.model.currentColors
     };
     const n = e.fnString, r = e.domainConditionString;
-    return n != e.updateFunctionString(e.fnStringDef, e.scope) && (e.hasChanged = !0, e.fnString = e.updateFunctionString(e.fnStringDef, e.scope), e.compiledFunction = V.compile(e.fnString)), e.domainConditionStringDef != null && r != e.updateFunctionString(e.domainConditionStringDef, e.scope) && (e.hasChanged = !0, e.domainConditionString = e.updateFunctionString(e.domainConditionStringDef, e.scope), e.compiledDomainCondition = V.compile(e.domainConditionString)), e;
+    return n != e.updateFunctionString(e.fnStringDef, e.scope) && (e.hasChanged = !0, e.fnString = e.updateFunctionString(e.fnStringDef, e.scope), e.compiledFunction = _.compile(e.fnString)), e.domainConditionStringDef != null && r != e.updateFunctionString(e.domainConditionStringDef, e.scope) && (e.hasChanged = !0, e.domainConditionString = e.updateFunctionString(e.domainConditionStringDef, e.scope), e.compiledDomainCondition = _.compile(e.domainConditionString)), e;
   }
 }
 class jn extends I {
@@ -3922,7 +3926,7 @@ class Mn extends I {
     return e.hasChanged || e.univariateFunction1 && e.univariateFunction2 && (e.univariateFunction1.hasChanged || e.univariateFunction2.hasChanged) && e.redraw(), e;
   }
 }
-const yt = ue;
+const Z = ue;
 class Dn {
   constructor(t, e, n) {
     this.viewOptions = n || {}, this.render(e, t);
@@ -3960,7 +3964,7 @@ class Dn {
       calcs: t.calcs || {},
       colors: t.colors || {},
       custom: t.custom || "",
-      idioms: {},
+      idioms: t.idioms || {},
       restrictions: t.restrictions,
       clipPaths: t.clipPaths || [],
       markers: t.markers || [],
@@ -3999,7 +4003,7 @@ class Dn {
     const r = n.parse(t, e);
     e.innerHTML = "", n.aspectRatio = t.aspectRatio || r.aspectRatio || 1, n.model = new ye(r), n.scales = r.scales.map(function(i) {
       return i.model = n.model, new me(i);
-    }), n.div = f.select(e).style("position", "relative"), n.svgContainerDiv = n.div.append("div").style("position", "absolute").style("left", "0px").style("top", "0px"), r.nosvg || (n.svg = n.svgContainerDiv.append("svg").style("overflow", "visible").style("pointer-events", "none")), n.addViewObjects(r), n.parsedData = r;
+    }), n.div = f.select(e).style("position", "relative"), n.svgContainerDiv = n.div.append("div").style("position", "absolute").style("left", "0px").style("top", "0px"), r.nosvg || (n.svg = n.svgContainerDiv.append("svg").style("overflow", "visible").style("pointer-events", "none")), n.addViewObjects(r), this.parsedData = r;
   }
   // add view information (model, layer, scales) to an object
   addViewToDef(t, e) {
@@ -4019,12 +4023,12 @@ class Dn {
     if (e.svg) {
       const r = e.svg.append("defs");
       t.clipPaths.length > 0 && t.clipPaths.forEach(function(i) {
-        const s = L(10), a = r.append("clipPath").attr("id", s);
+        const s = $(10), a = r.append("clipPath").attr("id", s);
         i.paths.forEach(function(l) {
-          l.def.inDef = !0, new yt[l.type](e.addViewToDef(l.def, a));
+          l.def.inDef = !0, Object.prototype.hasOwnProperty.call(Z, l.type) ? new Z[l.type](e.addViewToDef(l.def, a)) : console.warn("ViewObject type not found in ViewObjectClasses: ", l.type);
         }), n[i.name] = s;
       }), t.markers.length > 0 && t.markers.forEach(function(i) {
-        const s = L(10);
+        const s = $(10);
         i.url = s, n[i.name] = s;
         const a = r.append("marker").attr("id", s).attr("refX", i.refX).attr("refY", 6).attr("markerWidth", 13).attr("markerHeight", 13).attr("orient", "auto").attr("markerUnits", "userSpaceOnUse");
         e.addViewToDef(i, a), new Nt(i);
@@ -4033,7 +4037,7 @@ class Dn {
           const s = e.svg.append("g");
           i.forEach(function(a) {
             let l = a.def;
-            l.hasOwnProperty("clipPathName") && (l.clipPath = n[l.clipPathName]), l.hasOwnProperty("clipPathName2") && (l.clipPath2 = n[l.clipPathName2]), l.hasOwnProperty("startArrowName") && (l.startArrow = n[l.startArrowName]), l.hasOwnProperty("endArrowName") && (l.endArrow = n[l.endArrowName]), l = e.addViewToDef(l, s), new yt[a.type](l);
+            l.hasOwnProperty("clipPathName") && (l.clipPath = n[l.clipPathName]), l.hasOwnProperty("clipPathName2") && (l.clipPath2 = n[l.clipPathName2]), l.hasOwnProperty("startArrowName") && (l.startArrow = n[l.startArrowName]), l.hasOwnProperty("endArrowName") && (l.endArrow = n[l.endArrowName]), l = e.addViewToDef(l, s), Object.prototype.hasOwnProperty.call(Z, a.type) ? new Z[a.type](l) : console.warn("ViewObject type not found in ViewObjectClasses: ", a.type);
           });
         }
       });
@@ -4042,7 +4046,7 @@ class Dn {
       const r = e.svgContainerDiv;
       t.divs.forEach(function(i) {
         let s = i.def;
-        s = e.addViewToDef(s, r), new yt[i.type](s);
+        s = e.addViewToDef(s, r), Object.prototype.hasOwnProperty.call(Z, i.type) ? new Z[i.type](s) : console.warn("ViewObject type not found in ViewObjectClasses: ", i.type);
       });
     }
     e.updateDimensions();
@@ -4091,8 +4095,8 @@ var ae = { exports: {} };
   function i(l, c, h, m, g) {
     if (typeof h != "function")
       throw new TypeError("The listener must be a function");
-    var v = new r(h, m || l, g), P = e ? e + c : c;
-    return l._events[P] ? l._events[P].fn ? l._events[P] = [l._events[P], v] : l._events[P].push(v) : (l._events[P] = v, l._eventsCount++), l;
+    var v = new r(h, m || l, g), O = e ? e + c : c;
+    return l._events[O] ? l._events[O].fn ? l._events[O] = [l._events[O], v] : l._events[O].push(v) : (l._events[O] = v, l._eventsCount++), l;
   }
   function s(l, c) {
     --l._eventsCount === 0 ? l._events = new n() : delete l._events[c];
@@ -4113,19 +4117,19 @@ var ae = { exports: {} };
       return [];
     if (m.fn)
       return [m.fn];
-    for (var g = 0, v = m.length, P = new Array(v); g < v; g++)
-      P[g] = m[g].fn;
-    return P;
+    for (var g = 0, v = m.length, O = new Array(v); g < v; g++)
+      O[g] = m[g].fn;
+    return O;
   }, a.prototype.listenerCount = function(c) {
     var h = e ? e + c : c, m = this._events[h];
     return m ? m.fn ? 1 : m.length : 0;
-  }, a.prototype.emit = function(c, h, m, g, v, P) {
-    var $ = e ? e + c : c;
-    if (!this._events[$])
+  }, a.prototype.emit = function(c, h, m, g, v, O) {
+    var k = e ? e + c : c;
+    if (!this._events[k])
       return !1;
-    var b = this._events[$], _ = arguments.length, X, F;
+    var b = this._events[k], V = arguments.length, Q, F;
     if (b.fn) {
-      switch (b.once && this.removeListener(c, b.fn, void 0, !0), _) {
+      switch (b.once && this.removeListener(c, b.fn, void 0, !0), V) {
         case 1:
           return b.fn.call(b.context), !0;
         case 2:
@@ -4137,15 +4141,15 @@ var ae = { exports: {} };
         case 5:
           return b.fn.call(b.context, h, m, g, v), !0;
         case 6:
-          return b.fn.call(b.context, h, m, g, v, P), !0;
+          return b.fn.call(b.context, h, m, g, v, O), !0;
       }
-      for (F = 1, X = new Array(_ - 1); F < _; F++)
-        X[F - 1] = arguments[F];
-      b.fn.apply(b.context, X);
+      for (F = 1, Q = new Array(V - 1); F < V; F++)
+        Q[F - 1] = arguments[F];
+      b.fn.apply(b.context, Q);
     } else {
-      var le = b.length, lt;
+      var le = b.length, ct;
       for (F = 0; F < le; F++)
-        switch (b[F].once && this.removeListener(c, b[F].fn, void 0, !0), _) {
+        switch (b[F].once && this.removeListener(c, b[F].fn, void 0, !0), V) {
           case 1:
             b[F].fn.call(b[F].context);
             break;
@@ -4159,10 +4163,10 @@ var ae = { exports: {} };
             b[F].fn.call(b[F].context, h, m, g);
             break;
           default:
-            if (!X)
-              for (lt = 1, X = new Array(_ - 1); lt < _; lt++)
-                X[lt - 1] = arguments[lt];
-            b[F].fn.apply(b[F].context, X);
+            if (!Q)
+              for (ct = 1, Q = new Array(V - 1); ct < V; ct++)
+                Q[ct - 1] = arguments[ct];
+            b[F].fn.apply(b[F].context, Q);
         }
     }
     return !0;
@@ -4176,12 +4180,12 @@ var ae = { exports: {} };
       return this;
     if (!h)
       return s(this, v), this;
-    var P = this._events[v];
-    if (P.fn)
-      P.fn === h && (!g || P.once) && (!m || P.context === m) && s(this, v);
+    var O = this._events[v];
+    if (O.fn)
+      O.fn === h && (!g || O.once) && (!m || O.context === m) && s(this, v);
     else {
-      for (var $ = 0, b = [], _ = P.length; $ < _; $++)
-        (P[$].fn !== h || g && !P[$].once || m && P[$].context !== m) && b.push(P[$]);
+      for (var k = 0, b = [], V = O.length; k < V; k++)
+        (O[k].fn !== h || g && !O[k].once || m && O[k].context !== m) && b.push(O[k]);
       b.length ? this._events[v] = b.length === 1 ? b[0] : b : s(this, v);
     }
     return this;
