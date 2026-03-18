@@ -62,6 +62,11 @@ export class Param implements IParam {
             this.max = parseFloat(def.max);
             this.round = parseFloat(def.round);
             this.precision = parseInt(def.precision) || decimalPlaces(this.round.toString());
+
+            if (isNaN(this.value)) {
+                console.warn(`Param "${def.name}": value "${def.value}" is not a number, defaulting to ${this.min || 0}.`);
+                this.value = isNaN(this.min) ? 0 : this.min;
+            }
         }
 
     }

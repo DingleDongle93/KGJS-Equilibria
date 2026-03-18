@@ -24,15 +24,51 @@ export class Label extends GraphObject {
 
     constructor(def: LabelDefinition, graph: Graph) {
         if (def.hasOwnProperty('position')) {
-            if (def.position.toLowerCase() == 'bl') {
-                def.xPixelOffset = 5;
-                def.yPixelOffset = 10;
-                def.align = 'left';
-            }
-            if (def.position.toLowerCase() == 'tr') {
-                def.xPixelOffset = -5;
-                def.yPixelOffset = -12;
-                def.align = 'right';
+            const pos = def.position.toLowerCase();
+            switch (pos) {
+                case 'bl':
+                    def.xPixelOffset = 5;
+                    def.yPixelOffset = 10;
+                    def.align = 'left';
+                    break;
+                case 'tr':
+                    def.xPixelOffset = -5;
+                    def.yPixelOffset = -12;
+                    def.align = 'right';
+                    break;
+                case 'tl':
+                    def.xPixelOffset = 5;
+                    def.yPixelOffset = -12;
+                    def.align = 'left';
+                    break;
+                case 'br':
+                    def.xPixelOffset = -5;
+                    def.yPixelOffset = 10;
+                    def.align = 'right';
+                    break;
+                case 't':
+                    def.xPixelOffset = 0;
+                    def.yPixelOffset = -12;
+                    def.align = 'center';
+                    break;
+                case 'b':
+                    def.xPixelOffset = 0;
+                    def.yPixelOffset = 10;
+                    def.align = 'center';
+                    break;
+                case 'l':
+                    def.xPixelOffset = 5;
+                    def.yPixelOffset = 0;
+                    def.align = 'left';
+                    break;
+                case 'r':
+                    def.xPixelOffset = -5;
+                    def.yPixelOffset = 0;
+                    def.align = 'right';
+                    break;
+                default:
+                    console.warn(`Unknown label position "${def.position}". Supported: bl, br, tl, tr, t, b, l, r.`);
+                    break;
             }
         }
         super(def, graph);

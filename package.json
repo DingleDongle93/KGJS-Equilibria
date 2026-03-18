@@ -25,12 +25,10 @@
     "mathjs": "^11.9.0"
   },
   "dependencies": {
-    "eventemitter3": "^5.0.1",
-    "js-yaml": "^4.1.0"
+    "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",
-    "@types/js-yaml": "^4.0.5",
     "@types/katex": "^0.16.2",
     "glob": "^13.0.6",
     "jsdom": "^22.1.0",

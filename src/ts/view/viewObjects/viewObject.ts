@@ -119,7 +119,7 @@ export class ViewObject extends UpdateListener implements IViewObject {
             fillOpacity: 0.2,
             stroke: 'colors.blue',
             strokeWidth: 1,
-            stokeOpacity: 1,
+            strokeOpacity: 1,
             show: true,
             inDef: false,
             lineStyle: 'solid',
@@ -223,7 +223,7 @@ export class ViewObject extends UpdateListener implements IViewObject {
         if (vo.hasOwnProperty('endArrow') && vo.endArrow != undefined) {
             vo.markedElement.attr("marker-end", `url(#${vo.endArrow})`)
         }
-        if (vo.hasOwnProperty('startArrow') && vo.endArrow != undefined) {
+        if (vo.hasOwnProperty('startArrow') && vo.startArrow != undefined) {
             vo.markedElement.attr("marker-start", `url(#${vo.startArrow})`)
         }
         return vo;

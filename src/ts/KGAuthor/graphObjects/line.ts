@@ -203,15 +203,11 @@ export function lineRadius(line: Line, r: number | string, center?: (number | st
         const cy = center[1] || 0;
         b = subtractDefs(b, multiplyDefs(2, addDefs(center[0], multiplyDefs(line.slope, cy))));
         c = addDefs(c, subtractDefs(addDefs(squareDef(cx), squareDef(cy)), multiplyDefs(2, multiplyDefs(line.yIntercept, cy))));
-
-        const x = quadraticRootDef(a, b, c, true);
-        const y = line.yOfX(x);
-        return [x, y];
-
-
-
     }
 
+    const x = quadraticRootDef(a.toString(), b.toString(), c.toString(), true);
+    const y = line.yOfX(x);
+    return [x, y];
 }
 
 export interface LineCircleIntersectionDefinition extends PointDefinition {

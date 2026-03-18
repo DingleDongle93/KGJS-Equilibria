@@ -179,18 +179,18 @@ export class Model implements IModel {
     }
 
     getParam(paramName: string) {
-        const params = this.params;
-        for (let i = 0; i < params.length; i++) {
-            if (params[i].name == paramName) {
-                return params[i];
-            }
+        const param = this.params.find(p => p.name === paramName);
+        if (!param) {
+            console.warn(`Param "${paramName}" not found.`);
         }
+        return param;
     }
 
 
     updateParam(name: string, newValue: any) {
         let model = this,
             param = model.getParam(name);
+        if (!param) return;
         const oldValue = param.value;
         param.update(newValue);
 
@@ -223,15 +223,17 @@ export class Model implements IModel {
 
     // method exposed to viewObjects to allow them to toggle a binary param
     toggleParam(name: string) {
-        const currentValue = this.getParam(name).value;
-        this.updateParam(name, !currentValue);
+        const param = this.getParam(name);
+        if (!param) return;
+        this.updateParam(name, !param.value);
     }
 
     // method exposed to viewObjects to allow them to cycle a discrete param
     // increments by 1 if below max value, otherwise sets to zero
     cycleParam(name: string) {
         const param = this.getParam(name);
-        this.updateParam(name, param.value < param.max ? param.value++ : 0);
+        if (!param) return;
+        this.updateParam(name, param.value < param.max ? param.value + 1 : 0);
     }
 
 
